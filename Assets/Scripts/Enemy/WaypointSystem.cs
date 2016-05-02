@@ -16,7 +16,7 @@ public class WaypointSystem : MonoBehaviour
     [System.Serializable]
     public struct WayPoints
     {
-        public GameObject m_ThisLocation;   // May be Lost while Iterating
+        // public GameObject m_ThisLocation;   // May be Lost while Iterating
         public GameObject m_NextLocation;
     }
 
@@ -30,8 +30,24 @@ public class WaypointSystem : MonoBehaviour
 
     private GameObject m_LastCollidedWaypoint = null;
 
-	// Use this for initialization
-	void Start ()
+    
+
+    enum AlarmLevels
+    {
+        IDLE = 100,
+        CAUTIOUS = 50,
+        ALARMED = 10,
+        CHASING = 1
+    }
+
+    public int m_AlarmLevel
+    {
+        get { return m_AlarmLevel;  }
+        set { m_AlarmLevel = value; }
+    }
+
+    // Use this for initialization
+    void Start ()
 	{
         m_WaypointCount = m_WayPointLocations.Length;
 	    m_CurrentPatrol = 0;
@@ -45,7 +61,7 @@ public class WaypointSystem : MonoBehaviour
 	    }
 
 	    m_Direction = CalculateNextDirection(0);
-	    transform.position = m_WayPointLocations[0].m_ThisLocation.transform.position;
+	    transform.position = m_WayPointLocations[0].m_NextLocation.transform.position;
 	}
 
     bool CheckForWaypoints()
@@ -75,7 +91,16 @@ public class WaypointSystem : MonoBehaviour
         return false;
     }
 
-    
+    bool PatrolNextWaypointReached()
+    {
+        return false;
+    }
+
+    bool PatrolTurnTowardsNextWaypoint()
+    {
+        return false;
+    }
+
     bool NearbyAccusticSignalDetected()
     {
         return false;
@@ -88,7 +113,10 @@ public class WaypointSystem : MonoBehaviour
         int iNext = (a_CurrentPatrolIndex == m_WaypointCount ? 0 : a_CurrentPatrolIndex++);
 
         result = m_WayPointLocations[a_CurrentPatrolIndex].m_NextLocation.transform.position -
-                 m_WayPointLocations[a_CurrentPatrolIndex].m_ThisLocation.transform.position;
+                 m_WayPointLocations[iNext].m_NextLocation.transform.position;
+
+        // result = m_WayPointLocations[a_CurrentPatrolIndex].m_NextLocation.transform.position -
+        //         m_WayPointLocations[a_CurrentPatrolIndex].m_ThisLocation.transform.position;
 
         Debug.DrawRay(transform.position, result, Color.red);
 
@@ -126,5 +154,17 @@ public class WaypointSystem : MonoBehaviour
         {
             transform.Translate(m_Direction * m_WalkingSpeed * Time.deltaTime);
         }
+    }
+
+    /* PUBLIC FUNCTION CALLS */
+
+    public void ManipulateAlarmLevel(int a_Strength)
+    {
+        
+    }
+
+    public void SetNoiseSource(Transform a_Position)
+    {
+        
     }
 }

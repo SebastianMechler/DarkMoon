@@ -30,7 +30,15 @@ public class PlayerObjectInteraction : MonoBehaviour
             ObjectInteractionData data;
             data.m_material = m_outlineMaterial;
 
-            other.gameObject.GetComponent<ObjectInteraction>().Enable(data);
+            ObjectInteractionBase objectBase = other.gameObject.GetComponent<ObjectInteractionBase>();
+            if (objectBase == null)
+            {
+              Debug.LogWarning("Interaction with object could happen, but no script is attachted to it: " + other.gameObject.name);
+            }
+            else
+            {
+              other.gameObject.GetComponent<ObjectInteractionBase>().Enable(data);
+            }
         }
     }
 }

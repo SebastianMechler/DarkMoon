@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public struct ObjectInteractionData
 {
     public Material m_material;
 }
+
 
 public enum ObjectInteractionType
 {

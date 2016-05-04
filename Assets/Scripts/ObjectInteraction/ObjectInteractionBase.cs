@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 
 public struct ObjectInteractionData
@@ -20,26 +21,25 @@ public enum ObjectInteractionType
 
 public class ObjectInteractionBase : MonoBehaviour
 {
-    protected ObjectInteractionType m_type;
+    protected ObjectInteractionType m_baseType;
 
-    protected bool m_isInteracting = false;
+    protected bool m_isInteracting = false; // will be set to true if the player is in range of this object and looks at it with the collider
     protected Color m_materialColorBackup;
-    protected Animation m_animation;
-    //private GameObject m_interactionSprite = null;
+    protected Animation m_animation; // reference to animation so any animation can be played
+  
+    public static GameObject m_interactionHand; // interactionHand which will be renderer as UI element in the game to show the player he can interact
 
     public void UpdateBase()
     {
-        if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.interactWithObject))
+        if (m_isInteracting && Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.interactWithObject))
         {
-            if (m_isInteracting)
-            {
-                Interact();
-            }
+            Interact();
         }
     }
     
-    public void InitializeBase()
+    public void InitializeBase(ObjectInteractionType type)
     {
+        m_baseType = type;
         this.m_animation = GetComponent<Animation>();
     }
 
@@ -57,9 +57,10 @@ public class ObjectInteractionBase : MonoBehaviour
 
         // Create Interaction object to show some visual effect to player
 
-        // MAKE THIS WORK, THE SPRITE NEEDS TO BE RENDERER ON TOP OF EVERYTHING!!!
         //GameObject go = (GameObject)GameObject.Instantiate(Resources.Load(StringManager.Resources.interactionObject), this.transform.position, Quaternion.identity);
-        //m_interactionSprite = go;
+
+
+        SetInteractionHandState(true);
 
         m_isInteracting = true;
     }
@@ -69,15 +70,25 @@ public class ObjectInteractionBase : MonoBehaviour
         Renderer renderer = this.gameObject.GetComponent<Renderer>();
         renderer.material.color = m_materialColorBackup;
 
-        //Destroy(m_interactionSprite);
+        SetInteractionHandState(false);    
 
         m_isInteracting = false;
     }
 
-    void OnTriggerExit(Collider other)
+    void SetInteractionHandState(bool state)
+    {
+      if (m_interactionHand == null)
+        m_interactionHand = GameObject.Find(StringManager.Names.interactionHandFromUI);
+      m_interactionHand.GetComponent<Image>().enabled = state;
+  }
+
+  void OnTriggerExit(Collider other)
     {
       // only allow disable when the playerObjectInteraction leaves the collider
       if (other.gameObject.name == StringManager.Names.objectInteraction)
         Disable();
     }
+    
+
+    
 }

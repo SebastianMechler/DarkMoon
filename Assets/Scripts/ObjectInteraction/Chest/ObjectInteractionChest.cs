@@ -7,8 +7,7 @@ public class ObjectInteractionChest : ObjectInteractionBase
 
   void Start()
   {
-    m_type = ObjectInteractionType.CHEST;
-    InitializeBase();
+    InitializeBase(ObjectInteractionType.CHEST);
   }
 
   void Update()
@@ -18,9 +17,10 @@ public class ObjectInteractionChest : ObjectInteractionBase
 
   public override void Interact()
   {
-    Debug.Log("ObjectInteractionChest");
+#if DEBUG
+    Debug.Log("Interacting with chest: " + this.gameObject.name);
+#endif
 
-    
     if (m_isOpened)
     {
       m_animation.Play(StringManager.Animations.Chest.close);

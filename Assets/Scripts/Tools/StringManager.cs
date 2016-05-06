@@ -22,7 +22,7 @@ public class StringManager : MonoBehaviour
 
     public class Resources
     {
-        public const string interactionObject = "InteractionSprite";
+        
     }
 
     public class Animations

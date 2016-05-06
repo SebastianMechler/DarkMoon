@@ -37,20 +37,21 @@ public class ObjectInteractionDoor : ObjectInteractionBase
     switch (m_doorType)
     {
       case DoorType.NORMAL:
-        InteractNormal();
+        Open();
         break;
 
       case DoorType.SECURITY:
         break;
 
       case DoorType.AIRLOCK:
+        Open();
         break;
     }
 
 
   }
 
-  void InteractNormal()
+  public void Open()
   {
     if (m_isOpened)
     {
@@ -67,6 +68,7 @@ public class ObjectInteractionDoor : ObjectInteractionBase
 
     UpdateDoorState();
   }
+
 
   void UpdateDoorState()
   {
@@ -89,7 +91,7 @@ public class ObjectInteractionDoor : ObjectInteractionBase
 
   void ToBeDeletedLater_OpenDoorByRotating(float angle)
   {
-    Vector3 rotateAroundPos = this.transform.parent.FindChild("NormalDoorBorderLeft").transform.position;
+    Vector3 rotateAroundPos = this.transform.parent.FindChild("DoorBorderLeft").transform.position;
 
     this.transform.RotateAround(rotateAroundPos, Vector3.up, angle);
   }

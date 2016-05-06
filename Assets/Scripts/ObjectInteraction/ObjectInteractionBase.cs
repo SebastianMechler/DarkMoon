@@ -12,6 +12,7 @@ public struct ObjectInteractionData
 public enum ObjectInteractionType
 {
     DOOR,
+    DOOR_SWITCH,
     CHEST,
     MAIN_TERMINAL,
     TERMINAL_ONE,
@@ -24,6 +25,7 @@ public class ObjectInteractionBase : MonoBehaviour
     protected ObjectInteractionType m_baseType;
 
     protected bool m_isInteracting = false; // will be set to true if the player is in range of this object and looks at it with the collider
+    protected bool m_isAllowedToInteract = true;
     protected Color m_materialColorBackup;
     protected Animation m_animation; // reference to animation so any animation can be played
   
@@ -49,7 +51,9 @@ public class ObjectInteractionBase : MonoBehaviour
     }
 
     public void Enable(ObjectInteractionData data)
-    {
+     {
+        if (m_isInteracting || m_isAllowedToInteract == false)
+          return;
         // just some green visual effect
         Renderer renderer = this.gameObject.GetComponent<Renderer>();
         m_materialColorBackup = renderer.material.color;
@@ -67,12 +71,15 @@ public class ObjectInteractionBase : MonoBehaviour
 
     public void Disable()
     {
-        Renderer renderer = this.gameObject.GetComponent<Renderer>();
-        renderer.material.color = m_materialColorBackup;
+      if (!m_isInteracting)
+        return;
 
-        SetInteractionHandState(false);    
+      Renderer renderer = this.gameObject.GetComponent<Renderer>();
+      renderer.material.color = m_materialColorBackup;
 
-        m_isInteracting = false;
+      SetInteractionHandState(false);    
+
+      m_isInteracting = false;
     }
 
     void SetInteractionHandState(bool state)
@@ -89,6 +96,10 @@ public class ObjectInteractionBase : MonoBehaviour
         Disable();
     }
     
-
+   public void SetInteractionState(bool state)
+  {
+    Debug.Log("Setting state of obj: " + this.gameObject.name.ToString() + " to:" + state.ToString());
+    m_isAllowedToInteract = state;
+  }
     
 }

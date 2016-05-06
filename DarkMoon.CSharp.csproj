@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\MouseManager.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Chest\ObjectInteractionChest.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction\Door\ObjectInteractionAirlockSwitch.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Door\ObjectInteractionDoor.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\ObjectInteractionBase.cs" />
     <Compile Include="Assets\Scripts\Player\CameraRotation.cs" />

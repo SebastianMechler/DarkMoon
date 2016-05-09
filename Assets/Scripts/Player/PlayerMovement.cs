@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerState m_movementState = PlayerState.NONE; // current state of the player
 
     private Vector3 m_movementVector = new Vector3(0.0f, 0.0f, 0.0f); // movement vector
+    private Rigidbody m_rigidbody;
     CapsuleCollider m_capsuleCollider;
 
   void Start()
@@ -30,66 +31,71 @@ public class PlayerMovement : MonoBehaviour
     {
       Debug.Log("Hey guys, make sure that the capsuleCollider is attached to the Player, else the crouching must be reworked.");
     }
+
+    m_rigidbody = GetComponent<Rigidbody>();
   }
 
   void FixedUpdate()
+  {
+    // reset movement Vector
+    m_movementVector = Vector3.zero;
+
+    // Forward
+    if (Input.GetKey(SingletonManager.GameManager.m_gameControls.forward))
     {
-        // reset movement vector
-        m_movementVector = Vector3.zero;
-
-        //
-        // Keyboard movement (WASD)
-        //
-        if (Input.GetKey(SingletonManager.GameManager.m_gameControls.forward))
-        {
-            m_movementVector += Vector3.forward;
-        }
-        if (Input.GetKey(SingletonManager.GameManager.m_gameControls.backward))
-        {
-            m_movementVector += Vector3.back;
-        }
-        if (Input.GetKey(SingletonManager.GameManager.m_gameControls.left))
-        {
-            m_movementVector += Vector3.left;
-        }
-        if (Input.GetKey(SingletonManager.GameManager.m_gameControls.right))
-        {
-            m_movementVector += Vector3.right;
-        }
-
-        // multiply run speed if key is pressed
-        if (Input.GetKey(SingletonManager.GameManager.m_gameControls.run))
-        {
-            m_movementVector *= m_runSpeedFactor;
-        }
-
-        /* CROUCH WHILE WALKING
-        if (Input.GetKey(SingletonManager.GameManager.m_gameControls.crouch))
-        {
-          Crouch(-m_crouchSpeed);
-        }
-        else
-        {
-          if (m_capsuleCollider.height != m_crouchHeightMax)
-            Crouch(m_crouchSpeed);
-        }
-        */
-
-        // Update player state
-        UpdatePlayerState();
-        
-        // multiply movementSpeed and fixedDeltaTime to the movement vector
-        m_movementVector *= m_movementSpeed * Time.fixedDeltaTime;
-
-    // Apply movement
-    //if (m_movementVector != Vector3.zero)
-    //{
-    //  Vector3 rot = new Vector3(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z);
-    //  this.GetComponent<Rigidbody>().velocity = rot + m_movementVector * 100.0f;
-    //}
-
-        this.transform.Translate(m_movementVector);
+      m_movementVector += Vector3.Normalize(Camera.main.transform.forward);
+      m_movementVector.y = 0.0f;
     }
+
+    // Backward
+    if (Input.GetKey(SingletonManager.GameManager.m_gameControls.backward))
+    {
+      m_movementVector += -Vector3.Normalize(Camera.main.transform.forward);
+      m_movementVector.y = 0.0f;
+    }
+
+    // Left
+    if (Input.GetKey(SingletonManager.GameManager.m_gameControls.left))
+    {
+      Vector3 tmp = Vector3.Normalize(Camera.main.transform.forward);
+      m_movementVector += Vector3.Cross(tmp, Vector3.up);
+      m_movementVector.y = 0.0f;
+    }
+
+    // Right
+    if (Input.GetKey(SingletonManager.GameManager.m_gameControls.right))
+    {
+      Vector3 tmp = Vector3.Normalize(Camera.main.transform.forward);
+      m_movementVector += -Vector3.Cross(tmp, Vector3.up);
+      m_movementVector.y = 0.0f;
+    }
+
+    // make movementVector with length of 1
+    m_movementVector.Normalize();
+
+    // multiply run speed if key is pressed
+    if (Input.GetKey(SingletonManager.GameManager.m_gameControls.run))
+    {
+      m_movementVector *= m_runSpeedFactor;
+    }
+
+     /* CROUCH WHILE WALKING
+    if (Input.GetKey(SingletonManager.GameManager.m_gameControls.crouch))
+    {
+      Crouch(-m_crouchSpeed);
+    }
+    else
+    {
+      if (m_capsuleCollider.height != m_crouchHeightMax)
+        Crouch(m_crouchSpeed);
+    }*/
+  
+
+    // Update player state
+    UpdatePlayerState();
+    
+    m_rigidbody.velocity = m_movementVector * 100.0f * Time.fixedDeltaTime;
+  }
 
     void UpdatePlayerState()
     {
@@ -128,7 +134,64 @@ public class PlayerMovement : MonoBehaviour
 
   void Crouch(float value)
   {
-    Debug.Log(value);
-    m_capsuleCollider.height = Mathf.Clamp(m_capsuleCollider.height += value * Time.deltaTime, m_crouchHeightMin, m_crouchHeightMax);
+    m_capsuleCollider.height = Mathf.Clamp(m_capsuleCollider.height += value * 500.0f * Time.fixedDeltaTime, m_crouchHeightMin, m_crouchHeightMax);
   }
 }
+
+
+
+/*
+void FixedUpdate()
+{
+  // reset movement vector
+  m_movementVector = Vector3.zero;
+
+  //
+  // Keyboard movement (WASD)
+  //
+  if (Input.GetKey(SingletonManager.GameManager.m_gameControls.forward))
+  {
+    m_movementVector += Vector3.forward;
+  }
+  if (Input.GetKey(SingletonManager.GameManager.m_gameControls.backward))
+  {
+    m_movementVector += Vector3.back;
+  }
+  if (Input.GetKey(SingletonManager.GameManager.m_gameControls.left))
+  {
+    m_movementVector += Vector3.left;
+  }
+  if (Input.GetKey(SingletonManager.GameManager.m_gameControls.right))
+  {
+    m_movementVector += Vector3.right;
+  }
+
+  // multiply run speed if key is pressed
+  if (Input.GetKey(SingletonManager.GameManager.m_gameControls.run))
+  {
+    m_movementVector *= m_runSpeedFactor;
+  }
+
+  /* CROUCH WHILE WALKING
+  if (Input.GetKey(SingletonManager.GameManager.m_gameControls.crouch))
+  {
+    Crouch(-m_crouchSpeed);
+  }
+  else
+  {
+    if (m_capsuleCollider.height != m_crouchHeightMax)
+      Crouch(m_crouchSpeed);
+  }
+  
+
+  // Update player state
+  UpdatePlayerState();
+
+  // multiply movementSpeed and fixedDeltaTime to the movement vector
+  m_movementVector *= m_movementSpeed * Time.fixedDeltaTime;
+
+
+  this.transform.Translate(m_movementVector);
+}
+*/
+  

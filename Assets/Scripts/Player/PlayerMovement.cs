@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
     // Update player state
     UpdatePlayerState();
     
-    m_rigidbody.velocity = m_movementVector * 100.0f * Time.fixedDeltaTime;
+    m_rigidbody.velocity = m_movementVector * m_movementSpeed * 100.0f * Time.fixedDeltaTime;
   }
 
     void UpdatePlayerState()

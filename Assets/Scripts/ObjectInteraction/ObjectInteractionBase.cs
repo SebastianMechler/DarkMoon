@@ -30,6 +30,9 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 kannste deiner ObjectInteractionBase evtl ne public GetOpenState() hinzufügen.
 dann könnte ich bei bedarf über das GameObject->Skript->Methode rausfinden ob die Türe offen ist.
 ansonsten das öffnen triggern
+
+  eindeutiger name für türen (string)
+  names aus stringmanager generieren...
 */
 
 

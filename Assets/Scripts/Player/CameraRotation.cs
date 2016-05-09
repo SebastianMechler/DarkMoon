@@ -2,7 +2,6 @@
 using System.Collections;
 
 // TODO:
-// http://answers.unity3d.com/questions/14693/stop-camera-from-going-trough-walls.html
 // Check this topic to make camera not go into objects
 // Lerp rotation, to get it smooth
 
@@ -45,17 +44,16 @@ public class CameraRotation : MonoBehaviour
             rotX = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * m_sensitivityX * Time.deltaTime;
             rotX = Mathf.Clamp(rotX, m_minimumX, m_maximumX);
 
+            float rotYLerping = m_rotationY;
             // GET Y-AXIS
             m_rotationY += Input.GetAxis("Mouse Y") * m_sensitivityY * Time.deltaTime;
             m_rotationY = Mathf.Clamp(m_rotationY, m_minimumY, m_maximumY);
-
-            // Lerp Test
-            //Vector3 orgRotation = this.transform.rotation.eulerAngles;
-            //Vector3 newRotation = new Vector3(-m_rotationY, rotX, 0.0f);
-            //this.transform.rotation = Quaternion.Lerp(Quaternion.Euler(orgRotation), Quaternion.Euler(newRotation), 0.5f);
-
-            transform.localEulerAngles = new Vector3(-m_rotationY, rotX, 0.0f);
-        }
+           
+            // lerp Y-rotation
+            rotYLerping = Mathf.Lerp(rotYLerping, m_rotationY, 0.5f);
+          
+           transform.localEulerAngles = new Vector3(-rotYLerping, rotX, 0.0f);
+    }
         else if (m_cameraAxis == RotationAxes.MOUSE_X)
         {
             // GET X-AXIS

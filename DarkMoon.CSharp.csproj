@@ -64,14 +64,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AssetStore\Free\OldChest\DemoScene\MouseOrbit.cs" />
+    <Compile Include="Assets\Scripts\Enemy\EnemyAiScript.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointSystem.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
     <Compile Include="Assets\Scripts\MouseManager.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Chest\ObjectInteractionChest.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Door\ObjectInteractionAirlockSwitch.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Door\ObjectInteractionDoor.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction\Item\ObjectInteractionItem.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\ObjectInteractionBase.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\MainTerminal.cs" />
     <Compile Include="Assets\Scripts\Player\CameraRotation.cs" />
+    <Compile Include="Assets\Scripts\Player\FlashLight.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerObjectInteraction.cs" />
     <Compile Include="Assets\Scripts\Tools\BillboardHelper.cs" />

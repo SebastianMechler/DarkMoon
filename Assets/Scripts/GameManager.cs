@@ -12,6 +12,7 @@ public struct GameControls
     public KeyCode run;
     public KeyCode crouch;
     public KeyCode interactWithObject;
+    public KeyCode flashLight;
 }
 
 

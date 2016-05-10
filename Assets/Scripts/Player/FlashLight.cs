@@ -10,7 +10,7 @@ public enum FlashLightState
 
 public class FlashLight : MonoBehaviour
 {
-  public static bool m_isEnabled = false; // will be set to true if the item is picked up
+  public static bool m_isEnabled = true; // will be set to true if the item is picked up
   public FlashLightState m_flashState = FlashLightState.OFF; // controls the current state of the flashLight
   private Light m_light; // reference to light component to switch it off or on through 'Range'
   private float m_range; // backup the range, because it will be set to 0 if off, and to this range if on

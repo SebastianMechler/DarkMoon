@@ -95,7 +95,14 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void AI_PatrolMovement()
 	{
-		Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
+		Vector3 to = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position;
+		Vector3 fr = g_LastPatrolSpot.transform.position;
+		to.y = 0.0f;
+		fr.y = 0.0f;
+		Vector3 toTarget = to - fr;
+		toTarget.y = 0.0f;
+
+		// Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
 		float turnRate = g_TurnRate * Time.deltaTime;
 		Quaternion lookRotation = Quaternion.LookRotation(toTarget);
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
@@ -137,7 +144,7 @@ public class EnemyAiScript : MonoBehaviour {
 		++g_CurrentAction;
 		g_CurrentAction = (g_CurrentAction == g_NumberOfActions ? 0 : g_CurrentAction);
 		m_CurrentAction = g_ActionQueue[g_CurrentAction].m_ThisAction;
-		Debug.Log("Next Action ID: " + g_CurrentAction);
+		// Debug.Log("Next Action ID: " + g_CurrentAction);
 	}
 
 	void OnTriggerEnter(Collider other)

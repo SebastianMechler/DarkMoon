@@ -134,6 +134,5 @@ public class ObjectInteractionBase : MonoBehaviour
   {
     Debug.Log("Setting state of obj: " + this.gameObject.name.ToString() + " to:" + state.ToString());
     m_isAllowedToInteract = state;
-  }
-    
+  }    
 }

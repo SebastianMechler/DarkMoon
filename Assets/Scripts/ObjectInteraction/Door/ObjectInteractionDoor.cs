@@ -14,7 +14,6 @@ public class ObjectInteractionDoor : ObjectInteractionBase
 {
   public DoorType m_doorType;
 
-  
   private bool m_isOpened = false;
 
   void Start()
@@ -94,5 +93,10 @@ public class ObjectInteractionDoor : ObjectInteractionBase
     Vector3 rotateAroundPos = this.transform.parent.FindChild("DoorBorderLeft").transform.position;
 
     this.transform.RotateAround(rotateAroundPos, Vector3.up, angle);
+  }
+
+  public bool GetOpenState()
+  {
+    return m_isOpened;
   }
 }

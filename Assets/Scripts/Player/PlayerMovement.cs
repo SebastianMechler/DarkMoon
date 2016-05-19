@@ -44,14 +44,13 @@ public class PlayerMovement : MonoBehaviour
     if (Input.GetKey(SingletonManager.GameManager.m_gameControls.forward))
     {
       m_movementVector += Vector3.Normalize(Camera.main.transform.forward);
-      m_movementVector.y = 0.0f;
     }
 
     // Backward
     if (Input.GetKey(SingletonManager.GameManager.m_gameControls.backward))
     {
       m_movementVector += -Vector3.Normalize(Camera.main.transform.forward);
-      m_movementVector.y = 0.0f;
+      
     }
 
     // Left
@@ -59,7 +58,6 @@ public class PlayerMovement : MonoBehaviour
     {
       Vector3 tmp = Vector3.Normalize(Camera.main.transform.forward);
       m_movementVector += Vector3.Cross(tmp, Vector3.up);
-      m_movementVector.y = 0.0f;
     }
 
     // Right
@@ -67,9 +65,8 @@ public class PlayerMovement : MonoBehaviour
     {
       Vector3 tmp = Vector3.Normalize(Camera.main.transform.forward);
       m_movementVector += -Vector3.Cross(tmp, Vector3.up);
-      m_movementVector.y = 0.0f;
     }
-
+    
     // make movementVector with length of 1
     m_movementVector.Normalize();
 
@@ -96,8 +93,12 @@ public class PlayerMovement : MonoBehaviour
     
     if (m_movementVector != Vector3.zero)
     {
-      m_rigidbody.velocity = m_movementVector * m_movementSpeed * 100.0f * Time.fixedDeltaTime;
+      m_movementVector = m_movementVector * m_movementSpeed * 100.0f * Time.fixedDeltaTime;
+      m_movementVector.y = m_rigidbody.velocity.y; // this needs to be here, else the gravity on y-axis won't take effect on player while moving
+      m_rigidbody.velocity = m_movementVector;
     }
+
+    
   }
 
     void UpdatePlayerState()

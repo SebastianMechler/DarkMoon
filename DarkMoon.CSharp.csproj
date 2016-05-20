@@ -58,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -81,7 +75,8 @@
     <Compile Include="Assets\Scripts\ObjectInteraction\Door\ObjectInteractionDoor.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Item\ObjectInteractionItem.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\ObjectInteractionBase.cs" />
-    <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\MainTerminal.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\MainTerminalController.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\Terminal.cs" />
     <Compile Include="Assets\Scripts\Player\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\Player\FlashLight.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />

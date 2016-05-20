@@ -48,10 +48,7 @@ public enum ObjectInteractionType
     DOOR_SWITCH,
     CHEST,
     ITEM,
-    MAIN_TERMINAL,
-    TERMINAL_ONE,
-    TERMINAL_TWO,
-    TERMINAL_THREE,
+    TERMINAL,
 }
 
 public class ObjectInteractionBase : MonoBehaviour

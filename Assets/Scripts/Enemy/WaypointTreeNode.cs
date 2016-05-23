@@ -13,4 +13,9 @@ public class WaypointTreeNode : MonoBehaviour
     {
         m_UniqueName = gameObject.GetHashCode().ToString();
     }
+
+	public GameObject[] getAllWaypoints() { return m_NearbyWaypoints; }
+	public GameObject[] getAllSubWaypoints() { return m_SubWayPoints; }
+	public bool hasSubWaypoints() { return m_HasSubWaypoints; }
+	public string getName() { return m_UniqueName; }
 }

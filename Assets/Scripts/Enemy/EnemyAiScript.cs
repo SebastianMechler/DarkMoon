@@ -3,6 +3,13 @@ using System.Collections;
 
 public class EnemyAiScript : MonoBehaviour {
 
+	public enum MovementPattern
+	{
+		STATIC,
+		DYNAMIC,
+		NONE
+	}
+
 	public enum ActionType
 	{
 		NONE,
@@ -13,6 +20,10 @@ public class EnemyAiScript : MonoBehaviour {
 		CHASE,
 		RETURN
 	}
+
+	public MovementPattern m_MovementPattern;
+
+	// Static Movement Pattern
 
 	[System.Serializable]
 	public struct ActionQueue
@@ -54,46 +65,92 @@ public class EnemyAiScript : MonoBehaviour {
 	private float m_WaitTotal;
 	private string m_TargetPatrolName;
 
+	// Dynamic Movement Pattern
+	public GameObject m_StartDynamicWaypoint;
+	public GameObject m_FirstDynamicWaypoint;
+	// public while debugging
+	private GameObject m_LastWaypoint;
+	private GameObject m_NextWaypoint;
+	private GameObject[] m_TempWaypointList;
+
 	// Use this for initialization
 	void Start () {
-		g_NumberOfActions = g_ActionQueue.Length;
-		g_LastPatrolSpot = gameObject;
-		g_CurrentAction = 0;
-		m_CurrentAction = g_ActionQueue[g_CurrentAction].m_ThisAction;
-		m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.name;
+
+		if(m_MovementPattern == MovementPattern.STATIC)
+		{
+			g_NumberOfActions = g_ActionQueue.Length;
+			g_LastPatrolSpot = gameObject;
+			g_CurrentAction = 0;
+			m_CurrentAction = g_ActionQueue[g_CurrentAction].m_ThisAction;
+			m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.name;
+		}
+
+		if (m_MovementPattern == MovementPattern.DYNAMIC)
+		{
+			m_LastWaypoint = m_StartDynamicWaypoint;
+			m_NextWaypoint = m_FirstDynamicWaypoint;
+			m_CurrentAction = ActionType.PATROL;
+			m_TargetPatrolName = m_FirstDynamicWaypoint.GetComponent<WaypointTreeNode>().getName();
+		}
     }
 	
 	// Update is called once per frame
 	void Update () {
-		switch (m_CurrentAction)
+
+		if ( m_MovementPattern == MovementPattern.STATIC )
 		{
-			case ActionType.NONE:
-				Debug.LogError("Not specified Action for Enemy AI");
-				break;
+			switch (m_CurrentAction)
+			{
+				case ActionType.NONE:
+					Debug.LogError("Not specified Action for Enemy AI");
+					break;
 
-			case ActionType.PATROL:
-				AI_PatrolMovement();
-				break;
+				case ActionType.PATROL:
+					AI_Static_PatrolMovement();
+					break;
 
-			case ActionType.WAITFOR_SECONDS:
-				AI_WaitForSeconds();
-                break;
+				case ActionType.WAITFOR_SECONDS:
+					AI_Static_WaitForSeconds();
+					break;
+			}
 		}
 
-		
-	}
+		if ( m_MovementPattern == MovementPattern.DYNAMIC)
+		{
+			// TODO: LateStart or the likes
+			if(m_TargetPatrolName.Length <= 1)
+			{
+				m_TargetPatrolName = m_FirstDynamicWaypoint.GetComponent<WaypointTreeNode>().getName();
+			}
 
-	void AI_WaitForSeconds()
+			switch (m_CurrentAction)
+			{
+				case ActionType.NONE:
+					Debug.LogError("Not specified Action for Enemy AI");
+					break;
+
+				case ActionType.PATROL:
+					AI_Dynamic_PatrolMovement();
+					break;
+			}
+		}
+
+
+	}
+	/* ********************************* *
+	 *		Static Movement Pattern		 *
+	 * ********************************* */
+	void AI_Static_WaitForSeconds()
 	{
 		m_CurWait += Time.deltaTime;
 		if(m_CurWait >= g_ActionQueue[g_CurrentAction].m_WaitInSeconds)
 		{
 			m_CurWait = 0;
-            AI_SetNextPatternIndex(g_LastPatrolSpot);
+            AI_Static_SetNextPatternIndex(g_LastPatrolSpot);
         }
 	}
 
-	void AI_PatrolMovement()
+	void AI_Static_PatrolMovement()
 	{
 		Vector3 to = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position;
 		Vector3 fr = g_LastPatrolSpot.transform.position;
@@ -109,7 +166,7 @@ public class EnemyAiScript : MonoBehaviour {
 		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime);
 	}
 
-	bool AI_Setup()
+	bool AI_Static_Setup()
 	{
 		bool success = false;
 
@@ -118,12 +175,12 @@ public class EnemyAiScript : MonoBehaviour {
 		return success;
 	}
 
-	bool AI_IsOnScene()
+	bool AI_Static_IsOnScene()
 	{
 		return false;
 	}
 
-	void AI_ChangeBehaviour(bool a_IsOnScene)
+	void AI_Static_ChangeBehaviour(bool a_IsOnScene)
 	{
 		// enemy should be a DontDestroyOnLoad 
 		if( a_IsOnScene)
@@ -138,7 +195,7 @@ public class EnemyAiScript : MonoBehaviour {
 		}
 	}
 
-	void AI_SetNextPatternIndex(GameObject a_CurPosition)
+	void AI_Static_SetNextPatternIndex(GameObject a_CurPosition)
 	{
 		g_LastPatrolSpot = a_CurPosition;
 		++g_CurrentAction;
@@ -149,10 +206,77 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.tag == StringManager.Tags.Waypoints && other.gameObject.name == m_TargetPatrolName)
+		if(m_MovementPattern == MovementPattern.STATIC)
 		{
-			AI_SetNextPatternIndex(other.gameObject);
-			m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.name;
+			if (other.gameObject.tag == StringManager.Tags.Waypoints && other.gameObject.name == m_TargetPatrolName)
+			{
+				AI_Static_SetNextPatternIndex(other.gameObject);
+				m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.name;
+			}
 		}
+
+		if(m_MovementPattern == MovementPattern.DYNAMIC)
+		{
+			string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();
+			// Debug.Log("Compare '"+triggerGameObjectName+"' (trigger) with '"+m_TargetPatrolName+"' (saved)");
+			if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))
+			{
+				AI_Dynamic_SetNextWaypoint();
+				m_TargetPatrolName = m_NextWaypoint.GetComponent<WaypointTreeNode>().getName();
+            }
+		}
+		
     }
+
+	/* ********************************* *
+	 *		Dynamic Movement Pattern	 *
+	 * ********************************* */
+
+	void AI_Dynamic_PatrolMovement()
+	{
+		// Vector3 from = m_LastWaypoint.transform.position;
+		Vector3 from = gameObject.transform.position;
+		Vector3 to = m_NextWaypoint.transform.position;
+        Vector3 toTarget = to - from;
+		toTarget.y = 0.0f;
+
+		// Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
+		float turnRate = g_TurnRate * Time.deltaTime;
+		Quaternion lookRotation = Quaternion.LookRotation(toTarget);
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
+		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime);
+	}
+
+	void AI_Dynamic_SetNextWaypoint()
+	{
+		GameManager.ClearDebugConsole();
+
+		Debug.Log(" ============= Find Next Waypoint ============= ");
+		m_TempWaypointList = m_NextWaypoint.GetComponent<WaypointTreeNode>().getAllWaypoints();
+		int WaypointCount = m_TempWaypointList.Length;
+		Debug.Log("[?] Next Waypoint has '"+WaypointCount+"' Neighbours.");
+		bool found = false;
+		int RandomNext = -1;
+		int tryTillFound = 1;
+        while (!found)
+		{
+			RandomNext = Random.Range(0, WaypointCount);
+			Debug.Log("[:" + tryTillFound + "] Random(0, " + WaypointCount + ") = " + RandomNext);
+			string lastName = m_LastWaypoint.GetComponent<WaypointTreeNode>().getName();
+			Debug.Log("[?" + tryTillFound + "] LastName: " + m_LastWaypoint.name);
+			string nextName = m_TempWaypointList[RandomNext].GetComponent<WaypointTreeNode>().getName();
+			Debug.Log("[?" + tryTillFound + "] NextName: " + m_TempWaypointList[RandomNext].name);
+			
+			Debug.Log("[:" + tryTillFound + "] Try '" + m_TempWaypointList[RandomNext].name + "' as Next Waypoint. May not be '" + m_LastWaypoint.name + "' though.");
+			if (!lastName.Equals(nextName))
+			{
+				Debug.Log("[!" + tryTillFound + "] Next Waypoint is set to '" + m_TempWaypointList[RandomNext].name + "' (index: " + RandomNext + ")");
+				found = true;
+			}
+			++tryTillFound;
+        }
+
+		m_LastWaypoint = m_NextWaypoint;
+		m_NextWaypoint = m_TempWaypointList[RandomNext];
+	}
 }

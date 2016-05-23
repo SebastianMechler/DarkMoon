@@ -40,4 +40,9 @@ public class StringManager : MonoBehaviour
           public const string close = "close";
         }
     }
+
+	public class UsedScripts
+	{
+		public const string waypointTreeNode = "WaypointTreeNode";
+	}
 }

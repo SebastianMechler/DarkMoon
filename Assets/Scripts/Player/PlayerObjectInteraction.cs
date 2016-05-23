@@ -39,7 +39,7 @@ public class PlayerObjectInteraction : MonoBehaviour
     Ray ray = new Ray(this.transform.position, this.transform.rotation * Vector3.forward);
     RaycastHit hit;
     //Debug.DrawLine(this.transform.position, this.transform.rotation * Vector3.forward * 100.0f, Color.red);
-    if (Physics.Raycast(ray, out hit, 100.0f))
+    if (Physics.Raycast(ray, out hit, 300.0f))
     {
       //Debug.Log("Hit Interactable object" + hit.transform.gameObject.name.ToString());
       if (hit.transform.gameObject.tag == StringManager.Tags.interactableObject)

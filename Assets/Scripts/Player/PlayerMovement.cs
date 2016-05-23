@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
       m_movementVector *= m_runSpeedFactor;
     }
 
-     /* CROUCH WHILE WALKING
+     // CROUCH WHILE WALKING
     if (Input.GetKey(SingletonManager.GameManager.m_gameControls.crouch))
     {
       Crouch(-m_crouchSpeed);
@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     {
       if (m_capsuleCollider.height != m_crouchHeightMax)
         Crouch(m_crouchSpeed);
-    }*/
+    }
   
 
     // Update player state
@@ -109,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(SingletonManager.GameManager.m_gameControls.crouch))
             {
                 m_movementState = PlayerState.CROUCH;
-                Crouch(-m_crouchSpeed);
+                //Crouch(-m_crouchSpeed);
             }
             else
             {
@@ -131,14 +131,14 @@ public class PlayerMovement : MonoBehaviour
 
         if (m_movementState != PlayerState.CROUCH)
         {
-          if (m_capsuleCollider.height != m_crouchHeightMax)
-            Crouch(m_crouchSpeed);
+          //if (m_capsuleCollider.height != m_crouchHeightMax)
+           // Crouch(m_crouchSpeed);
         }
     }
 
   void Crouch(float value)
   {
-    m_capsuleCollider.height = Mathf.Clamp(m_capsuleCollider.height += value * 500.0f * Time.fixedDeltaTime, m_crouchHeightMin, m_crouchHeightMax);
+    m_capsuleCollider.height = Mathf.Clamp(m_capsuleCollider.height += value * 1.0f * Time.fixedDeltaTime, m_crouchHeightMin, m_crouchHeightMax);
   }
 }
 

@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\ObjectInteraction\ObjectInteractionBase.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\MainTerminalController.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\Terminal.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\TerminalUIDisabler.cs" />
     <Compile Include="Assets\Scripts\Player\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\Player\FlashLight.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\Scripts\Tools\DisableRendererOnStart.cs" />
     <Compile Include="Assets\Scripts\Tools\SingletonManager.cs" />
     <Compile Include="Assets\Scripts\Tools\StringManager.cs" />
+    <Compile Include="Assets\Scripts\UI\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Scripts\Shader\Outlined-Silhouette Only.shader" />

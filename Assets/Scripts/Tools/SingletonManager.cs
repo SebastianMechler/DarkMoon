@@ -6,6 +6,7 @@ public class SingletonManager : MonoBehaviour
   private static MouseManager m_mouseManager = null;
   private static GameManager m_gameManager = null;
   private static MainTerminalController m_mainTerminalController = null;
+  private static UIManager m_uiManager = null;
 
     public static MouseManager MouseManager
     {
@@ -40,6 +41,18 @@ public class SingletonManager : MonoBehaviour
         m_mainTerminalController = MainTerminalController.GetInstance();
       }
       return m_mainTerminalController;
+    }
+  }
+
+  public static UIManager UIManager
+  {
+    get
+    {
+      if (m_uiManager == null)
+      {
+        m_uiManager = UIManager.GetInstance();
+      }
+      return m_uiManager;
     }
   }
 }

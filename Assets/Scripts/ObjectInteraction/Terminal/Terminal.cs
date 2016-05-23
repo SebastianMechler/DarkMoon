@@ -35,6 +35,11 @@ public class Terminal : ObjectInteractionBase
     Debug.Log("Interacting with Terminal: " + this.gameObject.name);
 #endif
 
+    if (m_terminalType == TerminalType.MAIN_TERMINAL)
+    {
+      SingletonManager.UIManager.SetUIVisibility(UIType.MainTerminal, true);
+    }
+
     SingletonManager.MainTerminalController.UpdateData(m_terminalType);
   }
 }

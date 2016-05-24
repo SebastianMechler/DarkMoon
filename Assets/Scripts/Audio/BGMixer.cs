@@ -3,6 +3,10 @@ using System.Collections;
 
 public class BGMixer : MonoBehaviour {
 
+	public GameObject m_Player;
+	public GameObject m_Enemy;
+	public float m_HecticThreshold = 20.0f;
+
 	enum ActiveAudio
 	{
 		Silent,
@@ -22,13 +26,11 @@ public class BGMixer : MonoBehaviour {
 	[Range(0.05f, 0.5f)]
 	public float m_MusicChangeFactor = 0.25f;
 
-	private float m_CounterDown;
-	private float m_CounterUp;
+	private float m_CounterDown = 0.0f;
+	private float m_CounterUp = 1.0f;
 	
 	// Use this for initialization
 	void Start () {
-
-
 		m_TrackSilent.Play();
 		m_TrackSilent.volume = 1.0f;
 
@@ -43,6 +45,41 @@ public class BGMixer : MonoBehaviour {
 
 		m_AudioActive = ActiveAudio.Silent;
 		m_AudioNext = ActiveAudio.None;
+	}
+
+	void CheckBehaviour()
+	{
+		float distance = Mathf.Abs(Vector3.Distance(m_Player.transform.position, m_Enemy.transform.position));
+		float speed = m_Enemy.GetComponent<EnemyAiScript>().getMovementSpeed();
+
+		if(speed > 4)
+		{
+			if (m_AudioActive != ActiveAudio.Danger && m_AudioActive != ActiveAudio.Danger)
+			{
+				Debug.Log("[!] Auto Change to: ActiveAudio.Danger");
+				m_AudioNext = ActiveAudio.Danger;
+				m_CounterDown = 1.0f;
+				m_CounterUp = 0.0f;
+			}
+		}
+		else if (distance <= m_HecticThreshold && m_AudioActive != ActiveAudio.Hectic)
+		{
+			Debug.Log("[!] Auto Change to: ActiveAudio.Hectic");
+			m_AudioNext = ActiveAudio.Hectic;
+			m_CounterDown = 1.0f;
+			m_CounterUp = 0.0f;
+		}
+		else
+		{
+			if (m_AudioActive != ActiveAudio.Silent)
+			{
+				Debug.Log("[!] Auto Change to: ActiveAudio.Silent");
+				m_AudioNext = ActiveAudio.Silent;
+				m_CounterDown = 1.0f;
+				m_CounterUp = 0.0f;
+			}
+		}
+		
 	}
 
 	void CheckKeyDown()
@@ -94,9 +131,13 @@ public class BGMixer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		CheckKeyDown();
+		if (m_CounterDown <= 0.0f || m_CounterUp >= 1.0f)
+		{
+			CheckKeyDown();
+			CheckBehaviour();
+		}
 
-		if(m_AudioActive != m_AudioNext && m_AudioNext != ActiveAudio.None)
+		if (m_AudioActive != m_AudioNext && m_AudioNext != ActiveAudio.None)
 		{
 			m_CounterDown -= Time.deltaTime * m_MusicChangeFactor;
 			m_CounterUp += Time.deltaTime * m_MusicChangeFactor;

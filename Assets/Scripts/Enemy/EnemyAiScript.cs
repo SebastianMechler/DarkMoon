@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyAiScript : MonoBehaviour {
 
@@ -55,6 +56,7 @@ public class EnemyAiScript : MonoBehaviour {
 	public ActionQueue[] g_ActionQueue;
 	public float g_TurnRate;
 	public float g_MovementSpeed;
+	public float g_MovementSpeedHaste;
 
 	private GameObject g_LastPatrolSpot;
 	private int g_NumberOfActions;
@@ -72,6 +74,35 @@ public class EnemyAiScript : MonoBehaviour {
 	private GameObject m_LastWaypoint;
 	private GameObject m_NextWaypoint;
 	private GameObject[] m_TempWaypointList;
+	private GameObject m_NoiseSource;
+	private GameObject m_NoiseClosestWaypoint;
+	public List<GameObject> finalisedRoute;
+
+	[System.Serializable]
+	public struct GroupDistance
+	{
+		public GameObject m_WaypointFrom;
+		public string m_WaypointFrom_Name;
+		public GameObject m_WaypointTo;
+		public string m_WaypointTo_Name;
+
+		public float m_Distance;
+	}
+
+	public GroupDistance[] m_DistanceBetweenGameObjects;
+
+	// Return Movement Speed
+	public float getMovementSpeed() { return g_MovementSpeed; }
+
+	// public function
+	public void changeMovementPattern(MovementPattern replace, GameObject source, GameObject closest)
+	{
+		m_MovementPattern = replace;
+		m_NoiseSource = source;
+		m_NoiseClosestWaypoint = closest;
+
+		AI_Static_GeneratePath();
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -92,6 +123,9 @@ public class EnemyAiScript : MonoBehaviour {
 			m_CurrentAction = ActionType.PATROL;
 			m_TargetPatrolName = m_FirstDynamicWaypoint.GetComponent<WaypointTreeNode>().getName();
 		}
+
+		// do crazy stuff
+		CalculateAllDistances();
     }
 	
 	// Update is called once per frame
@@ -134,9 +168,77 @@ public class EnemyAiScript : MonoBehaviour {
 					break;
 			}
 		}
-
-
 	}
+
+	void CalculateAllDistances()
+	{
+		GameObject[] allObjects = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
+		GameObject[] childObjects;
+		int numberOfObjects = allObjects.Length;
+
+		int sizeCounter = 0;
+		for (int i = 0; i < numberOfObjects; i++)
+		{
+			GameObject current = allObjects[i];
+			childObjects = current.GetComponent<WaypointTreeNode>().getAllWaypoints();
+			int numberOfChilds = childObjects.Length;
+			for (int j = 0; j < numberOfChilds; j++)
+			{
+				++sizeCounter;
+            }
+		}
+		m_DistanceBetweenGameObjects = new GroupDistance[sizeCounter];
+
+		Vector3 posParent, posChild;
+		int indexCounter = 0;
+
+		for (int i = 0; i < numberOfObjects; i++)
+		{
+			GameObject current = allObjects[i];
+			posParent = current.transform.position;
+
+			childObjects = current.GetComponent<WaypointTreeNode>().getAllWaypoints();
+			int numberOfChilds = childObjects.Length;
+			for(int j = 0; j < numberOfChilds; j++)
+			{
+				posChild = childObjects[j].transform.position;
+
+				GroupDistance newGroup = new GroupDistance();
+				newGroup.m_WaypointFrom = current;
+				newGroup.m_WaypointFrom_Name = current.GetComponent<WaypointTreeNode>().getName();
+				newGroup.m_WaypointTo = childObjects[j];
+				newGroup.m_WaypointTo_Name = childObjects[j].GetComponent<WaypointTreeNode>().getName();
+				newGroup.m_Distance = Mathf.Abs(Vector3.Distance(posParent, posChild));
+
+				m_DistanceBetweenGameObjects[indexCounter] = newGroup;
+				++indexCounter;
+            }
+        }
+    }
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (m_MovementPattern == MovementPattern.STATIC)
+		{
+			if (other.gameObject.tag == StringManager.Tags.Waypoints && other.gameObject.name == m_TargetPatrolName)
+			{
+				AI_Static_SetNextPatternIndex(other.gameObject);
+				m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.name;
+			}
+		}
+
+		if (m_MovementPattern == MovementPattern.DYNAMIC)
+		{
+			string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();
+			// Debug.Log("Compare '"+triggerGameObjectName+"' (trigger) with '"+m_TargetPatrolName+"' (saved)");
+			if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))
+			{
+				AI_Dynamic_SetNextWaypoint();
+				m_TargetPatrolName = m_NextWaypoint.GetComponent<WaypointTreeNode>().getName();
+			}
+		}
+	}
+
 	/* ********************************* *
 	 *		Static Movement Pattern		 *
 	 * ********************************* */
@@ -204,29 +306,128 @@ public class EnemyAiScript : MonoBehaviour {
 		// Debug.Log("Next Action ID: " + g_CurrentAction);
 	}
 
-	void OnTriggerEnter(Collider other)
+	void AI_Static_GeneratePath()
 	{
-		if(m_MovementPattern == MovementPattern.STATIC)
+		// Find Nearest Waypoint to current Position
+		GameObject[] list = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
+		Vector3 thisGameObject = gameObject.transform.position;
+		Vector3 next;
+		float lastNearestDistance = float.MaxValue;
+		GameObject NearestWaypoint = null;
+		string nearestWaypointName;
+
+		// Search all Waypoints now
+		int size = list.Length;
+		for (int i = 0; i < size; i++)
 		{
-			if (other.gameObject.tag == StringManager.Tags.Waypoints && other.gameObject.name == m_TargetPatrolName)
+			next = list[i].transform.position;
+			float distance = Vector3.Distance(thisGameObject, next);
+			if (distance < lastNearestDistance)
 			{
-				AI_Static_SetNextPatternIndex(other.gameObject);
-				m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.name;
+				lastNearestDistance = distance;
+				NearestWaypoint = list[i];
 			}
 		}
+		nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
 
-		if(m_MovementPattern == MovementPattern.DYNAMIC)
+		// Find respective Struct Entry for found Waypoint
+		int startingIndex = -1;
+		int totalNumberOfWaypointConnection = m_DistanceBetweenGameObjects.Length;
+		for(int i = 0; i < totalNumberOfWaypointConnection; i++)
 		{
-			string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();
-			// Debug.Log("Compare '"+triggerGameObjectName+"' (trigger) with '"+m_TargetPatrolName+"' (saved)");
-			if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))
+			if (nearestWaypointName.Equals(m_DistanceBetweenGameObjects[i].m_WaypointFrom_Name))
 			{
-				AI_Dynamic_SetNextWaypoint();
-				m_TargetPatrolName = m_NextWaypoint.GetComponent<WaypointTreeNode>().getName();
+				startingIndex = i;
+				break;
             }
 		}
+
+		int error_Counter = 0;
+
+		// Creating a List for the Static Route the Enemy is meant to follow
+		finalisedRoute = new List<GameObject>();
+		finalisedRoute.Add(m_DistanceBetweenGameObjects[startingIndex].m_WaypointFrom);
 		
-    }
+		GameObject parentToSearch = m_DistanceBetweenGameObjects[startingIndex].m_WaypointFrom;
+        GameObject preferredRoute;
+		bool routeFound = false;
+		while (!routeFound)
+		{
+			// Go through all childs
+			GameObject[] rootChilds = parentToSearch.GetComponent<WaypointTreeNode>().getAllWaypoints();
+			int rootChildrenCount = rootChilds.Length;
+			float[] distancesToEnemy = new float[rootChildrenCount];
+			float[] distancesToNoiseSource = new float[rootChildrenCount];
+
+			// 1. Calculate the Distance between the current Parent and the children each
+			// 2. Calculate the Distance between the noise source and the children each
+			float checkDistanceEnemy, checkDistanceNoise;
+			for (int i = 0; i < rootChildrenCount; i++)
+			{
+				distancesToEnemy[i] = Mathf.Abs(Vector3.Distance(NearestWaypoint.transform.position, rootChilds[i].transform.position));
+				distancesToNoiseSource[i] = Mathf.Abs(Vector3.Distance(m_NoiseSource.transform.position, rootChilds[i].transform.position));
+				// 8. If a child is the Waypoint nearest to the Noise Source, we skip the rest
+				if (rootChilds[i].GetComponent<WaypointTreeNode>().getName().Equals(m_NoiseClosestWaypoint.GetComponent<WaypointTreeNode>().getName()))
+				{
+					finalisedRoute.Add(rootChilds[i]);
+					routeFound = true;
+					break;
+				}
+			}
+
+			// 9. Skip the rest
+			if (routeFound)
+			{
+				break;
+			}
+
+			float curDistanceEnemy = float.MaxValue;
+			float curDistanceNoise = 0.0f;
+			preferredRoute = rootChilds[0];
+			
+			for (int i = 0; i < rootChildrenCount; i++)
+			{
+				checkDistanceEnemy = distancesToEnemy[i];
+				checkDistanceNoise = distancesToNoiseSource[i];
+
+				// 3. Let's prepare some float to search for the smalles distances
+				float curCheck = curDistanceEnemy + curDistanceNoise;
+				// 4. Calculate the Sum of the Distance between Parent and Noise
+				float nexCheck = checkDistanceEnemy + checkDistanceNoise;
+				
+				// 5. Search the smallest Distance to the Noise Source
+				if(nexCheck < curCheck)
+				{
+					preferredRoute = rootChilds[i];
+					curDistanceEnemy = checkDistanceEnemy;
+					curDistanceNoise = checkDistanceNoise;
+				}
+            }
+
+			// 6. List the smallest Distance as the next Waypoint
+			finalisedRoute.Add(preferredRoute);
+			// 7. Use the closest found Waypoint as the new Parent
+			parentToSearch = preferredRoute;
+
+			// Increase, if hit 100 we escape the endless loop
+			++error_Counter;
+			if(error_Counter >= 100)
+			{
+				Debug.LogError("[!] Endlosschleife. Abbruch des Pathfindings.");
+				routeFound = true;
+				break;
+			}
+        }
+
+		
+		int vectorLength = finalisedRoute.Count;
+		Debug.Log("[!] finalisedRoute found with '"+ vectorLength + "' Waypoints");
+		for (int i = 0; i < vectorLength; i++)
+		{
+			Debug.Log(i+": " + finalisedRoute[i].name);
+		}
+
+	}
 
 	/* ********************************* *
 	 *		Dynamic Movement Pattern	 *
@@ -249,28 +450,28 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void AI_Dynamic_SetNextWaypoint()
 	{
-		GameManager.ClearDebugConsole();
+		// GameManager.ClearDebugConsole();
 
-		Debug.Log(" ============= Find Next Waypoint ============= ");
+		// Debug.Log(" ============= Find Next Waypoint ============= ");
 		m_TempWaypointList = m_NextWaypoint.GetComponent<WaypointTreeNode>().getAllWaypoints();
 		int WaypointCount = m_TempWaypointList.Length;
-		Debug.Log("[?] Next Waypoint has '"+WaypointCount+"' Neighbours.");
+		// Debug.Log("[?] Next Waypoint has '"+WaypointCount+"' Neighbours.");
 		bool found = false;
 		int RandomNext = -1;
 		int tryTillFound = 1;
         while (!found)
 		{
 			RandomNext = Random.Range(0, WaypointCount);
-			Debug.Log("[:" + tryTillFound + "] Random(0, " + WaypointCount + ") = " + RandomNext);
+			// Debug.Log("[:" + tryTillFound + "] Random(0, " + WaypointCount + ") = " + RandomNext);
 			string lastName = m_LastWaypoint.GetComponent<WaypointTreeNode>().getName();
-			Debug.Log("[?" + tryTillFound + "] LastName: " + m_LastWaypoint.name);
+			// Debug.Log("[?" + tryTillFound + "] LastName: " + m_LastWaypoint.name);
 			string nextName = m_TempWaypointList[RandomNext].GetComponent<WaypointTreeNode>().getName();
-			Debug.Log("[?" + tryTillFound + "] NextName: " + m_TempWaypointList[RandomNext].name);
-			
-			Debug.Log("[:" + tryTillFound + "] Try '" + m_TempWaypointList[RandomNext].name + "' as Next Waypoint. May not be '" + m_LastWaypoint.name + "' though.");
+			// Debug.Log("[?" + tryTillFound + "] NextName: " + m_TempWaypointList[RandomNext].name);
+
+			// Debug.Log("[:" + tryTillFound + "] Try '" + m_TempWaypointList[RandomNext].name + "' as Next Waypoint. May not be '" + m_LastWaypoint.name + "' though.");
 			if (!lastName.Equals(nextName))
 			{
-				Debug.Log("[!" + tryTillFound + "] Next Waypoint is set to '" + m_TempWaypointList[RandomNext].name + "' (index: " + RandomNext + ")");
+				// Debug.Log("[!" + tryTillFound + "] Next Waypoint is set to '" + m_TempWaypointList[RandomNext].name + "' (index: " + RandomNext + ")");
 				found = true;
 			}
 			++tryTillFound;

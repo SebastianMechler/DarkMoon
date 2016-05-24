@@ -49,7 +49,7 @@ public class BGMixer : MonoBehaviour {
 
 	void CheckBehaviour()
 	{
-		float distance = Mathf.Abs(Vector3.Distance(m_Player.transform.position, m_Enemy.transform.position));
+    float distance = 0.0f;//Mathf.Abs(Vector3.Distance(m_Player.transform.position, m_Enemy.transform.position));
 		float speed = m_Enemy.GetComponent<EnemyAiScript>().getMovementSpeed();
 
 		if(speed > 4)

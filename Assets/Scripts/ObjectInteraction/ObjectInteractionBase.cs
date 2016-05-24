@@ -49,6 +49,7 @@ public enum ObjectInteractionType
     CHEST,
     ITEM,
     TERMINAL,
+    COLOR_PUZZLE,
 }
 
 public class ObjectInteractionBase : MonoBehaviour
@@ -88,7 +89,7 @@ public class ObjectInteractionBase : MonoBehaviour
         // just some green visual effect
         Renderer renderer = this.gameObject.GetComponent<Renderer>();
         m_materialColorBackup = renderer.material.color;
-        renderer.material.color = Color.green;
+        //renderer.material.color = Color.green;
 
         // Create Interaction object to show some visual effect to player
 

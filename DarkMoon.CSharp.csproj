@@ -74,10 +74,13 @@
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
     <Compile Include="Assets\Scripts\MouseManager.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Chest\ObjectInteractionChest.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction\ColorPuzzle\ObjectInteractionColorPuzzle.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Door\ObjectInteractionAirlockSwitch.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Door\ObjectInteractionDoor.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction\GrayScaleResetTwo.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Item\ObjectInteractionItem.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\ObjectInteractionBase.cs" />
+    <Compile Include="Assets\Scripts\ObjectInteraction\RemoveHiglighting.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\MainTerminalController.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\Terminal.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\TerminalUIDisabler.cs" />
@@ -85,6 +88,8 @@
     <Compile Include="Assets\Scripts\Player\FlashLight.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerObjectInteraction.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerOxigen.cs" />
+    <Compile Include="Assets\Scripts\Puzzle\ColorPuzzle.cs" />
     <Compile Include="Assets\Scripts\Tools\BillboardHelper.cs" />
     <Compile Include="Assets\Scripts\Tools\DisableRendererOnStart.cs" />
     <Compile Include="Assets\Scripts\Tools\SingletonManager.cs" />

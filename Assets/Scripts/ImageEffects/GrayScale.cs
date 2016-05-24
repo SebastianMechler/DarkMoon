@@ -19,6 +19,7 @@ public class GrayScale : MonoBehaviour
 
   void Update()
   {
+    /*
     this.intensity += x;
     if (intensity >= 1.0f)
     {
@@ -28,6 +29,7 @@ public class GrayScale : MonoBehaviour
     {
       x = Mathf.Abs(x);
     }
+    */
   }
 
   // Postprocess the image

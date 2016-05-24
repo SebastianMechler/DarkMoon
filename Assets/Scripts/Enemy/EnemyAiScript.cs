@@ -77,6 +77,7 @@ public class EnemyAiScript : MonoBehaviour {
 	private GameObject m_NoiseSource;
 	private GameObject m_NoiseClosestWaypoint;
 	public List<GameObject> finalisedRoute;
+	private List<string> finalisedRouteCheck;
 
 	[System.Serializable]
 	public struct GroupDistance
@@ -214,6 +215,8 @@ public class EnemyAiScript : MonoBehaviour {
 				++indexCounter;
             }
         }
+
+
     }
 
 	void OnTriggerEnter(Collider other)
@@ -347,7 +350,10 @@ public class EnemyAiScript : MonoBehaviour {
 		// Creating a List for the Static Route the Enemy is meant to follow
 		finalisedRoute = new List<GameObject>();
 		finalisedRoute.Add(m_DistanceBetweenGameObjects[startingIndex].m_WaypointFrom);
-		
+		// Create a Confirmation List for already checked Waypoints
+		finalisedRouteCheck = new List<string>();
+		finalisedRouteCheck.Add(m_DistanceBetweenGameObjects[startingIndex].m_WaypointFrom_Name);
+
 		GameObject parentToSearch = m_DistanceBetweenGameObjects[startingIndex].m_WaypointFrom;
         GameObject preferredRoute;
 		bool routeFound = false;
@@ -398,14 +404,20 @@ public class EnemyAiScript : MonoBehaviour {
 				// 5. Search the smallest Distance to the Noise Source
 				if(nexCheck < curCheck)
 				{
-					preferredRoute = rootChilds[i];
-					curDistanceEnemy = checkDistanceEnemy;
-					curDistanceNoise = checkDistanceNoise;
+					// 5.1 Check if Waypoint is already used
+					if( !finalisedRouteCheck.Contains(rootChilds[i].GetComponent<WaypointTreeNode>().getName()))
+					{
+						preferredRoute = rootChilds[i];
+						curDistanceEnemy = checkDistanceEnemy;
+						curDistanceNoise = checkDistanceNoise;
+					}
 				}
             }
 
 			// 6. List the smallest Distance as the next Waypoint
 			finalisedRoute.Add(preferredRoute);
+			// 6.1 Add to known List
+			finalisedRouteCheck.Add(preferredRoute.GetComponent<WaypointTreeNode>().getName());
 			// 7. Use the closest found Waypoint as the new Parent
 			parentToSearch = preferredRoute;
 

@@ -9,7 +9,7 @@ public class WaypointTreeNode : MonoBehaviour
     public string m_UniqueName;
     public GameObject[] m_NearbyWaypoints;
 
-    void Start()
+    void Awake()
     {
         m_UniqueName = gameObject.GetHashCode().ToString();
     }

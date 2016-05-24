@@ -10,7 +10,7 @@ public class CreateNoise : MonoBehaviour {
 	float lastNearestDistance = float.MaxValue;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
 		m_UniqueName = gameObject.GetHashCode().ToString();
 
@@ -43,6 +43,11 @@ public class CreateNoise : MonoBehaviour {
 
 			m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.NONE, gameObject, m_NearestWaypoint);
         }
+	}
+
+	public string getName()
+	{
+		return m_UniqueName;
 	}
 
 	public GameObject getNearestWaypoint()

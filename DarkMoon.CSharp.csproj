@@ -65,10 +65,12 @@
   <ItemGroup>
     <Compile Include="Assets\AssetStore\Free\OldChest\DemoScene\MouseOrbit.cs" />
     <Compile Include="Assets\Scripts\Audio\BGMixer.cs" />
+    <Compile Include="Assets\Scripts\Enemy\CreateNoise.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAiScript.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointSystem.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointTreeNode.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\ImageEffects\GrayScale.cs" />
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
     <Compile Include="Assets\Scripts\MouseManager.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Chest\ObjectInteractionChest.cs" />
@@ -90,6 +92,7 @@
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Scripts\Shader\GrayScale.shader" />
     <None Include="Assets\Scripts\Shader\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Shader\GreyScale.shader" />
   </ItemGroup>

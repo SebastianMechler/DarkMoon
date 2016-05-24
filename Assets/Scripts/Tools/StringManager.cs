@@ -42,8 +42,15 @@ public class StringManager : MonoBehaviour
         }
     }
 
-  public class UI
-  {
-    public const string MainTerminal = "MainTerminalUI";
-  }
+
+	public class UI
+	{
+		public const string MainTerminal = "MainTerminalUI";
+	}
+
+
+	public class UsedScripts
+	{
+		public const string waypointTreeNode = "WaypointTreeNode";
+	}
 }

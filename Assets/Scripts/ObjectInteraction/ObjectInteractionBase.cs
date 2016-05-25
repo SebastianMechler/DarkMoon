@@ -2,43 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 
-/*
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-kannste deiner ObjectInteractionBase evtl ne public GetOpenState() hinzufügen.
-dann könnte ich bei bedarf über das GameObject->Skript->Methode rausfinden ob die Türe offen ist.
-ansonsten das öffnen triggern
-
-  eindeutiger name für türen (string)
-  names aus stringmanager generieren...
-*/
-
 
 public struct ObjectInteractionData
 {
-    public Material m_material;
+  public Material m_material;
 }
 
 
@@ -54,14 +21,17 @@ public enum ObjectInteractionType
 
 public class ObjectInteractionBase : MonoBehaviour
 {
-    protected ObjectInteractionType m_baseType;
+  protected ObjectInteractionType m_baseType;
 
-    protected bool m_isInteracting = false; // will be set to true if the player is in range of this object and looks at it with the collider
-    protected bool m_isAllowedToInteract = true;
-    protected Color m_materialColorBackup;
-    protected Animation m_animation; // reference to animation so any animation can be played
-  
-    public static GameObject m_interactionHand; // interactionHand which will be renderer as UI element in the game to show the player he can interact
+  protected bool m_isInteracting = false; // will be set to true if the player is in range of this object and looks at it with the collider
+  protected bool m_isAllowedToInteract = true;
+  protected Color m_materialColorBackup;
+  protected Animation m_animation; // reference to animation so any animation can be played
+  protected ObjectInteractionData m_data;  
+
+  public static GameObject m_interactionHand; // interactionHand which will be renderer as UI element in the game to show the player he can interact
+    
+    
 
     public void UpdateBase()
     {
@@ -94,7 +64,7 @@ public class ObjectInteractionBase : MonoBehaviour
         // Create Interaction object to show some visual effect to player
 
         //GameObject go = (GameObject)GameObject.Instantiate(Resources.Load(StringManager.Resources.interactionObject), this.transform.position, Quaternion.identity);
-
+        m_data = data;
 
         SetInteractionHandState(true);
 
@@ -124,8 +94,8 @@ public class ObjectInteractionBase : MonoBehaviour
   void OnTriggerExit(Collider other)
     {
       // only allow disable when the playerObjectInteraction leaves the collider
-      if (other.gameObject.name == StringManager.Names.objectInteraction)
-        Disable();
+      //if (other.gameObject.name == StringManager.Names.objectInteraction)
+      //  Disable();
     }
     
    public void SetInteractionState(bool state)

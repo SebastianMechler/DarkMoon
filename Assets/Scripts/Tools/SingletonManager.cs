@@ -7,6 +7,7 @@ public class SingletonManager : MonoBehaviour
   private static GameManager m_gameManager = null;
   private static MainTerminalController m_mainTerminalController = null;
   private static UIManager m_uiManager = null;
+  private static GameObject m_player = null;
 
     public static MouseManager MouseManager
     {
@@ -53,6 +54,19 @@ public class SingletonManager : MonoBehaviour
         m_uiManager = UIManager.GetInstance();
       }
       return m_uiManager;
+    }
+  }
+
+  public static GameObject Player
+  {
+    get
+    {
+      if (m_player == null)
+      {
+        m_player = GameObject.Find(StringManager.Names.player);
+      }
+
+      return m_player;
     }
   }
 }

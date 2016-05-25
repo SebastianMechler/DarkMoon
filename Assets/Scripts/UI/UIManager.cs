@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public enum UIType
 {
@@ -8,6 +9,21 @@ public enum UIType
 
 public class UIManager : MonoBehaviour
 {
+
+  PlayerOxigen m_playerOxigen = null;
+  Scrollbar m_oxigenScrollBar = null;
+
+  void Start()
+  {
+    m_playerOxigen = SingletonManager.Player.GetComponent<PlayerOxigen>();
+    m_oxigenScrollBar = GetOxygen().GetComponent<Scrollbar>();
+  }
+
+  void Update()
+  {
+    // Update Oxygen bar
+    m_oxigenScrollBar.size = m_playerOxigen.GetPercentage();
+  }
 
   public void SetUIVisibility(UIType type, bool isVisisble)
   {
@@ -33,6 +49,11 @@ public class UIManager : MonoBehaviour
   public GameObject GetMainTerminal()
   {
     return this.transform.FindChild(StringManager.UI.MainTerminal).gameObject;
+  }
+
+  public GameObject GetOxygen()
+  {
+    return GameObject.Find(StringManager.UI.OxygenBackground).gameObject;
   }
 
   public static UIManager GetInstance()

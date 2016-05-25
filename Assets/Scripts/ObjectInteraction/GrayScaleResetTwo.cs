@@ -19,15 +19,17 @@ public class GrayScaleResetTwo : ObjectInteractionBase
     Debug.Log("Interacting with obj: " + this.gameObject.name);
 #endif
 
+    /*
     GrayScale grayScale = Camera.main.transform.GetComponent<GrayScale>();
 
-    if (grayScale.intensity == 0.0f)
+    if (grayScale.m_intensity == 0.0f)
     {
-      grayScale.intensity = 1.0f;
+      grayScale.m_intensity = 1.0f;
     }
     else
     {
-      grayScale.intensity = 0.0f;
+      grayScale.m_intensity = 0.0f;
     }
+    */
   }
 }

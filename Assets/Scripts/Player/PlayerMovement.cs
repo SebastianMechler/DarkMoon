@@ -12,17 +12,26 @@ public enum PlayerState
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float m_movementSpeed = 2.0f; // movement speed of player
-    public float m_runSpeedFactor = 1.5f; // factor which will be multiplied to increase speed when running
-    public float m_crouchHeightMax = 1.0f; // collider will change to this value when uncrouching
-    public float m_crouchHeightMin = 0.5f; // collider will change to this value when crouching
-    public float m_crouchSpeed = 2.0f; // speed of crouching
-    
-    private PlayerState m_movementState = PlayerState.NONE; // current state of the player
+  [Tooltip("[0.0f to max] Defines the normal movement-speed of the player.")]
+  public float m_movementSpeed = 2.0f; // movement speed of player
 
-    private Vector3 m_movementVector = new Vector3(0.0f, 0.0f, 0.0f); // movement vector
-    private Rigidbody m_rigidbody;
-    CapsuleCollider m_capsuleCollider;
+  [Tooltip("[0.0f to max] Defines the run-speed factor which will be multiplied to increase the run-speed (Example: 1.5f would be 1.5x faster).")]
+  public float m_runSpeedFactor = 1.5f; // factor which will be multiplied to increase speed when running
+
+  [Tooltip("[0.0f to max] Defines the height of the collider from the player which will be reset to when crouching ends. (1.0f is a good value here)")]
+  public float m_crouchHeightMax = 1.0f; // collider will change to this value when uncrouching
+
+  [Tooltip("[0.0f to [crouchHeightMax]] Defines the height of the collider from the player which will lowered to when crouching. (0.25f is a good value here)")]
+  public float m_crouchHeightMin = 0.5f; // collider will change to this value when crouching
+
+  [Tooltip("[0.0f to max] Defines the crouch-speed to move up/down the collider when crouching.")]
+  public float m_crouchSpeed = 2.0f; // speed of crouching
+   
+  private PlayerState m_movementState = PlayerState.NONE; // current state of the player
+
+  private Vector3 m_movementVector = new Vector3(0.0f, 0.0f, 0.0f); // movement vector
+  private Rigidbody m_rigidbody;
+  CapsuleCollider m_capsuleCollider;
 
   void Start()
   {

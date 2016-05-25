@@ -13,6 +13,7 @@ public class StringManager : MonoBehaviour
       public const string interactionHandFromUI = "InteractionHand"; // sprite which will be drawn as image in the UI to show the player can interact
       public const string mainTerminalController = "MainTerminal";
       public const string uiManager = "UIManager";
+      public const string player = "Player";
   }
 
     public class Tags
@@ -46,6 +47,7 @@ public class StringManager : MonoBehaviour
 	public class UI
 	{
 		public const string MainTerminal = "MainTerminalUI";
+    public const string OxygenBackground = "OxygenBackground";
 	}
 
 

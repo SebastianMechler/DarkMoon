@@ -67,6 +67,15 @@ public class PlayerObjectInteraction : MonoBehaviour
         m_currentInteractingObject = null;
       }
     }
+
+    if (m_currentInteractingObject != null)
+    {
+      // Rotate InteractionHand around Z-Axis
+      if (ObjectInteractionBase.m_interactionHand != null)
+      {
+        ObjectInteractionBase.m_interactionHand.gameObject.transform.RotateAround(Vector3.forward, 5.0f * Time.deltaTime);
+      }
+    }
   }
 
   GameObject GetNextInteractableObject()

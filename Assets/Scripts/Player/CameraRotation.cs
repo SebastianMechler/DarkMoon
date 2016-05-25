@@ -7,20 +7,33 @@ using System.Collections;
 
 public class CameraRotation : MonoBehaviour
 {
-
+  /*
   public enum RotationAxes
   {
       MOUSE_X_AND_Y,
       MOUSE_X,
       MOUSE_Y
   }
+  */
 
-  public RotationAxes m_cameraAxis = RotationAxes.MOUSE_X_AND_Y; // x-axis from screen, y-axis from screen
+  //public RotationAxes m_cameraAxis = RotationAxes.MOUSE_X_AND_Y; // x-axis from screen, y-axis from screen
+
+  [Tooltip("[0.0f to max] Defines how fast the player can move the camera on X-Axis.")]
   public float m_sensitivityX = 15.0f; // sensity defines how fast the player can move his camera
+
+  [Tooltip("[0.0f to max] Defines how fast the player can move the camera on Y-Axis.")]
   public float m_sensitivityY = 15.0f; // sensity defines how fast the player can move his camera
+
+  [Tooltip("[0.0f to -360.0f] Defines the minimum X-Angle the player can rotate.")]
   public float m_minimumX = -360.0f; // minimum value to clamp the overall X-rotation each frame
+
+  [Tooltip("[0.0f to 360.0f] Defines the maximum X-Angle the player can rotate.")]
   public float m_maximumX = 360.0f; // maximum value to clamp the overall X-rotation each frame
+
+  [Tooltip("[0.0f to -360.0f] Defines the minimum Y-Angle the player can rotate.")]
   public float m_minimumY = -60.0f; // minimum value to clamp the overall Y-rotation each frame
+
+  [Tooltip("[0.0f to 360.0f] Defines the maximum Y-Angle the player can rotate.")]
   public float m_maximumY = 60.0f; // maximum value to clamp the overall Y-rotation each frame
 
   private float m_rotationY = 0.0f;
@@ -37,7 +50,7 @@ public class CameraRotation : MonoBehaviour
 
   void Update()
   {
-    if (m_cameraAxis == RotationAxes.MOUSE_X_AND_Y)
+    //if (m_cameraAxis == RotationAxes.MOUSE_X_AND_Y)
     {
       // GET X-AXIS
       float rotX = 0.0f;
@@ -63,6 +76,7 @@ public class CameraRotation : MonoBehaviour
       camRot.x = -rotYLerping;
       Camera.main.transform.localEulerAngles = camRot;
     }
+    /*
     else if (m_cameraAxis == RotationAxes.MOUSE_X)
     {
       // GET X-AXIS
@@ -79,6 +93,7 @@ public class CameraRotation : MonoBehaviour
 
       transform.localEulerAngles = new Vector3(-m_rotationY, transform.localEulerAngles.y, 0.0f);
     }
+    */
   }
 }
 

@@ -97,13 +97,40 @@ public class EnemyAiScript : MonoBehaviour {
 	// Return Movement Speed
 	public float getMovementSpeed() { return g_MovementSpeed; }
 
+    private void resetAllData()
+    {
+        m_MovementPattern = MovementPattern.NONE;
+        g_ActionQueue = null;
+        g_LastPatrolSpot = null;
+        g_NumberOfActions = 0;
+        g_CurrentAction = 0;
+
+        m_CurWait = 0.0f;
+        m_WaitTotal = 0.01f;
+        m_TargetPatrolName = string.Empty;
+        m_NumberOfStaticWaypoints = 0;
+
+        m_StartDynamicWaypoint = null;
+        m_FirstDynamicWaypoint = null;
+        m_TempWaypointList = null;
+        m_NoiseSource = null;
+        m_NoiseClosestWaypoint = null;
+
+        finalisedRoute = null;
+        finalisedRouteCheck = null;
+
+        // m_DistanceBetweenGameObjects = null;
+    }
+
 	// public function
 	public void changeMovementPattern(MovementPattern replace, GameObject source, GameObject closest)
 	{
-       
         // Change from DYNAMIC to STATIC
         if (replace == MovementPattern.STATIC)
 	    {
+            // Reset Much Data, Much Wow
+            resetAllData();
+
             // A Noise occured, track the source and the closest Waypoint
             m_NoiseSource = source;
             m_NoiseClosestWaypoint = closest;

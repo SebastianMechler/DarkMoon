@@ -14,13 +14,15 @@ public class StringManager : MonoBehaviour
       public const string mainTerminalController = "MainTerminal";
       public const string uiManager = "UIManager";
       public const string player = "Player";
-  }
+      public const string enemy = "Enemy";
+    }
 
     public class Tags
     {
       public const string Waypoints = "Waypoint";
       public const string interactableObject = "InteractableObject";
       public const string player = "Player";
+      public const string enemy = "Enemy";
     }
 
     public class Resources

@@ -282,6 +282,11 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
+	    if (other.gameObject.name.Equals(StringManager.Names.player))
+	    {
+            return;
+	    }
+
 		if (m_MovementPattern == MovementPattern.STATIC)
 		{
             string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();

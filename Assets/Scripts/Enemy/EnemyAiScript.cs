@@ -55,8 +55,9 @@ public class EnemyAiScript : MonoBehaviour {
 	public GameObject g_FieldOfView;
 	public ActionQueue[] g_ActionQueue;
 	public float g_TurnRate;
-	public float g_MovementSpeed;
-	public float g_MovementSpeedHaste;
+	public float g_MovementSpeed = 4.0f;
+    public float g_MovementSpeedNormal = 4.0f;
+	public float g_MovementSpeedHaste = 7.0f;
 
 	private GameObject g_LastPatrolSpot;
 	private int g_NumberOfActions;
@@ -66,6 +67,7 @@ public class EnemyAiScript : MonoBehaviour {
 	private float m_CurWait;
 	private float m_WaitTotal;
 	private string m_TargetPatrolName;
+    private int m_NumberOfStaticWaypoints;
 
 	// Dynamic Movement Pattern
 	public GameObject m_StartDynamicWaypoint;
@@ -98,11 +100,43 @@ public class EnemyAiScript : MonoBehaviour {
 	// public function
 	public void changeMovementPattern(MovementPattern replace, GameObject source, GameObject closest)
 	{
-		m_MovementPattern = replace;
-		m_NoiseSource = source;
-		m_NoiseClosestWaypoint = closest;
+       
+        // Change from DYNAMIC to STATIC
+        if (replace == MovementPattern.STATIC)
+	    {
+            // A Noise occured, track the source and the closest Waypoint
+            m_NoiseSource = source;
+            m_NoiseClosestWaypoint = closest;
+            // Generate a Path Starting at the Nearest Waypoint to the Enemy,
+            //  Leading to the the closest Waypoint of the Noise
+            AI_Static_GeneratePath();
+            AI_Static_ListToArray();
+            // Reset MovementPattern, for the Update Functionality to work differently
+            m_MovementPattern = replace;
+            // For Noise, we increae the Movement Speed
+            g_MovementSpeed = g_MovementSpeedHaste;
+            // ..
+            return;
+        }
 
-		AI_Static_GeneratePath();
+        // Change from STATIC to DYNAMIC
+	    if (replace == MovementPattern.DYNAMIC)
+	    {
+            // We take the Current Position 
+            g_LastPatrolSpot = gameObject;
+
+            m_LastWaypoint = m_NoiseClosestWaypoint;
+            m_NextWaypoint = m_NoiseClosestWaypoint;
+
+            // Patrol Movement
+            m_CurrentAction = ActionType.PATROL;
+            // Reset MovementPattern, for the Update Functionality to work differently
+            m_MovementPattern = replace;
+            // For Dynamic Movement, we move at Normal Speed
+            g_MovementSpeed = g_MovementSpeedNormal;
+
+            return;
+        }
     }
 
 	// Use this for initialization
@@ -223,11 +257,12 @@ public class EnemyAiScript : MonoBehaviour {
 	{
 		if (m_MovementPattern == MovementPattern.STATIC)
 		{
-			if (other.gameObject.tag == StringManager.Tags.Waypoints && other.gameObject.name == m_TargetPatrolName)
+            string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();
+            if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))
 			{
 				AI_Static_SetNextPatternIndex(other.gameObject);
-				m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.name;
-			}
+				
+            }
 		}
 
 		if (m_MovementPattern == MovementPattern.DYNAMIC)
@@ -258,7 +293,8 @@ public class EnemyAiScript : MonoBehaviour {
 	void AI_Static_PatrolMovement()
 	{
 		Vector3 to = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position;
-		Vector3 fr = g_LastPatrolSpot.transform.position;
+        Vector3 fr = gameObject.transform.position;
+        // Vector3 fr = g_LastPatrolSpot.transform.position;
 		to.y = 0.0f;
 		fr.y = 0.0f;
 		Vector3 toTarget = to - fr;
@@ -304,14 +340,23 @@ public class EnemyAiScript : MonoBehaviour {
 	{
 		g_LastPatrolSpot = a_CurPosition;
 		++g_CurrentAction;
-		g_CurrentAction = (g_CurrentAction == g_NumberOfActions ? 0 : g_CurrentAction);
+
+        // Debug.Log("[!] Check if Last Waypoint is Reached. ( " + g_CurrentAction + " =?= " + m_NumberOfStaticWaypoints + " )");
+        if (g_CurrentAction >= m_NumberOfStaticWaypoints)
+        {
+            changeMovementPattern(MovementPattern.DYNAMIC, null, null);
+            return;
+        }
+
+        g_CurrentAction = (g_CurrentAction == g_NumberOfActions ? 0 : g_CurrentAction);
 		m_CurrentAction = g_ActionQueue[g_CurrentAction].m_ThisAction;
-		// Debug.Log("Next Action ID: " + g_CurrentAction);
-	}
+        m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.GetComponent<WaypointTreeNode>().getName();
+        // Debug.Log("Next Action ID: " + g_CurrentAction);
+    }
 
 	void AI_Static_GeneratePath()
 	{
-		// Find Nearest Waypoint to current Position
+	    // Find Nearest Waypoint to current Position
 		GameObject[] list = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
 		Vector3 thisGameObject = gameObject.transform.position;
 		Vector3 next;
@@ -375,6 +420,7 @@ public class EnemyAiScript : MonoBehaviour {
 				// 8. If a child is the Waypoint nearest to the Noise Source, we skip the rest
 				if (rootChilds[i].GetComponent<WaypointTreeNode>().getName().Equals(m_NoiseClosestWaypoint.GetComponent<WaypointTreeNode>().getName()))
 				{
+				    // Debug.Log("[!] Closest Waypoint found");
 					finalisedRoute.Add(rootChilds[i]);
 					routeFound = true;
 					break;
@@ -430,21 +476,29 @@ public class EnemyAiScript : MonoBehaviour {
 				break;
 			}
         }
+    }
 
-		
-		int vectorLength = finalisedRoute.Count;
-		Debug.Log("[!] finalisedRoute found with '"+ vectorLength + "' Waypoints");
-		for (int i = 0; i < vectorLength; i++)
-		{
-			Debug.Log(i+": " + finalisedRoute[i].name);
-		}
+    void AI_Static_ListToArray()
+    {
+        int numberOfElements = finalisedRoute.Count;
+        g_ActionQueue = new ActionQueue[numberOfElements];
 
-	}
+        m_NumberOfStaticWaypoints = numberOfElements;
+        // Debug.Log("[!] finalisedRoute found with '" + numberOfElements + "' Waypoints");
+        for (int i = 0; i < numberOfElements; i++)
+        {
+            Debug.Log(i + ": " + finalisedRoute[i].name);
+            g_ActionQueue[i].m_ThisAction = ActionType.PATROL;
+            g_ActionQueue[i].m_NextPatrolSpot = finalisedRoute[i];
+        }
+
+        m_TargetPatrolName = g_ActionQueue[0].m_NextPatrolSpot.GetComponent<WaypointTreeNode>().getName();
+    }
 
 	/* ********************************* *
 	 *		Dynamic Movement Pattern	 *
 	 * ********************************* */
-
+     
 	void AI_Dynamic_PatrolMovement()
 	{
 		// Vector3 from = m_LastWaypoint.transform.position;
@@ -462,29 +516,30 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void AI_Dynamic_SetNextWaypoint()
 	{
-		// GameManager.ClearDebugConsole();
+        // GameManager.ClearDebugConsole();
 
-		// Debug.Log(" ============= Find Next Waypoint ============= ");
-		m_TempWaypointList = m_NextWaypoint.GetComponent<WaypointTreeNode>().getAllWaypoints();
+        // Debug.Log(" ============= Find Next Waypoint ============= ");
+        // Debug.Log("[?] Find all Neighbours for '"+ m_NextWaypoint.gameObject.name + "'");
+        m_TempWaypointList = m_NextWaypoint.GetComponent<WaypointTreeNode>().getAllWaypoints();
 		int WaypointCount = m_TempWaypointList.Length;
-		// Debug.Log("[?] Next Waypoint has '"+WaypointCount+"' Neighbours.");
-		bool found = false;
+        // Debug.Log("[?] Next Waypoint has '"+WaypointCount+"' Neighbours.");
+        bool found = false;
 		int RandomNext = -1;
 		int tryTillFound = 1;
         while (!found)
 		{
 			RandomNext = Random.Range(0, WaypointCount);
-			// Debug.Log("[:" + tryTillFound + "] Random(0, " + WaypointCount + ") = " + RandomNext);
-			string lastName = m_LastWaypoint.GetComponent<WaypointTreeNode>().getName();
-			// Debug.Log("[?" + tryTillFound + "] LastName: " + m_LastWaypoint.name);
-			string nextName = m_TempWaypointList[RandomNext].GetComponent<WaypointTreeNode>().getName();
-			// Debug.Log("[?" + tryTillFound + "] NextName: " + m_TempWaypointList[RandomNext].name);
+            // Debug.Log("[:" + tryTillFound + "] Random(0, " + WaypointCount + ") = " + RandomNext);
+            string lastName = m_LastWaypoint.GetComponent<WaypointTreeNode>().getName();
+            // Debug.Log("[?" + tryTillFound + "] LastName: " + m_LastWaypoint.name);
+            string nextName = m_TempWaypointList[RandomNext].GetComponent<WaypointTreeNode>().getName();
+            // Debug.Log("[?" + tryTillFound + "] NextName: " + m_TempWaypointList[RandomNext].name);
 
-			// Debug.Log("[:" + tryTillFound + "] Try '" + m_TempWaypointList[RandomNext].name + "' as Next Waypoint. May not be '" + m_LastWaypoint.name + "' though.");
-			if (!lastName.Equals(nextName))
+            // Debug.Log("[:" + tryTillFound + "] Try '" + m_TempWaypointList[RandomNext].name + "' as Next Waypoint. May not be '" + m_LastWaypoint.name + "' though.");
+            if (!lastName.Equals(nextName))
 			{
-				// Debug.Log("[!" + tryTillFound + "] Next Waypoint is set to '" + m_TempWaypointList[RandomNext].name + "' (index: " + RandomNext + ")");
-				found = true;
+                // Debug.Log("[!" + tryTillFound + "] Next Waypoint is set to '" + m_TempWaypointList[RandomNext].name + "' (index: " + RandomNext + ")");
+                found = true;
 			}
 			++tryTillFound;
         }

@@ -27,7 +27,7 @@ public class StringManager : MonoBehaviour
 
     public class Resources
     {
-        
+        public const string debugLvPrototype = "LvlPrototype";
     }
 
     public class Animations

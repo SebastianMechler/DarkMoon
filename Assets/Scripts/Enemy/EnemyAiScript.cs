@@ -282,7 +282,8 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-	    if (other.gameObject.name.Equals(StringManager.Names.player))
+	    // Debug.Log("Colliding gameObject.name: " + other.gameObject.name);
+	    if (other.gameObject.name.Equals(StringManager.Names.player) || other.gameObject.name.Equals(StringManager.Resources.debugLvPrototype))
 	    {
             return;
 	    }

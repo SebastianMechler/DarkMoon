@@ -2,16 +2,22 @@
 using System.Collections;
 using System.Collections.Generic;
 
-//[System.Serializable]
 public class ColorPuzzle : MonoBehaviour
 {
+  [Tooltip("[drag a door in] Door which will be opened after the puzzle has been solved successfully. Be sure to drag the door which has the required Door-Script attached. Usually DoorCenter.")]
+  public GameObject m_doorToOpen;
+
+  [Tooltip("[drag puzzle objects in] Defines the sequence in which the player has to interact with the objects to solve the puzzle.")]
   public GameObject[] m_sequence;
+
+  [Tooltip("[don't touch this] Just to see what the player has solved currently in the inspector (Debug-Purposes)")]
   public GameObject[] m_sequenceFromPlayer;
 
 	void Start ()
   {
     m_sequenceFromPlayer = new GameObject[m_sequence.Length];
-	}
+    m_doorToOpen.GetComponent<ObjectInteractionDoor>().SetInteractionState(false);
+  }
 
   public void ResetSequence()
   {
@@ -36,6 +42,24 @@ public class ColorPuzzle : MonoBehaviour
           if (IsPuzzleSolved())
           {
             Debug.Log("VICTORY @ PUZZLE");
+            if (m_doorToOpen == null)
+            {
+              Debug.Log("Make sure to attach a door to the ColorPuzzle.");
+            }
+            else
+            {
+              ObjectInteractionDoor objInteractionDoor = m_doorToOpen.GetComponent<ObjectInteractionDoor>();
+              if (objInteractionDoor == null)
+              {
+                Debug.Log("Make sure to attach a door with the script ObjectInteractionDoor attached to it, usually DoorCenter has this script.");
+              }
+              else
+              {
+                objInteractionDoor.SetInteractionState(true);
+                objInteractionDoor.Interact();
+              }
+            }
+            
           }
           else
           {

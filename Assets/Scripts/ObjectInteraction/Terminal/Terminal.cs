@@ -31,6 +31,7 @@ public class Terminal : ObjectInteractionBase
 
   public override void Interact()
   {
+    base.Interact();
 #if DEBUG
     Debug.Log("Interacting with Terminal: " + this.gameObject.name);
 #endif

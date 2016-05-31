@@ -19,6 +19,7 @@ public class ObjectInteractionAirlockSwitch : ObjectInteractionBase
 
   public override void Interact()
   {
+    base.Interact();
     if (m_door == null)
     {
       Debug.Log("The switch cant access the door because it is null. Check the switch if he has the GameObject door added in Inspector.");

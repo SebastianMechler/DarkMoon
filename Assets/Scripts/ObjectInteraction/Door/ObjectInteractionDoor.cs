@@ -13,7 +13,6 @@ public enum DoorType
 public class ObjectInteractionDoor : ObjectInteractionBase
 {
   public DoorType m_doorType;
-
   private bool m_isOpened = false;
 
   void Start()
@@ -29,6 +28,7 @@ public class ObjectInteractionDoor : ObjectInteractionBase
 
   public override void Interact()
   {
+    base.Interact();
 #if DEBUG
     Debug.Log("Interacting with door: " + this.gameObject.name);
 #endif

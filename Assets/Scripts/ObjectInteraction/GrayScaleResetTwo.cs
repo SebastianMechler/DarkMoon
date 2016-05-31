@@ -13,8 +13,9 @@ public class GrayScaleResetTwo : ObjectInteractionBase
     UpdateBase();
   }
 
-  public override void Interact()
+  public new void Interact()
   {
+    base.Interact();
 #if DEBUG
     Debug.Log("Interacting with obj: " + this.gameObject.name);
 #endif
@@ -31,5 +32,6 @@ public class GrayScaleResetTwo : ObjectInteractionBase
       grayScale.m_intensity = 0.0f;
     }
     */
+    Matrix4x4 mat;
   }
 }

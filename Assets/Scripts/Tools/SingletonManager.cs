@@ -8,6 +8,7 @@ public class SingletonManager : MonoBehaviour
   private static MainTerminalController m_mainTerminalController = null;
   private static UIManager m_uiManager = null;
   private static GameObject m_player = null;
+  private static AudioManager m_audioManager = null;
 
     public static MouseManager MouseManager
     {
@@ -67,6 +68,18 @@ public class SingletonManager : MonoBehaviour
       }
 
       return m_player;
+    }
+  }
+
+  public static AudioManager AudioManager
+  {
+    get
+    {
+      if (m_audioManager == null)
+      {
+        m_audioManager = AudioManager.GetInstance();
+      }
+      return m_audioManager;
     }
   }
 }

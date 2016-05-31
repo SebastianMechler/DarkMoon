@@ -50,8 +50,9 @@ public class ObjectInteractionBase : MonoBehaviour
     // this method will be overridden by each ObjectType
     public virtual void Interact()
     {
+      SingletonManager.AudioManager.Play(AudioType.INTERACT);
     }
-
+    
     public void Enable(ObjectInteractionData data)
      {
         if (m_isInteracting || m_isAllowedToInteract == false)

@@ -1,7 +1,7 @@
 # Project files
-Library/
-ProjectSettings/
-.vs/
+/Library
+/ProjectSettings
+/.vs
 *.meta
 
 # Windows image file caches

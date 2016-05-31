@@ -40,9 +40,9 @@ public class CreateNoise : MonoBehaviour {
 			{
 				gameObject.GetComponent<AudioSource>().Play();
 			}
-
-			m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.NONE, gameObject, m_NearestWaypoint);
-        }
+		    // Debug.Log("[:] CreateNoise OnTriggerEnter Called");
+			m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
+		}
 	}
 
 	public string getName()

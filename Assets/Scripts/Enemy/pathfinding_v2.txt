@@ -1,0 +1,11 @@
+struct:
+	transform p1
+	transform p2
+	float dist
+	string unique
+
+0. unique string vergleichen
+1. alle kürzesten strecken zu WaypointP bestimmen
+2. kind elemente der kind elemente von WaypointP eindeutig listen
+3. summierung der strecken, angabe p1->p2 mit distanz
+4. usw

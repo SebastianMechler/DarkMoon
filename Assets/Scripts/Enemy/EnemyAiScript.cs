@@ -75,6 +75,8 @@ public class EnemyAiScript : MonoBehaviour {
 	// public while debugging
 	private GameObject m_LastWaypoint;
 	private GameObject m_NextWaypoint;
+    public float m_WaitAfterEachWaypoint = 2.0f;
+    private float m_WaitTimer;
 	private GameObject[] m_TempWaypointList;
 	private GameObject m_NoiseSource;
 	private GameObject m_NoiseClosestWaypoint;
@@ -225,6 +227,14 @@ public class EnemyAiScript : MonoBehaviour {
 					Debug.LogError("Not specified Action for Enemy AI");
 					break;
 
+                case ActionType.WAITFOR_SECONDS:
+			        m_WaitTimer += Time.deltaTime;
+			        if (m_WaitTimer >= m_WaitAfterEachWaypoint)
+			        {
+			            m_CurrentAction = ActionType.PATROL;
+			        }
+                    break;
+
 				case ActionType.PATROL:
 					AI_Dynamic_PatrolMovement();
 					break;
@@ -306,6 +316,9 @@ public class EnemyAiScript : MonoBehaviour {
 			{
 				AI_Dynamic_SetNextWaypoint();
 				m_TargetPatrolName = m_NextWaypoint.GetComponent<WaypointTreeNode>().getName();
+
+			    m_WaitTimer = 0.0f;
+			    m_CurrentAction = ActionType.WAITFOR_SECONDS;
 			}
 		}
 	}

@@ -16,6 +16,7 @@ public class ObjectInteractionColorPuzzle : ObjectInteractionBase
 
   public override void Interact()
   {
+    base.Interact();
 #if DEBUG
     Debug.Log("Interacting with colorPuzzleObject: " + this.gameObject.name);
 #endif

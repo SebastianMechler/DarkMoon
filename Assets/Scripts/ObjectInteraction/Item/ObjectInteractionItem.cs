@@ -17,6 +17,7 @@ public class ObjectInteractionItem : ObjectInteractionBase
 
   public override void Interact()
   {
+    base.Interact();
 #if DEBUG
     Debug.Log("Interacting with chest: " + this.gameObject.name);
 #endif

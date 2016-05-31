@@ -7,7 +7,7 @@ public class ObjectInteractionChest : ObjectInteractionBase
   [Tooltip("[0.0f to max] Defines the amount of oxygen the player will obtain when opening the chest.")]
   public float m_oxygen = 60.0f;
 
-  private bool m_isOpened = false;
+  //private bool m_isOpened = false;
 
   void Start()
   {
@@ -21,6 +21,8 @@ public class ObjectInteractionChest : ObjectInteractionBase
 
   public override void Interact()
   {
+    base.Interact();
+
 #if DEBUG
     Debug.Log("Interacting with chest: " + this.gameObject.name + " -> Found " + m_oxygen.ToString() + " oxygen.");
 #endif

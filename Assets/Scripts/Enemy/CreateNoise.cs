@@ -42,7 +42,11 @@ public class CreateNoise : MonoBehaviour {
 			}
 		    // Debug.Log("[:] CreateNoise OnTriggerEnter Called");
 			m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
-		}
+
+            gameObject.GetComponent<Renderer>().enabled = false;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+            // gameObject.SetActive(false);
+        }
 	}
 
 	public string getName()

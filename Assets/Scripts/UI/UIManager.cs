@@ -10,19 +10,29 @@ public enum UIType
 public class UIManager : MonoBehaviour
 {
 
-  PlayerOxigen m_playerOxigen = null;
-  Scrollbar m_oxigenScrollBar = null;
+  PlayerOxygen m_playerOxygen = null;
+  Scrollbar m_oxygenScrollBar = null;
+
+  PlayerBattery m_playerBattery = null;
+  Scrollbar m_batteryScrollBar = null;
 
   void Start()
   {
-    m_playerOxigen = SingletonManager.Player.GetComponent<PlayerOxigen>();
-    m_oxigenScrollBar = GetOxygen().GetComponent<Scrollbar>();
+    // oxigen
+    m_playerOxygen = SingletonManager.Player.GetComponent<PlayerOxygen>();
+    m_oxygenScrollBar = GetOxygen().GetComponent<Scrollbar>();
+
+    m_playerBattery = SingletonManager.Player.GetComponent<PlayerBattery>();
+    m_batteryScrollBar = GetBattery().GetComponent<Scrollbar>();
   }
 
   void Update()
   {
     // Update Oxygen bar
-    m_oxigenScrollBar.size = m_playerOxigen.GetPercentage();
+    m_oxygenScrollBar.size = m_playerOxygen.GetPercentage();
+
+    // update battery bar
+    m_batteryScrollBar.size = m_playerBattery.GetPercentage();
   }
 
   public void SetUIVisibility(UIType type, bool isVisisble)
@@ -54,6 +64,23 @@ public class UIManager : MonoBehaviour
   public GameObject GetOxygen()
   {
     return GameObject.Find(StringManager.UI.OxygenBackground).gameObject;
+  }
+
+  public GameObject GetBattery()
+  {
+    return GameObject.Find(StringManager.UI.BatteryBackground).gameObject;
+  }
+
+  public void EnableBatteryUI()
+  {
+    Text text = GameObject.Find(StringManager.UI.BatteryText).gameObject.GetComponent<Text>();
+    text.enabled = true;
+
+    Image imageBackground = GameObject.Find(StringManager.UI.BatteryBackground).gameObject.GetComponent<Image>();
+    imageBackground.enabled = true;
+
+    Image imageForeground = GameObject.Find(StringManager.UI.BatteryForgeround).gameObject.GetComponent<Image>();
+    imageForeground.enabled = true;
   }
 
   public static UIManager GetInstance()

@@ -88,9 +88,10 @@
     <Compile Include="Assets\Scripts\ObjectInteraction\Terminal\TerminalUIDisabler.cs" />
     <Compile Include="Assets\Scripts\Player\CameraRotation.cs" />
     <Compile Include="Assets\Scripts\Player\FlashLight.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerBattery.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerObjectInteraction.cs" />
-    <Compile Include="Assets\Scripts\Player\PlayerOxigen.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerOxygen.cs" />
     <Compile Include="Assets\Scripts\Puzzle\ColorPuzzle.cs" />
     <Compile Include="Assets\Scripts\Tools\BillboardHelper.cs" />
     <Compile Include="Assets\Scripts\Tools\DisableRendererOnStart.cs" />

@@ -31,7 +31,7 @@ public class ObjectInteractionItem : ObjectInteractionBase
         break;
 
       case ItemType.FLASH_LIGHT:
-        FlashLight.m_isEnabled = true;
+        FlashLight.GetInstance().SetPickup();
         inventory.AddItem(m_item);
         break;
     }

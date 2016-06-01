@@ -3,54 +3,58 @@ using System.Collections;
 
 public class StringManager : MonoBehaviour
 {
-    public class Names
-    {
-      public const string audioManager = "AudioManager"; // NOT USED YET
-      public const string mouseManager = "MouseManager";
-      public const string gameManager = "GameManager";
-      public const string objectInteraction = "ObjectInteraction"; // invisisble collider which is used to interact with objects
-      public const string doorState = "DoorState"; // name of gameobject which indicates the current state of a door
-      public const string interactionHandFromUI = "InteractionHand"; // sprite which will be drawn as image in the UI to show the player can interact
-      public const string mainTerminalController = "MainTerminal";
-      public const string uiManager = "UIManager";
-      public const string player = "Player";
-      public const string enemy = "Enemy";
-    }
+  public class Names
+  {
+    public const string audioManager = "AudioManager"; // NOT USED YET
+    public const string mouseManager = "MouseManager";
+    public const string gameManager = "GameManager";
+    public const string objectInteraction = "ObjectInteraction"; // invisisble collider which is used to interact with objects
+    public const string doorState = "DoorState"; // name of gameobject which indicates the current state of a door
+    public const string interactionHandFromUI = "InteractionHand"; // sprite which will be drawn as image in the UI to show the player can interact
+    public const string mainTerminalController = "MainTerminal";
+    public const string uiManager = "UIManager";
+    public const string player = "Player";
+    public const string enemy = "Enemy";
+    public const string flashLight = "FlashLight";
+  }
 
-    public class Tags
-    {
-      public const string Waypoints = "Waypoint";
-      public const string interactableObject = "InteractableObject";
-      public const string player = "Player";
-      public const string enemy = "Enemy";
-    }
+  public class Tags
+  {
+    public const string Waypoints = "Waypoint";
+    public const string interactableObject = "InteractableObject";
+    public const string player = "Player";
+    public const string enemy = "Enemy";
+  }
 
-    public class Resources
-    {
+  public class Resources
+  {
         
-    }
+  }
 
-    public class Animations
+  public class Animations
+  {
+    public class Chest
     {
-        public class Chest
-        {
-          public const string open = "ChestAnim";
-          public const string close = "ChestAnim";
-        }
-
-        public class Door
-        {
-          public const string open = "open";
-          public const string close = "close";
-        }
+      public const string open = "ChestAnim";
+      public const string close = "ChestAnim";
     }
+
+    public class Door
+    {
+      public const string open = "open";
+      public const string close = "close";
+    }
+  }
 
 
 	public class UI
 	{
 		public const string MainTerminal = "MainTerminalUI";
     public const string OxygenBackground = "OxygenBackground";
-	}
+    public const string BatteryBackground = "BatteryBackground";
+    public const string BatteryForgeround = "BatteryForeground";
+    public const string BatteryText = "BatteryText";
+  }
 
 
 	public class UsedScripts

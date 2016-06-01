@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerOxigen : MonoBehaviour
+public class PlayerOxygen : MonoBehaviour
 {
   [Tooltip("[0.0f to max] Defines the maximum amount of oxygen a player can hold.")]
   public float m_max = 100.0f; // how much oxygen the player can have //= min would be 0
@@ -10,7 +10,7 @@ public class PlayerOxigen : MonoBehaviour
   public float m_current = 0.0f; // how much oxygen the player currently has
 
   [Tooltip("[0.0f to max] Defines how much oxygen will be lost each frame (play around with this).")]
-  public float m_regenerateStep = 1f; // regenerate oxygen each frame
+  public float m_regenerateStep = -1.0f; // regenerate oxygen each frame
 
   [Tooltip("[0.0f to 1.0f] At this percentage the GrayScale-Effect will take start to fade in.")]
   public float m_grayScaleEffectStart = 0.2f; // percentage when the GrayScale will start to fáde in (range from 0.0f to 1.0f)
@@ -25,11 +25,6 @@ public class PlayerOxigen : MonoBehaviour
 
 	void Update()
   {
-    if (Input.GetKey(KeyCode.F1))
-    {
-      m_current = m_max;
-    }
-
     if (GetPercentage() < m_grayScaleEffectStart)
     {
       m_grayScale.Enable();
@@ -45,7 +40,7 @@ public class PlayerOxigen : MonoBehaviour
 
   void Regenerate()
   {
-    Increase(-m_regenerateStep * Time.deltaTime);
+    Increase(m_regenerateStep * Time.deltaTime);
   }
 
   public void Increase(float value)

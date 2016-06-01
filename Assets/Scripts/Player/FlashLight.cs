@@ -10,11 +10,11 @@ public enum FlashLightState
 
 public class FlashLight : MonoBehaviour
 {
-  public static bool m_isEnabled = true; // will be set to true if the item is picked up
+  public bool m_hasBeenPickedUp = true; // will be set to true if the item is picked up
   public FlashLightState m_flashState = FlashLightState.OFF; // controls the current state of the flashLight
   private Light m_light; // reference to light component to switch it off or on through 'Range'
   private float m_range; // backup the range, because it will be set to 0 if off, and to this range if on
-
+  
   void Start()
   {
     m_light = GetComponent<Light>();
@@ -24,23 +24,55 @@ public class FlashLight : MonoBehaviour
 
 	void Update ()
   {
-	  if (m_isEnabled)
+	  if (m_hasBeenPickedUp)
     {
       if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.flashLight))
       {
         if (m_flashState == FlashLightState.OFF)
         {
-          // enable flashLight
-          m_light.range = m_range;
-          m_flashState = FlashLightState.ON;
+          SetState(FlashLightState.ON);
         }
         else
         {
-          // disable flashLight
-          m_light.range = 0;
-          m_flashState = FlashLightState.OFF;
+          SetState(FlashLightState.OFF);
         }
       }
     }
 	}
+
+  public FlashLightState GetState()
+  {
+    return m_flashState;
+  }
+
+  public void SetState(FlashLightState state)
+  {
+    if (m_flashState == FlashLightState.OFF)
+    {
+      // enable flashLight
+
+      if (SingletonManager.Player.GetComponent<PlayerBattery>().HasBattery())
+      {
+        m_light.range = m_range;
+        m_flashState = FlashLightState.ON;
+      }
+    }
+    else
+    {
+      // disable flashLight
+      m_light.range = 0;
+      m_flashState = FlashLightState.OFF;
+    }
+  }
+
+  public void SetPickup()
+  {
+    m_hasBeenPickedUp = true;
+    SingletonManager.UIManager.EnableBatteryUI();
+  }
+
+  public static FlashLight GetInstance()
+  {
+    return GameObject.Find(StringManager.Names.flashLight).GetComponent<FlashLight>();
+  }
 }

@@ -26,7 +26,6 @@ public class PathfindingAlgorithm : MonoBehaviour {
         m_Distances = CalcAllDistances();
     }
 
-
     /// <summary>
     /// Minor functionality to assure the List is always with one Specific Vector in "from" and the other in "to" for List<GroupDistance>
     /// </summary>

@@ -93,8 +93,7 @@ public class EnemyAiScript : MonoBehaviour {
 
 		public float m_Distance;
 	}
-
-	public GroupDistance[] m_DistanceBetweenGameObjects;
+    public GroupDistance[] m_DistanceBetweenGameObjects;
 
 	// Return Movement Speed
 	public float getMovementSpeed() { return g_MovementSpeed; }
@@ -241,6 +240,9 @@ public class EnemyAiScript : MonoBehaviour {
 			}
 		}
 	}
+
+
+    
 
 	void CalculateAllDistances()
 	{

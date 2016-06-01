@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Enemy\CollisionDetection.cs" />
     <Compile Include="Assets\Scripts\Enemy\CreateNoise.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAiScript.cs" />
+    <Compile Include="Assets\Scripts\Enemy\PathfindingAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointSystem.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointTreeNode.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />

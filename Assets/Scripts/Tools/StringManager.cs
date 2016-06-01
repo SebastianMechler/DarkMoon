@@ -26,10 +26,10 @@ public class StringManager : MonoBehaviour
     public const string enemy = "Enemy";
   }
 
-  public class Resources
-  {
-        
-  }
+	public class Resources
+	{
+		public const string debugLvPrototype = "LvlPrototype";
+	}
 
   public class Animations
   {

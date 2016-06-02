@@ -409,25 +409,53 @@ public class EnemyAiScript : MonoBehaviour {
 		Vector3 thisGameObject = gameObject.transform.position;
 		Vector3 next;
 		float lastNearestDistance = float.MaxValue;
-		GameObject NearestWaypoint = null;
+	    float distance = float.MaxValue;
+        GameObject NearestWaypoint = null;
 		string nearestWaypointName;
 
 		// Search all Waypoints now
-		int size = list.Length;
+		/*int size = list.Length;
 		for (int i = 0; i < size; i++)
 		{
 			next = list[i].transform.position;
-			float distance = Vector3.Distance(thisGameObject, next);
+			distance = Vector3.Distance(thisGameObject, next);
 			if (distance < lastNearestDistance)
 			{
 				lastNearestDistance = distance;
 				NearestWaypoint = list[i];
 			}
 		}
-		nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
+		nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();*/
 
-		// Find respective Struct Entry for found Waypoint
-		int startingIndex = -1;
+        // Minor Fix
+        // ####################################################
+	    Vector3 b = m_LastWaypoint.transform.position;
+        float distToLast = Mathf.Abs(Vector3.Distance(thisGameObject, b));
+        float distLastToNoise = Mathf.Abs(Vector3.Distance(m_NoiseSource.transform.position, b));
+	    // Debug.Log("LastWaypoint '"+ m_LastWaypoint.name + "' | GameObject to LastWaypoint: " + distToLast + " | LastWaypoint to Noise: " + distLastToNoise);
+
+        Vector3 c = m_NextWaypoint.transform.position;
+	    float distToNext = Mathf.Abs(Vector3.Distance(thisGameObject, c));
+        float distNextToNoise = Mathf.Abs(Vector3.Distance(m_NoiseSource.transform.position, c));
+        // Debug.Log("NextWaypoint '" + m_NextWaypoint.name + "' | GameObject to NextWaypoint: " + distToNext + " | NextWaypoint to Noise: " + distNextToNoise);
+
+	    float sumLast = distToLast + distLastToNoise;
+	    float sumNext = distToNext + distNextToNoise;
+	    if (sumLast < sumNext)
+	    {
+	        // Debug.Log("[!] Last Waypoint was deemed closer");
+	        NearestWaypoint = m_LastWaypoint;
+	        nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
+	    }
+	    else
+	    {
+            NearestWaypoint = m_NextWaypoint;
+            nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
+        }
+        // ####################################################
+
+        // Find respective Struct Entry for found Waypoint
+        int startingIndex = -1;
 		int totalNumberOfWaypointConnection = m_DistanceBetweenGameObjects.Length;
 		for(int i = 0; i < totalNumberOfWaypointConnection; i++)
 		{

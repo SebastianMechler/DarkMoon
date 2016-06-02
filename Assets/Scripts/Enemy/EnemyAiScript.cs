@@ -407,9 +407,9 @@ public class EnemyAiScript : MonoBehaviour {
 	    // Find Nearest Waypoint to current Position
 		GameObject[] list = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
 		Vector3 thisGameObject = gameObject.transform.position;
-		Vector3 next;
-		float lastNearestDistance = float.MaxValue;
-	    float distance = float.MaxValue;
+		// Vector3 next;
+		// float lastNearestDistance = float.MaxValue;
+	    // float distance = float.MaxValue;
         GameObject NearestWaypoint = null;
 		string nearestWaypointName;
 

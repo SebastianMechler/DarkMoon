@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\Player\PlayerObjectInteraction.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerOxygen.cs" />
     <Compile Include="Assets\Scripts\Puzzle\ColorPuzzle.cs" />
+    <Compile Include="Assets\Scripts\Todo.cs" />
     <Compile Include="Assets\Scripts\Tools\BillboardHelper.cs" />
     <Compile Include="Assets\Scripts\Tools\DisableRendererOnStart.cs" />
     <Compile Include="Assets\Scripts\Tools\SingletonManager.cs" />

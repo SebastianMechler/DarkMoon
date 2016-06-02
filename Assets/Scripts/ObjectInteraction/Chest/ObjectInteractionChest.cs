@@ -4,13 +4,11 @@ using System.Collections;
 public class ObjectInteractionChest : ObjectInteractionBase
 {
 
-  [Tooltip("[0.0f to max] Defines the amount of oxygen the player will get when opening the chest.")]
-  public float m_oxygen = 0.0f;
+  public float m_oxygenMin = 0.0f;
+  public float m_oxygenMax = 0.0f;
 
-  [Tooltip("[0.0f to max] Defines the amount of battery the player will get when opening the chest.")]
-  public float m_battery = 0.0f;
-
-  //private bool m_isOpened = false;
+  public float m_batteryMin = 0.0f;
+  public float m_batteryMax = 0.0f;
 
   void Start()
   {
@@ -26,12 +24,17 @@ public class ObjectInteractionChest : ObjectInteractionBase
   {
     base.Interact();
 
+    float oxygenValue = Random.Range(m_oxygenMin, m_oxygenMax);
+    float batteryValue = Random.Range(m_batteryMin, m_batteryMax);
+
 #if DEBUG
-    Debug.Log("Interacting with chest: " + this.gameObject.name + " -> Found " + m_oxygen.ToString() + " oxygen.");
+    Debug.Log("Interacting with chest: " + this.gameObject.name + " -> Found " + oxygenValue.ToString() + " oxygen and " + batteryValue.ToString() + " battery.");
 #endif
 
-    SingletonManager.Player.GetComponent<PlayerOxygen>().Increase(m_oxygen);
-    SingletonManager.Player.GetComponent<PlayerBattery>().Increase(m_battery);
+    
+
+    SingletonManager.Player.GetComponent<PlayerOxygen>().Increase(oxygenValue);
+    SingletonManager.Player.GetComponent<PlayerBattery>().Increase(batteryValue);
 
     Disable();
     Destroy(this.gameObject);

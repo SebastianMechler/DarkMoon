@@ -63,7 +63,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="DarkMoon.CSharp.Plugins.csproj">
+      <Project>{2A362F03-A762-D67B-4B9A-402525E9D73A}</Project>
+      <Name>DarkMoon.CSharp.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Assets\AssetStore\Free\OldChest\DemoScene\MouseOrbit.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\AlarmSystems\DoneAlarmLight.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\AlarmSystems\DoneCCTVPlayerDetection.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\AlarmSystems\DoneLaserBlinking.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\AlarmSystems\DoneLaserPlayerDetection.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\AlarmSystems\DoneLaserSwitchDeactivation.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\EnemyScripts\DoneEnemyAI.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\EnemyScripts\DoneEnemyAnimation.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\EnemyScripts\DoneEnemyShooting.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\EnemyScripts\DoneEnemySight.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\EnemyScripts\DoneWayPointGizmo.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\GameControllerScripts\DoneHashIDs.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\GameControllerScripts\DoneLastPlayerSighting.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\LevelDynamics\DoneCameraMovement.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\LevelDynamics\DoneDoorAnimation.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\LevelDynamics\DoneKeyPickup.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\LevelDynamics\DoneLiftDoorsTracking.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\LevelDynamics\DoneLiftTrigger.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\PlayerScripts\DonePlayerHealth.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\PlayerScripts\DonePlayerInventory.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\PlayerScripts\DonePlayerMovement.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\ScreenFaderScripts\DoneSceneFadeInOut.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\UnappliedScripts\DoneAnimatorSetup.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\UnappliedScripts\DoneTags.cs" />
+    <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\UnappliedScripts\guiTextSet.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Audio\BGMixer.cs" />
     <Compile Include="Assets\Scripts\Enemy\CollisionDetection.cs" />
@@ -101,10 +131,72 @@
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\AssetStore\Stealth (Unity4x)\Shaders\ReflectiveDiffuseSpecTransp.shader" />
     <None Include="Assets\Scripts\Enemy\pathfinding_v2.txt" />
     <None Include="Assets\Scripts\Shader\GrayScale.shader" />
     <None Include="Assets\Scripts\Shader\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Shader\GreyScale.shader" />
+    <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlendModesOverlay.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\BlurEffectConeTaps.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\CameraMotionBlur.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\CameraMotionBlurDX11.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ChromaticAberrationShader.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrection3DLut.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurves.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionCurvesSimple.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionEffect.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ColorCorrectionSelective.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Adaptation.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Apply.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\Luminance.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\Contrast Stretch\MinMaxReduction.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ContrastComposite.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ConvertDepth.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\CreaseApply.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\EdgeDetectNormals.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\FisheyeShader.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\GlobalFog.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\GrayscaleEffect.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\MotionBlur.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\MotionBlurClear.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrain.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseAndGrainDX11.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderYUV.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\PrepareSunShaftsBlur.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\RadialBlur.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\SSAOShader.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ScreenSpaceAmbientObscurance.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ScreenSpaceRaytrace.cginc" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\SepiaToneEffect.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\ShowAlphaChannel.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\SimpleClear.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\SunShaftsComposite.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\Tonemapper.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\TwirlEffect.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\VignettingShader.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\VortexEffect.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\Blend.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendForBloom.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BrightPassFilter2.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\LensFlareCreate.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBloom.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MultiPassHollywoodFlares.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\SeparableBlurPlus.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\VignetteShader.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\Bokeh34.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldDX11.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfFieldScatter.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableBlur.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\TiltShiftHdrLensBlur.shader" />
+    <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

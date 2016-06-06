@@ -42,6 +42,7 @@ public class ColorPuzzle : MonoBehaviour
           if (IsPuzzleSolved())
           {
             Debug.Log("VICTORY @ PUZZLE");
+            
             if (m_doorToOpen == null)
             {
               Debug.Log("Make sure to attach a door to the ColorPuzzle.");
@@ -64,6 +65,8 @@ public class ColorPuzzle : MonoBehaviour
           else
           {
             Debug.Log("FAILURE @ PUZZLE");
+            SingletonManager.AudioManager.Play(AudioType.PUZZLE_FAILURE);
+            ShowFailure();
             ResetSequence();
           }
         }
@@ -95,7 +98,13 @@ public class ColorPuzzle : MonoBehaviour
       return false;
     }
   }
-  
 
+  public void ShowFailure()
+  {
+    foreach (Transform child in this.gameObject.transform)
+    {
+      child.gameObject.AddComponent<ColorPuzzleFailure>();
+    }
+  }
 
 }

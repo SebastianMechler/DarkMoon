@@ -61,6 +61,21 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DarkMoon.CSharp.Plugins.csproj">
@@ -96,6 +111,11 @@
     <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\UnappliedScripts\guiTextSet.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Audio\BGMixer.cs" />
+    <Compile Include="Assets\Scripts\BrianMods\BrianGameManager.cs" />
+    <Compile Include="Assets\Scripts\BrianMods\BrianMainMenu.cs" />
+    <Compile Include="Assets\Scripts\BrianMods\BrianSingletonManager.cs" />
+    <Compile Include="Assets\Scripts\BrianMods\BrianStringManager.cs" />
+    <Compile Include="Assets\Scripts\BrianMods\BrianUIManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\CollisionDetection.cs" />
     <Compile Include="Assets\Scripts\Enemy\CreateNoise.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAiScript.cs" />
@@ -124,10 +144,13 @@
     <Compile Include="Assets\Scripts\Player\PlayerObjectInteraction.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerOxygen.cs" />
     <Compile Include="Assets\Scripts\Puzzle\ColorPuzzle.cs" />
+    <Compile Include="Assets\Scripts\Puzzle\ColorPuzzleFailure.cs" />
+    <Compile Include="Assets\Scripts\Todo.cs" />
     <Compile Include="Assets\Scripts\Tools\BillboardHelper.cs" />
     <Compile Include="Assets\Scripts\Tools\DisableRendererOnStart.cs" />
     <Compile Include="Assets\Scripts\Tools\SingletonManager.cs" />
     <Compile Include="Assets\Scripts\Tools\StringManager.cs" />
+    <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>

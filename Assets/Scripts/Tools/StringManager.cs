@@ -50,10 +50,15 @@ public class StringManager : MonoBehaviour
 	public class UI
 	{
 		public const string MainTerminal = "MainTerminalUI";
+    public const string TerminalOne = "TerminalOneUI";
+    public const string TerminalTwo = "TerminalTwoUI";
+    public const string TerminalThree = "TerminalThreeUI";
     public const string OxygenBackground = "OxygenBackground";
     public const string BatteryBackground = "BatteryBackground";
     public const string BatteryForgeround = "BatteryForeground";
     public const string BatteryText = "BatteryText";
+    public const string PauseMenu = "PauseMenuUI";
+    public const string MainMenu = "MainMenuUI";
   }
 
 
@@ -61,4 +66,11 @@ public class StringManager : MonoBehaviour
 	{
 		public const string waypointTreeNode = "WaypointTreeNode";
 	}
+
+  public class Scenes
+  {
+    public const string mainMenu = "MainScene";
+    public const string game = "Prototype_EnemyScript";
+  }
 }
+

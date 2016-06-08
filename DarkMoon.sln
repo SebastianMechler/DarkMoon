@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkMoon.CSharp.Plugins", "DarkMoon.CSharp.Plugins.csproj", "{2A362F03-A762-D67B-4B9A-402525E9D73A}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkMoon.CSharp", "DarkMoon.CSharp.csproj", "{9C7CED4E-B3D4-3320-6709-D1FCF9C2AE25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DarkMoon.CSharp.Editor", "DarkMoon.CSharp.Editor.csproj", "{FB2ADD1B-0CAF-7EE7-328B-42C26C360094}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +13,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A362F03-A762-D67B-4B9A-402525E9D73A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A362F03-A762-D67B-4B9A-402525E9D73A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A362F03-A762-D67B-4B9A-402525E9D73A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A362F03-A762-D67B-4B9A-402525E9D73A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9C7CED4E-B3D4-3320-6709-D1FCF9C2AE25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9C7CED4E-B3D4-3320-6709-D1FCF9C2AE25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C7CED4E-B3D4-3320-6709-D1FCF9C2AE25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C7CED4E-B3D4-3320-6709-D1FCF9C2AE25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB2ADD1B-0CAF-7EE7-328B-42C26C360094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB2ADD1B-0CAF-7EE7-328B-42C26C360094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB2ADD1B-0CAF-7EE7-328B-42C26C360094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2ADD1B-0CAF-7EE7-328B-42C26C360094}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

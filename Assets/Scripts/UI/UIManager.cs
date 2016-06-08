@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum UIType
 {
   MainTerminal,
+  TerminalOne,
+  TerminalTwo,
+  TerminalThree,
+  MainMenu,
+  PauseMenu,
 }
 
 public class UIManager : MonoBehaviour
@@ -15,37 +21,33 @@ public class UIManager : MonoBehaviour
 
   PlayerBattery m_playerBattery = null;
   Scrollbar m_batteryScrollBar = null;
-
+  
   void Start()
   {
-    // oxigen
+    // oxygen
     m_playerOxygen = SingletonManager.Player.GetComponent<PlayerOxygen>();
     m_oxygenScrollBar = GetOxygen().GetComponent<Scrollbar>();
 
+    // battery
     m_playerBattery = SingletonManager.Player.GetComponent<PlayerBattery>();
     m_batteryScrollBar = GetBattery().GetComponent<Scrollbar>();
   }
 
   void Update()
   {
-    // Update Oxygen bar
-    m_oxygenScrollBar.size = m_playerOxygen.GetPercentage();
+    UpdateIngameUI();
 
-    // update battery bar
-    m_batteryScrollBar.size = m_playerBattery.GetPercentage();
+    // toggle pauseMenu
+    if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.ui_togglePauseMenu))
+    {
+      TogglePauseMenu();
+    }
   }
 
   public void SetUIVisibility(UIType type, bool isVisisble)
   {
-    Canvas canvas = null;
-
-    switch (type)
-    {
-      case UIType.MainTerminal:
-        canvas = GetMainTerminal().GetComponent<Canvas>();
-        break;
-    }
-
+    Canvas canvas = GetUIObject(type).GetComponent<Canvas>();
+    
     if (canvas != null)
     {
       canvas.enabled = isVisisble;
@@ -56,9 +58,44 @@ public class UIManager : MonoBehaviour
     }
   }
 
-  public GameObject GetMainTerminal()
+  public bool GetUIVisibility(UIType type)
   {
-    return this.transform.FindChild(StringManager.UI.MainTerminal).gameObject;
+    Canvas canvas = GetUIObject(type).GetComponent<Canvas>();
+
+    if (canvas != null)
+    {
+      return canvas.enabled;
+    }
+
+    return false;
+  }
+
+  public GameObject GetUIObject(UIType type)
+  {
+    switch (type)
+    {
+      case UIType.MainTerminal:
+        return this.transform.FindChild(StringManager.UI.MainTerminal).gameObject;
+      case UIType.TerminalOne:
+        return this.transform.FindChild(StringManager.UI.TerminalOne).gameObject;
+      case UIType.TerminalTwo:
+        return this.transform.FindChild(StringManager.UI.TerminalTwo).gameObject;
+      case UIType.TerminalThree:
+        return this.transform.FindChild(StringManager.UI.TerminalThree).gameObject;
+      case UIType.PauseMenu:
+        return this.transform.FindChild(StringManager.UI.PauseMenu).gameObject;
+    }
+
+    return null;
+  }
+
+  public void UpdateIngameUI()
+  {
+    // Update Oxygen bar
+    m_oxygenScrollBar.size = m_playerOxygen.GetPercentage();
+
+    // update battery bar
+    m_batteryScrollBar.size = m_playerBattery.GetPercentage();
   }
 
   public GameObject GetOxygen()
@@ -82,7 +119,51 @@ public class UIManager : MonoBehaviour
     Image imageForeground = GameObject.Find(StringManager.UI.BatteryForgeround).gameObject.GetComponent<Image>();
     imageForeground.enabled = true;
   }
+  
+  public void TogglePauseMenu()
+  {
+    bool isVisisble = SingletonManager.UIManager.GetUIVisibility(UIType.PauseMenu);
 
+    if (isVisisble == false)
+    {
+      Time.timeScale = 0.0f;
+      SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
+    }
+    else
+    {
+      Time.timeScale = 1.0f;
+      SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
+    }
+
+    SingletonManager.UIManager.SetUIVisibility(UIType.PauseMenu, !isVisisble);
+  }
+
+  //
+  // PAUSE MENU
+  //
+  public void OnClick_PauseMenu_ButtonNewGame()
+  {
+    Time.timeScale = 1.0f;
+    SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+  }
+
+  public void OnClick_PauseMenu_Resume()
+  {
+    TogglePauseMenu();
+  }
+
+  public void OnClick_PauseMenu_ButtonExit()
+  {
+    Application.Quit();
+  }
+
+  public void OnClick_PauseMenu_MainMenu()
+  {
+    Time.timeScale = 1.0f;
+    SceneManager.LoadScene(StringManager.Scenes.mainMenu);
+  }
+  
   public static UIManager GetInstance()
   {
     return GameObject.Find(StringManager.Names.uiManager).GetComponent<UIManager>();

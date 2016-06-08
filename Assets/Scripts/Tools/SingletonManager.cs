@@ -28,6 +28,7 @@ public class SingletonManager : MonoBehaviour
         {
             if (m_gameManager == null)
             {
+        Debug.Log("Getting GameManager");
                 m_gameManager = GameManager.GetInstance();
             }
             return m_gameManager;

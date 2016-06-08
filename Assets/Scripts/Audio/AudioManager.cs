@@ -9,6 +9,7 @@ using System.Collections.Generic;
 public enum AudioType
 {
   INTERACT,
+  PUZZLE_FAILURE,
 }
 
 [System.Serializable]
@@ -38,7 +39,12 @@ public class AudioManager : MonoBehaviour
   public List<AudioStruct2> myList;
   public Dictionary<AudioType, AudioStruct> m_audioMap = new Dictionary<AudioType, AudioStruct>();
 
-	void Start ()
+  void Awake()
+  {
+    DontDestroyOnLoad(this.transform.gameObject);
+  }
+
+  void Start ()
   {
 	  foreach (AudioStruct2 key in myList)
     {
@@ -49,7 +55,7 @@ public class AudioManager : MonoBehaviour
   public void Play(AudioType type)
   {
     AudioSource source = Camera.main.GetComponent<AudioSource>();
-    //Debug.Log(m_audioMap[type].clip.ToString());
+    source.volume = m_audioMap[type].volume;
     source.PlayOneShot(m_audioMap[type].clip);    
   }
 

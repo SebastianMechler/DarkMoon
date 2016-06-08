@@ -13,61 +13,66 @@ public enum MouseState
 
 public class MouseManager : MonoBehaviour
 {
-    private MouseState m_currentMouseState = MouseState.NONE;
+  private MouseState m_currentMouseState = MouseState.NONE;
 
-    void Start()
-    {
-        // enable mouse lock by default => needs to be done later when game starts
-        SetMouseState(MouseState.LOCKED);
-    }
+  void Awake()
+  {
+    DontDestroyOnLoad(this.transform.gameObject);
+  }
 
-    void Update()
-    {
-        // just for programmers to switch between mouse-states
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (m_currentMouseState == MouseState.LOCKED)
-            {
-                SetMouseState(MouseState.UNLOCKED);
-            }
-            else
-            {
-                SetMouseState(MouseState.LOCKED);
-            }
-        }
-    }
+  void Start()
+  {
+      // enable mouse lock by default => needs to be done later when game starts
+      //SetMouseState(MouseState.LOCKED);
+  }
 
-    public void SetMouseState(MouseState state)
-    {
-        if (state == MouseState.LOCKED)
-        {
+  void Update()
+  {
+      // just for programmers to switch between mouse-states
+      if (Input.GetKeyDown(KeyCode.Space))
+      {
+          if (m_currentMouseState == MouseState.LOCKED)
+          {
+              SetMouseState(MouseState.UNLOCKED);
+          }
+          else
+          {
+              SetMouseState(MouseState.LOCKED);
+          }
+      }
+  }
+
+  public void SetMouseState(MouseState state)
+  {
+      if (state == MouseState.LOCKED)
+      {
 #if DEBUG
-            Debug.Log("Locking Mouse...");
+          Debug.Log("Locking Mouse...");
 #endif
 
-            UnityEngine.Cursor.visible = false;
-            UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        }
-        else if (state == MouseState.UNLOCKED)
-        {
+          UnityEngine.Cursor.visible = false;
+          UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+      }
+      else if (state == MouseState.UNLOCKED)
+      {
 #if DEBUG
-            Debug.Log("Unlocking Mouse...");
+          Debug.Log("Unlocking Mouse...");
 #endif
-            UnityEngine.Cursor.visible = true;
-            UnityEngine.Cursor.lockState = CursorLockMode.None;
-        }
+          UnityEngine.Cursor.visible = true;
+          UnityEngine.Cursor.lockState = CursorLockMode.None;
+      }
 
-        // update current state
-        m_currentMouseState = state;
-    }
+      // update current state
+      m_currentMouseState = state;
+  }
 
-    public MouseState GetMouseState()
-    {
-        return this.m_currentMouseState;
-    }
+  public MouseState GetMouseState()
+  {
+      return this.m_currentMouseState;
+  }
 
-    public static MouseManager GetInstance()
-    {
-        return GameObject.Find(StringManager.Names.mouseManager).GetComponent<MouseManager>();
-    }
+  public static MouseManager GetInstance()
+  {
+      return GameObject.Find(StringManager.Names.mouseManager).GetComponent<MouseManager>();
+  }
 }

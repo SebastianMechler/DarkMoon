@@ -10,6 +10,8 @@ public enum AudioType
 {
   INTERACT,
   PUZZLE_FAILURE,
+  PUZZLE_SUCCESS,
+  TERMINAL_COMPILE_SUCCESS,
 }
 
 [System.Serializable]

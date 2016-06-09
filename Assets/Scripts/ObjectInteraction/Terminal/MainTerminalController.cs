@@ -43,10 +43,12 @@ public class MainTerminalController : MonoBehaviour
     if (IsAllDataActivated())
     {
       Debug.Log("Player has collected and activated all Data, he can escape now.");
+      SingletonManager.UIManager.SetUIVisibility(UIType.MainTerminal, true);
+      SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
     }
   }
 
-  bool IsAllDataActivated()
+  public bool IsAllDataActivated()
   {
     int activatedCount = 0;
 

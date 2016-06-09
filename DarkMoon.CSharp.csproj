@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scripts\Enemy\PathfindingAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointSystem.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointTreeNode.cs" />
+    <Compile Include="Assets\Scripts\Exit.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\ImageEffects\GrayScale.cs" />
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
@@ -130,7 +131,9 @@
     <Compile Include="Assets\Scripts\Tools\DisableRendererOnStart.cs" />
     <Compile Include="Assets\Scripts\Tools\SingletonManager.cs" />
     <Compile Include="Assets\Scripts\Tools\StringManager.cs" />
+    <Compile Include="Assets\Scripts\UI\DeathScreen.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\SuccessScreen.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>

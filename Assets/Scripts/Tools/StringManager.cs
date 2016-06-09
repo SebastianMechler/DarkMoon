@@ -71,6 +71,8 @@ public class StringManager : MonoBehaviour
   {
     public const string mainMenu = "MainScene";
     public const string game = "Prototype_EnemyScript";
+    public const string deathScreen = "DeathScreen";
+    public const string successScreen = "SuccessScreen";
   }
 }
 

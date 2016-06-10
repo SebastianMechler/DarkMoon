@@ -117,8 +117,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AssetStore\Stealth (Unity4x)\Shaders\ReflectiveDiffuseSpecTransp.shader" />
+    <None Include="Assets\Resources\GrayScale.shader" />
     <None Include="Assets\Scripts\Enemy\pathfinding_v2.txt" />
-    <None Include="Assets\Scripts\Shader\GrayScale.shader" />
     <None Include="Assets\Scripts\Shader\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Shader\GreyScale.shader" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />

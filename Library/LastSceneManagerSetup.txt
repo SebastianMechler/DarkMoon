@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/BrianScenes/Copy_Prototype_EnemyScript.unity
+- path: Assets/Scenes/Peter.unity
   isLoaded: 1
   isActive: 1

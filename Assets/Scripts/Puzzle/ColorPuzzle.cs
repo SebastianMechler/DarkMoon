@@ -42,7 +42,8 @@ public class ColorPuzzle : MonoBehaviour
           if (IsPuzzleSolved())
           {
             Debug.Log("VICTORY @ PUZZLE");
-            
+            SingletonManager.AudioManager.Play(AudioType.PUZZLE_SUCCESS);
+
             if (m_doorToOpen == null)
             {
               Debug.Log("Make sure to attach a door to the ColorPuzzle.");

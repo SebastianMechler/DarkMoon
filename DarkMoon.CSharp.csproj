@@ -61,21 +61,6 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>Library\UnityAssemblies\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="DarkMoon.CSharp.Plugins.csproj">
@@ -111,20 +96,17 @@
     <Compile Include="Assets\AssetStore\Stealth (Unity4x)\Done\DoneScripts\UnappliedScripts\guiTextSet.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Audio\BGMixer.cs" />
-    <Compile Include="Assets\Scripts\BrianMods\BrianGameManager.cs" />
-    <Compile Include="Assets\Scripts\BrianMods\BrianMainMenu.cs" />
-    <Compile Include="Assets\Scripts\BrianMods\BrianSingletonManager.cs" />
-    <Compile Include="Assets\Scripts\BrianMods\BrianStringManager.cs" />
-    <Compile Include="Assets\Scripts\BrianMods\BrianUIManager.cs" />
     <Compile Include="Assets\Scripts\Enemy\CollisionDetection.cs" />
     <Compile Include="Assets\Scripts\Enemy\CreateNoise.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAiScript.cs" />
     <Compile Include="Assets\Scripts\Enemy\PathfindingAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointSystem.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointTreeNode.cs" />
+    <Compile Include="Assets\Scripts\Exit.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\ImageEffects\GrayScale.cs" />
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Minimap.cs" />
     <Compile Include="Assets\Scripts\MouseManager.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Chest\ObjectInteractionChest.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\ColorPuzzle\ObjectInteractionColorPuzzle.cs" />
@@ -150,13 +132,15 @@
     <Compile Include="Assets\Scripts\Tools\DisableRendererOnStart.cs" />
     <Compile Include="Assets\Scripts\Tools\SingletonManager.cs" />
     <Compile Include="Assets\Scripts\Tools\StringManager.cs" />
+    <Compile Include="Assets\Scripts\UI\DeathScreen.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\UI\SuccessScreen.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\AssetStore\Stealth (Unity4x)\Shaders\ReflectiveDiffuseSpecTransp.shader" />
+    <None Include="Assets\Resources\GrayScale.shader" />
     <None Include="Assets\Scripts\Enemy\pathfinding_v2.txt" />
-    <None Include="Assets\Scripts\Shader\GrayScale.shader" />
     <None Include="Assets\Scripts\Shader\Outlined-Silhouette Only.shader" />
     <None Include="Assets\Shader\GreyScale.shader" />
     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />

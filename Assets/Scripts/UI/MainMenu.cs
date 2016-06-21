@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     SceneManager.LoadScene(StringManager.Scenes.game);
     SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
     SingletonManager.GameManager.SetGameState(GameState.INGAME);
+    Time.timeScale = 1.0f;
   }
 
   public void OnClick_MainMenu_Exit()

@@ -9,8 +9,9 @@ public class SingletonManager : MonoBehaviour
   private static UIManager m_uiManager = null;
   private static GameObject m_player = null;
   private static AudioManager m_audioManager = null;
+  private static Minimap m_minimap = null;
 
-    public static MouseManager MouseManager
+  public static MouseManager MouseManager
     {
         get
         {
@@ -81,6 +82,18 @@ public class SingletonManager : MonoBehaviour
         m_audioManager = AudioManager.GetInstance();
       }
       return m_audioManager;
+    }
+  }
+
+  public static Minimap Minimap
+  {
+    get
+    {
+      if (m_minimap == null)
+      {
+        m_minimap = Minimap.GetInstance();
+      }
+      return m_minimap;
     }
   }
 }

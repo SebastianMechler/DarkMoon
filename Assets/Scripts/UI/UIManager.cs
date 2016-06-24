@@ -138,6 +138,20 @@ public class UIManager : MonoBehaviour
     SingletonManager.UIManager.SetUIVisibility(UIType.PauseMenu, !isVisisble);
   }
 
+  public void ToggleMinimap(bool state)
+  {
+    // Circle
+    Image imgCircle = GameObject.Find(StringManager.UI.MinimapCirclePanel).gameObject.GetComponent<Image>();
+    imgCircle.enabled = state;
+
+    RawImage rawImage = GameObject.Find(StringManager.UI.MinimapCircle).gameObject.GetComponent<RawImage>();
+    rawImage.enabled = state;
+
+    // Rect
+    RawImage imageRect = GameObject.Find(StringManager.UI.MinimapRect).gameObject.GetComponent<RawImage>();
+    imageRect.enabled = state;
+  }
+
   //
   // PAUSE MENU
   //

@@ -16,6 +16,8 @@ public class StringManager : MonoBehaviour
     public const string player = "Player";
     public const string enemy = "Enemy";
     public const string flashLight = "FlashLight";
+    public const string minimap = "MinimapCamera";
+    public const string grayScaleManager = "GrayScaleManager";
   }
 
   public class Tags
@@ -59,6 +61,9 @@ public class StringManager : MonoBehaviour
     public const string BatteryText = "BatteryText";
     public const string PauseMenu = "PauseMenuUI";
     public const string MainMenu = "MainMenuUI";
+    public const string MinimapCirclePanel = "MinimapCirclePanel";
+    public const string MinimapCircle = "MinimapCircle";
+    public const string MinimapRect = "MinimapRect";
   }
 
 

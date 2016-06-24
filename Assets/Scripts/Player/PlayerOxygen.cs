@@ -16,22 +16,23 @@ public class PlayerOxygen : MonoBehaviour
   public float m_grayScaleEffectStart = 0.2f; // percentage when the GrayScale will start to fáde in (range from 0.0f to 1.0f)
   //public float m_grayScaleIntensity = 0.3f; // value which indicates how strong the grayscale effect should appear based on oxygen range from 0.0f to 0.5f the higher the value the more grayScale will be effected from beginning
 
-  GrayScale m_grayScale = null;
-  
+ // GrayScale m_grayScale = null;
+  GrayScaleManager m_grayScaleManager = null;
 	void Start ()
   {
-    m_grayScale = Camera.main.GetComponent<GrayScale>();
+    m_grayScaleManager = SingletonManager.GrayScaleManager;
+    //m_grayScale = Camera.main.GetComponent<GrayScale>();
 	}
 
 	void Update()
   {
     if (GetPercentage() < m_grayScaleEffectStart)
     {
-      m_grayScale.Enable();
+      m_grayScaleManager.Enable();
     }
     else
     {
-      m_grayScale.Disable();
+      m_grayScaleManager.Disable();
     }
 
     //m_grayScale.m_intensity = GetPercentageInversed();

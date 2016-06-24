@@ -31,6 +31,11 @@ public class PlayerBattery : MonoBehaviour
         m_flashLight.SetState(FlashLightState.OFF);
       }
     }
+
+    if (m_current <= 0.0f)
+    {
+      SingletonManager.Minimap.SetEnableState(false);
+    }
   }
   
   public void Increase(float value)

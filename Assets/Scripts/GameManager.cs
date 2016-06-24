@@ -17,6 +17,7 @@ public struct GameControls
 
   // ui
   public KeyCode ui_togglePauseMenu;
+  public KeyCode ui_toggleMinimap;
 }
 
 public enum GameState

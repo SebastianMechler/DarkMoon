@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// DO NOT USE THIS FILE ANYMORE
+
+// PROCESS IS NOW AS FOLLOWING:
+// GrayScaleManager manages the grayscale itself
+// CameraGrayScale will only get information from GrayScaleManager e. g. the intensity and material to change the RenderTexture through the shader
+
 [ExecuteInEditMode]
 public class GrayScale : MonoBehaviour
 {

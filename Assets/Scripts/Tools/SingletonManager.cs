@@ -10,6 +10,7 @@ public class SingletonManager : MonoBehaviour
   private static GameObject m_player = null;
   private static AudioManager m_audioManager = null;
   private static Minimap m_minimap = null;
+  private static GrayScaleManager m_grayScaleManager = null;
 
   public static MouseManager MouseManager
     {
@@ -94,6 +95,18 @@ public class SingletonManager : MonoBehaviour
         m_minimap = Minimap.GetInstance();
       }
       return m_minimap;
+    }
+  }
+
+  public static GrayScaleManager GrayScaleManager
+  {
+    get
+    {
+      if (m_grayScaleManager == null)
+      {
+        m_grayScaleManager = GrayScaleManager.GetInstance();
+      }
+      return m_grayScaleManager;
     }
   }
 }

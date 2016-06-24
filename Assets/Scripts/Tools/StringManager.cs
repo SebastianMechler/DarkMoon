@@ -17,6 +17,7 @@ public class StringManager : MonoBehaviour
     public const string enemy = "Enemy";
     public const string flashLight = "FlashLight";
     public const string minimap = "MinimapCamera";
+    public const string grayScaleManager = "GrayScaleManager";
   }
 
   public class Tags

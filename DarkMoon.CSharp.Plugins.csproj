@@ -122,7 +122,9 @@
     <None Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
     <None Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\AssetStore\Heavy Station Kit base\info_base.txt" />
+    <None Include="Assets\AssetStore\Heavy Station Kit base\info_hangar.txt" />
     <None Include="Assets\AssetStore\Stealth (Unity4x)\Shaders\ReflectiveDiffuseSpecTransp.shader" />
     <None Include="Assets\Resources\GrayScale.shader" />
     <None Include="Assets\Scripts\Enemy\pathfinding_v2.txt" />

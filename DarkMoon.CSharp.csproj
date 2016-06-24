@@ -85,9 +85,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AssetStore\Free\OldChest\DemoScene\MouseOrbit.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Doors\Scripts\DotHskDoorCloser.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Doors\Scripts\DotHskDoorSlide.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Doors\Scripts\DotHskGate2.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Doors\Scripts\DotHskLockDoorBeep.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Doors\Scripts\DotHskLockGateBeep.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Doors\Scripts\DotUwsDoorBeep.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Doors\Scripts\DotUwsDoorCloser.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Doors\Scripts\DotUwsDoorSlide.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Elevators\Scripts\Elevator_move.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Ladders\Scripts\DotLadder.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Prefabs\Ladders\Scripts\DotLadderController.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Scripts\DotFirstPersonController.cs" />
@@ -113,6 +119,14 @@
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Scripts\Displace.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Scripts\GerstnerDisplace.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Scripts\MeshContainer.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Scripts\PlanarReflection.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Scripts\SpecularLighting.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Scripts\Water.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Scripts\WaterBase.cs" />
+    <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Scripts\WaterTile.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Utility\ActivateTrigger.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Utility\AutoMobileShaderSwitch.cs" />
     <Compile Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Utility\AutoMoveAndRotate.cs" />
@@ -215,7 +229,9 @@
     <None Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
     <None Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
     <None Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
+    <None Include="Assets\AssetStore\Heavy Station Kit base\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
     <None Include="Assets\AssetStore\Heavy Station Kit base\info_base.txt" />
+    <None Include="Assets\AssetStore\Heavy Station Kit base\info_hangar.txt" />
     <None Include="Assets\AssetStore\Stealth (Unity4x)\Shaders\ReflectiveDiffuseSpecTransp.shader" />
     <None Include="Assets\Resources\GrayScale.shader" />
     <None Include="Assets\Scripts\Enemy\pathfinding_v2.txt" />

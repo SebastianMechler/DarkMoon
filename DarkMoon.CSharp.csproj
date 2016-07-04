@@ -105,6 +105,7 @@
     <Compile Include="Assets\Scripts\Exit.cs" />
     <Compile Include="Assets\Scripts\ForTestingPurposeOnly.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\HidingZone.cs" />
     <Compile Include="Assets\Scripts\ImageEffects\CameraGrayScale.cs" />
     <Compile Include="Assets\Scripts\ImageEffects\GrayScale.cs" />
     <Compile Include="Assets\Scripts\ImageEffects\GrayScaleManager.cs" />

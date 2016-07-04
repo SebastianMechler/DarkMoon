@@ -106,8 +106,8 @@ public class PlayerMovement : MonoBehaviour
     UpdatePlayerState();
 
     // Test output for all encoded playerstates
-    /*
-    if (Input.GetKey(SingletonManager.GameManager.m_gameControls.interactWithObject))
+    
+    if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.interactWithObject))
     {
       Debug.Log("===============================================");
       Debug.Log("WALK: " + HasMovementState(MovementState.WALK));
@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
       Debug.Log("CROUCH: " + HasMovementState(MovementState.CROUCH));
       Debug.Log("===============================================");
     }
-    */
+    
     
 
     if (m_movementVector != Vector3.zero)
@@ -165,7 +165,7 @@ public class PlayerMovement : MonoBehaviour
     m_movementState |= state; // encode it with bit-or
   }
 
-  bool HasMovementState(MovementState state)
+  public bool HasMovementState(MovementState state)
   {
     // check if the bit is set
     if ((m_movementState & state) == state)

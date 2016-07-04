@@ -6,7 +6,7 @@ public class CollisionDetection : MonoBehaviour
 {
   void OnTriggerEnter(Collider other)
   {
-    if (StringManager.Tags.player.Equals(other.gameObject.tag))
+    if (StringManager.Tags.player.Equals(other.gameObject.tag) && HidingZone.g_isPlayerHidden == false)
     {
       //GameManager.ClearDebugConsole();
       //Debug.Log(" †††† The Player just died a bit ††††");

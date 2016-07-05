@@ -7,6 +7,8 @@ public class CreateNoise : MonoBehaviour {
 	public string m_UniqueName;
 	public bool m_PlaySoundOnEnter;
 	public GameObject m_NearestWaypoint;
+  public GameObject m_hidingZone = null;
+
 	float lastNearestDistance = float.MaxValue;
 
 	// Use this for initialization
@@ -29,24 +31,31 @@ public class CreateNoise : MonoBehaviour {
 				m_NearestWaypoint = list[i];
 			}
 		}
-		// Debug.Log("[!] Shortest Distance starting from " + m_UniqueName + ": " + m_NearestWaypoint.name);
-	}
+    // Debug.Log("[!] Shortest Distance starting from " + m_UniqueName + ": " + m_NearestWaypoint.name);
+  }
 
 	void OnTriggerEnter(Collider other)
 	{
 		if(other.tag == StringManager.Tags.player)
 		{
-			if (m_PlaySoundOnEnter)
+  		if (m_PlaySoundOnEnter)
 			{
 				gameObject.GetComponent<AudioSource>().Play();
 			}
-		    // Debug.Log("[:] CreateNoise OnTriggerEnter Called");
-			m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
+		  // Debug.Log("[:] CreateNoise OnTriggerEnter Called");
+  		m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
 
-            gameObject.GetComponent<Renderer>().enabled = false;
-            gameObject.GetComponent<BoxCollider>().enabled = false;
-            // gameObject.SetActive(false);
-        }
+      // effect occours only once
+      gameObject.GetComponent<Renderer>().enabled = false;
+      gameObject.GetComponent<BoxCollider>().enabled = false;
+      //gameObject.SetActive(false);
+
+      // disable hiding zone
+      if (m_hidingZone != null)
+      {
+        m_hidingZone.GetComponent<HidingZone>().OnNoiseTrigger();
+      }
+    }
 	}
 
 	public string getName()

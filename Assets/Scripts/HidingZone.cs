@@ -5,11 +5,15 @@ public class HidingZone : MonoBehaviour
 {
   public static bool g_isPlayerHidden = false;
   public bool m_isCrouchingZone = false;
+  public float m_disableOnNoiseTime = 15.0f; // time in seconds
+  float m_disableOnNoiseTimer = 0.0f; // timer which calculates the time
 
   PlayerMovement m_playerMovement = null;
 
-  float timer = 0.15f;
-  float timer_max = 0.15f;
+  float m_timer = 0.15f;
+  float m_timerMax = 0.15f;
+
+  bool m_isEnabled = true;
 
 	void Start ()
   {
@@ -18,18 +22,33 @@ public class HidingZone : MonoBehaviour
 
   void Update()
   {
-    timer -= Time.deltaTime;
+    m_timer -= Time.deltaTime;
 
-    if (timer <= 0.0f)
+    if (m_timer <= 0.0f)
     {
-      timer = timer_max;
+      m_timer = m_timerMax;
       SingletonManager.UIManager.ToggleHiddenState(g_isPlayerHidden);
+      //SingletonManager.UIManager.ToggleHiddenState(true);
+    }
+
+    // timer is running?
+    if (m_disableOnNoiseTimer > 0.0f)
+    {
+      // reduce time
+      m_disableOnNoiseTimer -= Time.deltaTime;
+
+      // timer ends?
+      if (m_disableOnNoiseTimer <= 0.0f)
+      {
+        // allow hiding
+        m_isEnabled = true;
+      }
     }
   }
   
   void OnTriggerStay(Collider collider)
   {
-    if (collider.gameObject.name == StringManager.Names.player)
+    if (m_isEnabled && collider.gameObject.name == StringManager.Names.player)
     {
       if (m_isCrouchingZone)
       {
@@ -55,5 +74,12 @@ public class HidingZone : MonoBehaviour
     {
       g_isPlayerHidden = false;
     }
+  }
+
+  public void OnNoiseTrigger()
+  {
+    m_disableOnNoiseTimer = m_disableOnNoiseTime;
+    g_isPlayerHidden = false;
+    m_isEnabled = false;
   }
 }

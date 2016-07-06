@@ -1,0 +1,37 @@
+﻿ 
+ Heavy Station Kit base
+
+ -----------------
+ H A N G A R   1.2
+ -----------------
+
+VERSION 1.2
+
+- Overall -50% tris from colliders. Colliders were redone for all prefabs, with box colliders and low poly mesh.
+- Added Top-Down support with new prefabs
+- Added Top-Down Demo Scene
+- Added Six New Objects as prefabs to Props
+- Added One New Object as prefab to Aggregates
+- Added One New Object as prefab to Support
+- Modified Light Source in some Wall prefabs
+- New Metal Material for all Prefabs (identical to one in Heavy Station Kit base)
+- New Skybox
+
+
+Version 1.1
+
+- Fixed compability issue with Sci-Fi Heavy Station Kit base.
+Previously, because of conflicted identical names of Meshes from different packages, these .fbx where overriding each other. Now names of such .fbx are modified so overriding no longer exists. Naming of corresponding Prefabs is not changed.
+- Dot FPC was modified to be exact copy of Dot FPC from in Heavy Station kit base.
+- Scripts that are necessary for compability were added.
+- No overriding happens at combining two Kits, so Console log is clean.
+- Info file was added to the package with Name and version of package as well as links to Forum, Web-site and e-mail.
+
+ DotTeam Assets Forum
+ http://forum.unity3d.com/threads/1-3d-model-promo-set-easy-marketing-materials-for-3d-models-post-14-dotteam.385773/
+
+ DotTeam Site
+ http://dotteam.fursdesign.com
+
+ DotTeam support E-mail
+ charge@fursdesign.com

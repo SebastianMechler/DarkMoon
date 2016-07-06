@@ -64,6 +64,7 @@ public class StringManager : MonoBehaviour
     public const string MinimapCirclePanel = "MinimapCirclePanel";
     public const string MinimapCircle = "MinimapCircle";
     public const string MinimapRect = "MinimapRect";
+    public const string HiddenState = "HiddenStateImage";
   }
 
 

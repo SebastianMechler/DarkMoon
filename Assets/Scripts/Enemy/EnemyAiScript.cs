@@ -83,6 +83,11 @@ public class EnemyAiScript : MonoBehaviour {
 	public List<GameObject> finalisedRoute;
 	private List<string> finalisedRouteCheck;
 
+    // Animation Data
+    public GameObject m_AnimationController;
+    private bool playWalkOnce = false;
+    private bool playLookOnce = false;
+
 	[System.Serializable]
 	public struct GroupDistance
 	{
@@ -192,7 +197,10 @@ public class EnemyAiScript : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+
+	    UpdateAnimationController();
 
 		if ( m_MovementPattern == MovementPattern.STATIC )
 		{
@@ -203,11 +211,12 @@ public class EnemyAiScript : MonoBehaviour {
 					break;
 
 				case ActionType.PATROL:
-					AI_Static_PatrolMovement();
+                    AI_Static_PatrolMovement();
 					break;
 
 				case ActionType.WAITFOR_SECONDS:
-					AI_Static_WaitForSeconds();
+                    g_MovementSpeed = 0.0f;
+                    AI_Static_WaitForSeconds();
 					break;
 			}
 		}
@@ -227,21 +236,34 @@ public class EnemyAiScript : MonoBehaviour {
 					break;
 
                 case ActionType.WAITFOR_SECONDS:
-			        m_WaitTimer += Time.deltaTime;
+                    m_WaitTimer += Time.deltaTime;
 			        if (m_WaitTimer >= m_WaitAfterEachWaypoint)
 			        {
+			            g_MovementSpeed = 0.0f;
 			            m_CurrentAction = ActionType.PATROL;
 			        }
                     break;
 
 				case ActionType.PATROL:
-					AI_Dynamic_PatrolMovement();
+                    AI_Dynamic_PatrolMovement();
 					break;
 			}
 		}
 	}
 
+    void UpdateAnimationController()
+    {
+        if (m_CurrentAction == ActionType.PATROL)
+        {
+            m_AnimationController.GetComponent<Animator>().SetFloat("walkingSpeed", g_MovementSpeed);
+        }
 
+        if (m_CurrentAction == ActionType.WAITFOR_SECONDS)
+        {
+            m_AnimationController.GetComponent<Animator>().SetFloat("walkingSpeed", 0.0f);
+            m_AnimationController.GetComponent<Animator>().SetTrigger("triggerLookAround");
+        } 
+    }
     
 
 	void CalculateAllDistances()
@@ -295,7 +317,9 @@ public class EnemyAiScript : MonoBehaviour {
 	void OnTriggerEnter(Collider other)
 	{
 	    // Debug.Log("Colliding gameObject.name: " + other.gameObject.name);
-	    if (other.gameObject.name.Equals(StringManager.Names.player) || other.gameObject.name.Equals(StringManager.Resources.debugLvPrototype))
+	    if (other.gameObject.name.Equals(StringManager.Names.player) 
+            || other.gameObject.name.Equals(StringManager.Resources.debugLvPrototype) 
+            || other.gameObject.name.Equals("enemy_placeholder(forward_walk)"))
 	    {
             return;
 	    }
@@ -348,8 +372,10 @@ public class EnemyAiScript : MonoBehaviour {
 		Vector3 toTarget = to - fr;
 		toTarget.y = 0.0f;
 
-		// Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
-		float turnRate = g_TurnRate * Time.deltaTime;
+	    g_MovementSpeed = g_MovementSpeedNormal;
+
+        // Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
+        float turnRate = g_TurnRate * Time.deltaTime;
 		Quaternion lookRotation = Quaternion.LookRotation(toTarget);
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
 		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime);
@@ -583,8 +609,10 @@ public class EnemyAiScript : MonoBehaviour {
         Vector3 toTarget = to - from;
 		toTarget.y = 0.0f;
 
-		// Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
-		float turnRate = g_TurnRate * Time.deltaTime;
+        g_MovementSpeed = g_MovementSpeedNormal;
+
+        // Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
+        float turnRate = g_TurnRate * Time.deltaTime;
 		Quaternion lookRotation = Quaternion.LookRotation(toTarget);
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
 		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime);

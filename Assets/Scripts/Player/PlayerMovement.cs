@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum PlayerState
+// every bit is used for one state
+// this is required to encode multiple states into one variable
+public enum MovementState
 {
-    WALK,
-    RUN,
-    STAND,
-    CROUCH,
-    NONE,
+  // each state must be multiplied with 2, else the bit's cant be encoded anymore
+  NONE =    0x0,
+  WALK =    0x1,
+  RUN =     0x2,
+  STAND =   0x4,
+  CROUCH =  0x8,
 }
 
 public class PlayerMovement : MonoBehaviour
@@ -27,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
   [Tooltip("[0.0f to max] Defines the crouch-speed to move up/down the collider when crouching.")]
   public float m_crouchSpeed = 2.0f; // speed of crouching
    
-  private PlayerState m_movementState = PlayerState.NONE; // current state of the player
+  private MovementState m_movementState = MovementState.NONE; // current state of the player
 
   private Vector3 m_movementVector = new Vector3(0.0f, 0.0f, 0.0f); // movement vector
   private Rigidbody m_rigidbody;
@@ -46,6 +49,9 @@ public class PlayerMovement : MonoBehaviour
 
   void FixedUpdate()
   {
+    // reset movement state
+    m_movementState = MovementState.NONE;
+
     // reset movement Vector
     m_movementVector = Vector3.zero;
 
@@ -75,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
       Vector3 tmp = Vector3.Normalize(Camera.main.transform.forward);
       m_movementVector += -Vector3.Cross(tmp, Vector3.up);
     }
-    
+
     // make movementVector with length of 1
     m_movementVector.Normalize();
 
@@ -96,10 +102,23 @@ public class PlayerMovement : MonoBehaviour
         Crouch(m_crouchSpeed);
     }
   
-
     // Update player state
     UpdatePlayerState();
+
+    // Test output for all encoded playerstates
     
+    if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.interactWithObject))
+    {
+      Debug.Log("===============================================");
+      Debug.Log("WALK: " + HasMovementState(MovementState.WALK));
+      Debug.Log("RUN: " + HasMovementState(MovementState.RUN));
+      Debug.Log("STAND: " + HasMovementState(MovementState.STAND));
+      Debug.Log("CROUCH: " + HasMovementState(MovementState.CROUCH));
+      Debug.Log("===============================================");
+    }
+    
+    
+
     if (m_movementVector != Vector3.zero)
     {
       m_movementVector = m_movementVector * m_movementSpeed * 100.0f * Time.fixedDeltaTime;
@@ -110,44 +129,53 @@ public class PlayerMovement : MonoBehaviour
     
   }
 
-    void UpdatePlayerState()
+  void UpdatePlayerState()
+  {
+    if (m_movementVector == Vector3.zero)
     {
-        if (m_movementVector == Vector3.zero)
-        {
-            // player is standing or crouching
-            if (Input.GetKey(SingletonManager.GameManager.m_gameControls.crouch))
-            {
-                m_movementState = PlayerState.CROUCH;
-                //Crouch(-m_crouchSpeed);
-            }
-            else
-            {
-                m_movementState = PlayerState.STAND;
-            }
-        }
-        else
-        {
-            // player is running or walking
-            if (Input.GetKey(SingletonManager.GameManager.m_gameControls.run))
-            {
-                m_movementState = PlayerState.RUN;
-            }
-            else
-            {
-                m_movementState = PlayerState.WALK;
-            }
-        }
-
-        if (m_movementState != PlayerState.CROUCH)
-        {
-          //if (m_capsuleCollider.height != m_crouchHeightMax)
-           // Crouch(m_crouchSpeed);
-        }
+      EncodeMovementState(MovementState.STAND);
     }
+    else
+    {
+      // player is running or walking
+      if (Input.GetKey(SingletonManager.GameManager.m_gameControls.run))
+      {
+        EncodeMovementState(MovementState.RUN);
+      }
+      else
+      {
+        EncodeMovementState(MovementState.WALK);
+      }
+    }
+    
+    // player is standing or crouching
+    if (Input.GetKey(SingletonManager.GameManager.m_gameControls.crouch))
+    {
+      EncodeMovementState(MovementState.CROUCH);
+    }
+  }
 
   void Crouch(float value)
   {
     m_capsuleCollider.height = Mathf.Clamp(m_capsuleCollider.height += value * 1.0f * Time.fixedDeltaTime, m_crouchHeightMin, m_crouchHeightMax);
+  }
+
+  void EncodeMovementState(MovementState state)
+  {
+    m_movementState |= state; // encode it with bit-or
+  }
+
+  public bool HasMovementState(MovementState state)
+  {
+    // check if the bit is set
+    if ((m_movementState & state) == state)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
   }
 }
 

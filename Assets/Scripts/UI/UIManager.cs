@@ -152,6 +152,15 @@ public class UIManager : MonoBehaviour
     imageRect.enabled = state;
   }
 
+  public void ToggleHiddenState(bool state)
+  {
+    Image imgCircle = GameObject.Find(StringManager.UI.HiddenState).gameObject.GetComponent<Image>();
+    //if (imgCircle.enabled == state)
+      //return;
+
+    imgCircle.enabled = state;
+  }
+
   //
   // PAUSE MENU
   //

@@ -63,6 +63,7 @@ public class StringManager : MonoBehaviour
     public const string MainMenu = "MainMenuUI";
     public const string MinimapCirclePanel = "MinimapCirclePanel";
     public const string MinimapCircle = "MinimapCircle";
+    public const string MinimapCircleOutline = "MinimapCircleOutline";
     public const string MinimapRect = "MinimapRect";
     public const string HiddenState = "HiddenStateImage";
   }

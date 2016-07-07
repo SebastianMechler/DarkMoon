@@ -11,12 +11,24 @@ public class Minimap : MonoBehaviour
 
   void Start()
   {
-    GetComponent<Camera>().orthographicSize = m_viewDistance;
+    SetViewDistance(m_viewDistance);
   }
 
-	void FixedUpdate()
+	void Update()
   {
-    
+
+    // TESTING PURPOSE ONLY: increase size
+    if (Input.GetKeyDown(KeyCode.KeypadPlus))
+    {
+      SetViewDistance(GetViewDistance() + 5.0f);
+    }
+
+    // TESTING PURPOSE ONLY: decrease size
+    if (Input.GetKeyDown(KeyCode.KeypadMinus))
+    {
+      SetViewDistance(GetViewDistance() - 5.0f);
+    }
+
     // enable or disable
     if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.ui_toggleMinimap))
     {
@@ -27,7 +39,7 @@ public class Minimap : MonoBehaviour
       return;
 
     this.transform.position = new Vector3(m_target.transform.position.x, this.transform.position.y, m_target.transform.position.z);
-    SingletonManager.Player.GetComponent<PlayerBattery>().Increase(-m_batteryCost * Time.fixedDeltaTime);
+    SingletonManager.Player.GetComponent<PlayerBattery>().Increase(-m_batteryCost * Time.deltaTime);
 
     if (m_allowRotation)
     {
@@ -36,10 +48,19 @@ public class Minimap : MonoBehaviour
     }
   }
 
+  public float GetViewDistance()
+  {
+    return GetComponent<Camera>().orthographicSize;
+  }
+
+  public void SetViewDistance(float viewDistance)
+  {
+    GetComponent<Camera>().orthographicSize = Mathf.Clamp(viewDistance, 0.0f, 100.0f);
+  }
+
   public void SetEnableState(bool enabled)
   {
     this.m_enabled = enabled;
-
     SingletonManager.UIManager.ToggleMinimap(enabled);
   }
 

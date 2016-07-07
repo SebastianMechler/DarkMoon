@@ -147,9 +147,25 @@ public class UIManager : MonoBehaviour
     RawImage rawImage = GameObject.Find(StringManager.UI.MinimapCircle).gameObject.GetComponent<RawImage>();
     rawImage.enabled = state;
 
+    Image circleOutline = GameObject.Find(StringManager.UI.MinimapCircleOutline).gameObject.GetComponent<Image>();
+    circleOutline.enabled = state;
+
     // Rect
-    RawImage imageRect = GameObject.Find(StringManager.UI.MinimapRect).gameObject.GetComponent<RawImage>();
-    imageRect.enabled = state;
+    //RawImage imageRect = GameObject.Find(StringManager.UI.MinimapRect).gameObject.GetComponent<RawImage>();
+    //imageRect.enabled = state;
+  }
+
+  public void SetMinimapTransparency(float transparency)
+  {
+    RawImage rawImage = GameObject.Find(StringManager.UI.MinimapCircle).gameObject.GetComponent<RawImage>();
+    Color color = rawImage.color;
+    color.a = transparency;
+    rawImage.color = color;
+
+    Image circleOutline = GameObject.Find(StringManager.UI.MinimapCircleOutline).gameObject.GetComponent<Image>();
+    color = circleOutline.color;
+    color.a = transparency;
+    circleOutline.color = color;
   }
 
   public void ToggleHiddenState(bool state)

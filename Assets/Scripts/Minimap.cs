@@ -17,16 +17,16 @@ public class Minimap : MonoBehaviour
 	void Update()
   {
 
-    // TESTING PURPOSE ONLY: increase size
+    // TESTING PURPOSE ONLY: decrease size
     if (Input.GetKeyDown(KeyCode.KeypadPlus))
     {
-      SetViewDistance(GetViewDistance() + 5.0f);
+      SetViewDistance(GetViewDistance() - 5.0f);
     }
 
-    // TESTING PURPOSE ONLY: decrease size
+    // TESTING PURPOSE ONLY: increase size
     if (Input.GetKeyDown(KeyCode.KeypadMinus))
     {
-      SetViewDistance(GetViewDistance() - 5.0f);
+      SetViewDistance(GetViewDistance() + 5.0f);
     }
 
     // enable or disable

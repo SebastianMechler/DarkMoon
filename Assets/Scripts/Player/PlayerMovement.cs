@@ -125,6 +125,11 @@ public class PlayerMovement : MonoBehaviour
       m_movementVector.y = m_rigidbody.velocity.y; // this needs to be here, else the gravity on y-axis won't take effect on player while moving
       m_rigidbody.velocity = m_movementVector;
     }
+    else
+    {
+      // player won't slide anymore
+      m_rigidbody.velocity = new Vector3(0.0f, m_rigidbody.velocity.y, 0.0f);
+    }
 
     
   }

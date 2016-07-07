@@ -8,6 +8,7 @@ public class ObjectInteractionItem : ObjectInteractionBase
   void Start()
   {
     InitializeBase(ObjectInteractionType.ITEM);
+    m_item.SetGameObject(this.gameObject);
   }
 
   void Update()
@@ -24,21 +25,27 @@ public class ObjectInteractionItem : ObjectInteractionBase
 
     Inventory inventory = GameObject.FindGameObjectWithTag(StringManager.Tags.player).GetComponent<Inventory>();
 
-    switch(m_item.m_type)
+    // disable item visibility
+    m_item.SetEnableState(false);
+
+    // item specific things
+    switch (m_item.m_type)
     {
-      case ItemType.KEY:
+      case ItemType.Key:
         inventory.AddItem(m_item);
         break;
 
-      case ItemType.FLASH_LIGHT:
+      case ItemType.FlashLight:
+        inventory.AddItem(m_item);
         FlashLight.GetInstance().SetPickup();
+        break;
+
+      case ItemType.SnapLight:
         inventory.AddItem(m_item);
         break;
     }
-
+    // disable interacting
     Disable();
-    Destroy(this.gameObject);
-
   }
 }
 

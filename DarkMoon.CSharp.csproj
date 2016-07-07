@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scripts\ImageEffects\GrayScale.cs" />
     <Compile Include="Assets\Scripts\ImageEffects\GrayScaleManager.cs" />
     <Compile Include="Assets\Scripts\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Scripts\Inventory\ThrowItem.cs" />
     <Compile Include="Assets\Scripts\Minimap.cs" />
     <Compile Include="Assets\Scripts\MouseManager.cs" />
     <Compile Include="Assets\Scripts\ObjectInteraction\Chest\ObjectInteractionChest.cs" />

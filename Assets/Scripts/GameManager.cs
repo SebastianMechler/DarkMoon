@@ -14,6 +14,7 @@ public struct GameControls
   public KeyCode crouch;
   public KeyCode interactWithObject;
   public KeyCode flashLight;
+  public KeyCode throwItem;
 
   // ui
   public KeyCode ui_togglePauseMenu;

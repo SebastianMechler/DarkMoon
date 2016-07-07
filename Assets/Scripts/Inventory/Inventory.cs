@@ -5,8 +5,9 @@ using System.Collections.Generic;
 
 public enum ItemType
 {
-  KEY,
-  FLASH_LIGHT,
+  Key,
+  FlashLight,
+  SnapLight,
   NONE,
 }
 
@@ -15,11 +16,14 @@ public class Item
 {
   public ItemType m_type;
   public string m_name;
+  public float m_throwForce;
+  private GameObject m_gameObject;
 
   public Item()
   {
     m_type = ItemType.NONE;
     m_name = "Unused";
+    m_gameObject = null;
   }
 
   public Item(ItemType type, string name)
@@ -27,39 +31,55 @@ public class Item
     m_type = type;
     m_name = name;
   }
+
+  public void SetGameObject(GameObject gameObject)
+  {
+    m_gameObject = gameObject;
+  }
+
+  public GameObject GetGameObject()
+  {
+    return m_gameObject;
+  }
+
+  public void SetEnableState(bool state)
+  {
+    if (m_gameObject == null)
+    {
+      Debug.Log("Item::SetEnableState gameObject is null");
+    }
+
+    m_gameObject.SetActive(state);
+  }
+
+  public void Throw()
+  {
+    if (m_gameObject == null)
+    {
+      Debug.Log("Item::Throw gameObject is null");
+    }
+
+    m_gameObject.GetComponent<ThrowItem>().Throw(m_throwForce);
+  }
 }
 
 public class Inventory : MonoBehaviour
 {
   public List<Item> m_itemList = new List<Item>();
 
-  
-  void Start()
+  void Update()
   {
-    /*
-    Item item = new Item(ItemType.KEY, "LockDoorY");
-
-    AddItem(new Item(ItemType.KEY, "LockDoorX"));
-    AddItem(item);
-    AddItem(new Item(ItemType.KEY, "LockDoorZ"));
-
-    Debug.Log(m_itemList.Count);
-
-    Debug.Log(IsItemInInventory("LockDoorZ"));
-    RemoveItem(item);
-    Debug.Log(IsItemInInventory(item));
-
-    RemoveItem("LockDoorX");
-    
-
-    Debug.Log(m_itemList.Count);
-    Debug.Log(m_itemList[0].m_name);
-    */
+    // TESTING PURPOSE ONLY
+    if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.throwItem))
+    {
+      ThrowFirstItem();
+    }
   }
 
   public void AddItem(Item item)
   {
     Debug.Log("Added item with name: " + item.m_name);
+    
     if (!IsItemInInventory(item))
     {
       m_itemList.Add(item);
@@ -125,5 +145,17 @@ public class Inventory : MonoBehaviour
     }
 
     return false;
+  }
+
+  public void ThrowFirstItem()
+  {
+    if (m_itemList.Count == 0)
+      return;
+
+    Item item = m_itemList[0];
+    item.GetGameObject().transform.position = Camera.main.transform.position; //+ (Camera.main.transform.forward * 1.5f);
+    item.SetEnableState(true);
+    item.Throw();
+    RemoveItem(item);
   }
 }

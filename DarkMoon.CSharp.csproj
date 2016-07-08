@@ -98,6 +98,7 @@
     <Compile Include="Assets\Scripts\Audio\BGMixer.cs" />
     <Compile Include="Assets\Scripts\Enemy\CollisionDetection.cs" />
     <Compile Include="Assets\Scripts\Enemy\CreateNoise.cs" />
+    <Compile Include="Assets\Scripts\Enemy\CreateNoiseDynamically.cs" />
     <Compile Include="Assets\Scripts\Enemy\EnemyAiScript.cs" />
     <Compile Include="Assets\Scripts\Enemy\PathfindingAlgorithm.cs" />
     <Compile Include="Assets\Scripts\Enemy\WaypointSystem.cs" />

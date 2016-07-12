@@ -82,3 +82,5 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+/*.csproj
+/*.sln

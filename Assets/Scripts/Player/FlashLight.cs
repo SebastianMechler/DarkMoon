@@ -55,6 +55,7 @@ public class FlashLight : MonoBehaviour
       {
         m_light.range = m_range;
         m_flashState = FlashLightState.ON;
+        SingletonManager.AudioManager.Play(AudioType.FLASHLIGHT_ON);
       }
     }
     else
@@ -62,6 +63,7 @@ public class FlashLight : MonoBehaviour
       // disable flashLight
       m_light.range = 0;
       m_flashState = FlashLightState.OFF;
+      SingletonManager.AudioManager.Play(AudioType.FLASHLIGHT_OFF);
     }
   }
 

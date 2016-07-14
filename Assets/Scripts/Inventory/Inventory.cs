@@ -17,6 +17,7 @@ public class Item
   public ItemType m_type;
   public string m_name;
   public float m_throwForce;
+  public bool m_isThrowable;
   private GameObject m_gameObject;
 
   public Item()

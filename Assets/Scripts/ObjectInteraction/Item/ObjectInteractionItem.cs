@@ -32,18 +32,21 @@ public class ObjectInteractionItem : ObjectInteractionBase
     switch (m_item.m_type)
     {
       case ItemType.Key:
-        inventory.AddItem(m_item);
         break;
 
       case ItemType.FlashLight:
-        inventory.AddItem(m_item);
         FlashLight.GetInstance().SetPickup();
         break;
 
       case ItemType.SnapLight:
-        inventory.AddItem(m_item);
         break;
     }
+
+    if (m_item.m_isThrowable)
+    {
+      inventory.AddItem(m_item);
+    }
+
     // disable interacting
     Disable();
   }

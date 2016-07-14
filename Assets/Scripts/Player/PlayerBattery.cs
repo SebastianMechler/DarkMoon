@@ -40,12 +40,27 @@ public class PlayerBattery : MonoBehaviour
   
   public void Increase(float value)
   {
+    if (m_current <= 0.0f)
+    {
+      if (value > 0.0f)
+      {
+        SingletonManager.AudioManager.Play(AudioType.BATTERY_RECHARGE);
+      }
+    }
+
+    bool isZeroPreviously = m_current <= 0.0f ? true : false;
+
     if (m_current + value > m_max)
       m_current = m_max;
     else if (m_current + value < 0.0f)
       m_current = 0.0f;
     else
       m_current += value;
+
+    if (m_current == 0.0f && isZeroPreviously == false)
+    {
+      SingletonManager.AudioManager.Play(AudioType.BATTERY_OUT);
+    }
   }
 
   public float GetPercentage()

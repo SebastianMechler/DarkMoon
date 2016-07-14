@@ -10,7 +10,7 @@ public class CollisionDetection : MonoBehaviour
     {
       //GameManager.ClearDebugConsole();
       //Debug.Log(" †††† The Player just died a bit ††††");
-
+      SingletonManager.AudioManager.Play(AudioType.PLAYER_DEATH);
       // Player died, load deathscreen
       Time.timeScale = 1.0f;
       SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);

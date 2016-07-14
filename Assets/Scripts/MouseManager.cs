@@ -15,8 +15,16 @@ public class MouseManager : MonoBehaviour
 {
   private MouseState m_currentMouseState = MouseState.NONE;
 
+  static bool m_isCreated = false;
+
   void Awake()
   {
+    if (m_isCreated)
+    {
+      Destroy(this.gameObject);
+    }
+    m_isCreated = true;
+
     DontDestroyOnLoad(this.transform.gameObject);
   }
 

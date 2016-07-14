@@ -32,8 +32,16 @@ public class GameManager : MonoBehaviour
   public GameControls m_gameControls;
   public GameState m_gameState = GameState.MENU;
 
+  static bool m_isCreated = false;
+
   void Awake()
   {
+    if (m_isCreated)
+    {
+      Destroy(this.gameObject);
+    }
+    m_isCreated = true;
+
     DontDestroyOnLoad(this.transform.gameObject);
   }
 

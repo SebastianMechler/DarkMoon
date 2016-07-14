@@ -29,6 +29,7 @@ public class ThrowItem : MonoBehaviour
   {
     Debug.Log("Throwing item...");
     m_isFlying = true;
+    SingletonManager.AudioManager.Play(AudioType.THROW_ITEM);
     Vector3 forward = Camera.main.transform.forward;
     m_rigidbody.AddForce(new Vector3(forward.x * itemForce, forward.y * itemForce,  forward.z * itemForce), ForceMode.Impulse);
   }

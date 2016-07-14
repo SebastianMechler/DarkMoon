@@ -28,6 +28,16 @@ public class StringManager : MonoBehaviour
     public const string enemy = "Enemy";
   }
 
+  public class Layer
+  {
+    public const string defaultLayer = "Default";
+    public const string floorLayer = "Floor";
+    public const string wallLayer = "Wall";
+    public const string interactableObjectLayer = "InteractableObject";
+    public const string minimapLayer = "Minimap";
+    public const string hidingZoneLayer = "HidingZone";
+  }
+
 	public class Resources
 	{
 		public const string debugLvPrototype = "LvlPrototype";

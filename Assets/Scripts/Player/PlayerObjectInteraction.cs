@@ -81,10 +81,13 @@ public class PlayerObjectInteraction : MonoBehaviour
   GameObject GetNextInteractableObject()
   {
     Ray ray = new Ray(this.transform.position, this.transform.rotation * Vector3.forward);
-
+    
     RaycastHit hit;
     Debug.DrawLine(this.transform.position, this.transform.rotation * Vector3.forward * m_interactionDistance, Color.red);
-    if (Physics.Raycast(ray, out hit, m_interactionDistance))
+
+    // this maks-check is required because if an item is inside the hiding zone it cannot be picked up anymore, raycast will ignore layer HidingZone
+    int mask = 1 << LayerMask.NameToLayer(StringManager.Layer.floorLayer) | 1 << LayerMask.NameToLayer(StringManager.Layer.wallLayer) | 1 << LayerMask.NameToLayer(StringManager.Layer.defaultLayer) | 1 << LayerMask.NameToLayer(StringManager.Layer.interactableObjectLayer);
+    if (Physics.Raycast(ray, out hit, m_interactionDistance, mask))
     {
       //Debug.Log("Hit Interactable object" + hit.transform.gameObject.name.ToString());
       if (hit.transform.gameObject.tag == StringManager.Tags.interactableObject)

@@ -203,6 +203,7 @@ MonoBehaviour:
     m_type: 2
     m_name: SnapLight
     m_throwForce: 35
+    m_isThrowable: 1
 --- !u!114 &11482798
 MonoBehaviour:
   m_ObjectHideFlags: 1

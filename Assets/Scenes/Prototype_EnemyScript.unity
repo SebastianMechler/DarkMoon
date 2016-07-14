@@ -520,6 +520,10 @@ Prefab:
       propertyPath: m_Enemy
       value: 
       objectReference: {fileID: 1682064854}
+    - target: {fileID: 3303126, guid: 7c89cf80b26b72f469238c122e8598b2, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c89cf80b26b72f469238c122e8598b2, type: 2}
   m_IsPrefabParent: 0
@@ -2323,6 +2327,10 @@ Prefab:
       propertyPath: m_Enemy
       value: 
       objectReference: {fileID: 1682064854}
+    - target: {fileID: 3394698, guid: 9837f8e46cce7c744b7d285d0e38dd8d, type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9837f8e46cce7c744b7d285d0e38dd8d, type: 2}
   m_IsPrefabParent: 0

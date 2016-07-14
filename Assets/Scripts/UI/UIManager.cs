@@ -182,6 +182,7 @@ public class UIManager : MonoBehaviour
   //
   public void OnClick_PauseMenu_ButtonNewGame()
   {
+    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     Time.timeScale = 1.0f;
     SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -189,16 +190,19 @@ public class UIManager : MonoBehaviour
 
   public void OnClick_PauseMenu_Resume()
   {
+    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     TogglePauseMenu();
   }
 
   public void OnClick_PauseMenu_ButtonExit()
   {
+    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     Application.Quit();
   }
 
   public void OnClick_PauseMenu_MainMenu()
   {
+    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     Time.timeScale = 1.0f;
     SceneManager.LoadScene(StringManager.Scenes.mainMenu);
   }

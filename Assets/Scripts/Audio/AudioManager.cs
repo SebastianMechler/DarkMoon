@@ -12,6 +12,15 @@ public enum AudioType
   PUZZLE_FAILURE,
   PUZZLE_SUCCESS,
   TERMINAL_COMPILE_SUCCESS,
+  UI_BUTTON_CLICK,
+  THROW_ITEM,
+  BATTERY_OUT,
+  BATTERY_RECHARGE,
+  OXYGEN_OUT,
+  OXYGEN_RECHARGE,
+  FLASHLIGHT_ON,
+  FLASHLIGHT_OFF,
+  PLAYER_DEATH,
 }
 
 [System.Serializable]
@@ -41,8 +50,17 @@ public class AudioManager : MonoBehaviour
   public List<AudioStruct2> myList;
   public Dictionary<AudioType, AudioStruct> m_audioMap = new Dictionary<AudioType, AudioStruct>();
 
+
+  static bool m_isCreated = false;
+
   void Awake()
   {
+    if (m_isCreated)
+    {
+      Destroy(this.gameObject);
+    }
+    m_isCreated = true;
+
     DontDestroyOnLoad(this.transform.gameObject);
   }
 
@@ -56,7 +74,7 @@ public class AudioManager : MonoBehaviour
 
   public void Play(AudioType type)
   {
-    AudioSource source = Camera.main.GetComponent<AudioSource>();
+    AudioSource source = GetComponent<AudioSource>();//Camera.main.GetComponent<AudioSource>();
     source.volume = m_audioMap[type].volume;
     source.PlayOneShot(m_audioMap[type].clip);    
   }

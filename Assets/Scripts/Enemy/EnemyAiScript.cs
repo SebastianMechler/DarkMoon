@@ -75,7 +75,7 @@ public class EnemyAiScript : MonoBehaviour {
 	// public while debugging
 	private GameObject m_LastWaypoint;
 	private GameObject m_NextWaypoint;
-    public float m_WaitAfterEachWaypoint = 2.0f;
+    public float m_WaitAfterEachWaypoint = 4.1f;
     private float m_WaitTimer;
 	private GameObject[] m_TempWaypointList;
 	private GameObject m_NoiseSource;
@@ -316,7 +316,7 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-	    // Debug.Log("Colliding gameObject.name: " + other.gameObject.name);
+	    Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
 	    if (other.gameObject.name.Equals(StringManager.Names.player) 
             || other.gameObject.name.Equals(StringManager.Resources.debugLvPrototype) 
             || other.gameObject.name.Equals("enemy_placeholder(forward_walk)"))

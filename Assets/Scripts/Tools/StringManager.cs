@@ -26,6 +26,8 @@ public class StringManager : MonoBehaviour
     public const string interactableObject = "InteractableObject";
     public const string player = "Player";
     public const string enemy = "Enemy";
+    public const string noise = "NoiseSource";
+    public const string floor = "Floor";
   }
 
   public class Layer

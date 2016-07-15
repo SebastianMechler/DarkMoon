@@ -72,9 +72,9 @@ public class EnemyAiScript : MonoBehaviour {
 	// Dynamic Movement Pattern
 	public GameObject m_StartDynamicWaypoint;
 	public GameObject m_FirstDynamicWaypoint;
-	// public while debugging
-	private GameObject m_LastWaypoint;
-	private GameObject m_NextWaypoint;
+    // public while debugging
+    public GameObject m_LastWaypoint;
+    public GameObject m_NextWaypoint;
     public float m_WaitAfterEachWaypoint = 4.1f;
     private float m_WaitTimer;
 	private GameObject[] m_TempWaypointList;
@@ -316,20 +316,21 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-	    /*Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
+        /*Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
 	    if (other.gameObject.name.Equals(StringManager.Names.player) 
             || other.gameObject.name.Equals(StringManager.Resources.debugLvPrototype) 
             || other.gameObject.name.Equals("enemy_placeholder(forward_walk)"))
 	    {
             return;
 	    }*/
-        
-	    if (!other.gameObject.tag.Equals(StringManager.Tags.Waypoints))
+
+        if (!other.gameObject.tag.Equals(StringManager.Tags.Waypoints))
 	    {
             return;
 	    }
 
-		if (m_MovementPattern == MovementPattern.STATIC)
+        // Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
+        if (m_MovementPattern == MovementPattern.STATIC)
 		{
             string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();
             if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))

@@ -11,6 +11,8 @@ TagManager:
   - MainLight
   - Fader
   - Alarm
+  - NoiseSource
+  - Floor
   layers:
   - Default
   - TransparentFX

@@ -83,6 +83,8 @@ public class EnemyAiScript : MonoBehaviour {
 	public List<GameObject> finalisedRoute;
 	private List<string> finalisedRouteCheck;
 
+    public float m_ReadOnly_Speed;
+
     // Animation Data
     public GameObject m_AnimationController;
     // private bool playWalkOnce = false;
@@ -249,6 +251,9 @@ public class EnemyAiScript : MonoBehaviour {
 					break;
 			}
 		}
+
+	    m_ReadOnly_Speed = g_MovementSpeed;
+
 	}
 
     void UpdateAnimationController()
@@ -378,7 +383,7 @@ public class EnemyAiScript : MonoBehaviour {
 		Vector3 toTarget = to - fr;
 		toTarget.y = 0.0f;
 
-	    g_MovementSpeed = g_MovementSpeedNormal;
+	    g_MovementSpeed = g_MovementSpeedHaste; //g_MovementSpeedNormal;
 
         // Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
         float turnRate = g_TurnRate * Time.deltaTime;

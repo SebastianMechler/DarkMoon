@@ -3,11 +3,11 @@ using System.Collections;
 
 public class CreateNoise : MonoBehaviour {
 
-	public GameObject m_Enemy;
+	private GameObject m_Enemy;
 	public string m_UniqueName;
 	public bool m_PlaySoundOnEnter;
 	public GameObject m_NearestWaypoint;
-  public GameObject m_hidingZone = null;
+    public GameObject m_hidingZone = null;
 
 	float lastNearestDistance = float.MaxValue;
 
@@ -15,7 +15,7 @@ public class CreateNoise : MonoBehaviour {
 	void Awake ()
 	{
 		m_UniqueName = gameObject.GetHashCode().ToString();
-
+        
 		GameObject[] list = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
 		Vector3 thisGameObject = gameObject.transform.position;
 		Vector3 next;
@@ -33,6 +33,11 @@ public class CreateNoise : MonoBehaviour {
 		}
     // Debug.Log("[!] Shortest Distance starting from " + m_UniqueName + ": " + m_NearestWaypoint.name);
   }
+
+    void Start()
+    {
+        m_Enemy = GameObject.FindGameObjectWithTag(StringManager.Tags.enemy);
+    }
 
 	void OnTriggerEnter(Collider other)
 	{

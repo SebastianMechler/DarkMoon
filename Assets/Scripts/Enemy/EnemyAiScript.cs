@@ -22,7 +22,7 @@ public class EnemyAiScript : MonoBehaviour {
 		RETURN
 	}
 
-	public MovementPattern m_MovementPattern;
+	private MovementPattern m_MovementPattern = MovementPattern.DYNAMIC;
 
 	// Static Movement Pattern
 
@@ -53,11 +53,11 @@ public class EnemyAiScript : MonoBehaviour {
 	}
 
 	public GameObject g_FieldOfView;
-	public ActionQueue[] g_ActionQueue;
-	public float g_TurnRate;
-	public float g_MovementSpeed = 4.0f;
-    public float g_MovementSpeedNormal = 4.0f;
-	public float g_MovementSpeedHaste = 7.0f;
+	private ActionQueue[] g_ActionQueue;
+    private float g_TurnRate = 1000.0f;
+    private float g_MovementSpeed = 4.0f;
+    private float g_MovementSpeedNormal = 4.0f;
+	private float g_MovementSpeedHaste = 7.0f;
 
 	private GameObject g_LastPatrolSpot;
 	private int g_NumberOfActions;
@@ -65,7 +65,7 @@ public class EnemyAiScript : MonoBehaviour {
 
 	private ActionType m_CurrentAction;
 	private float m_CurWait;
-	private float m_WaitTotal;
+	// private float m_WaitTotal;
 	private string m_TargetPatrolName;
     private int m_NumberOfStaticWaypoints;
 
@@ -85,8 +85,8 @@ public class EnemyAiScript : MonoBehaviour {
 
     // Animation Data
     public GameObject m_AnimationController;
-    private bool playWalkOnce = false;
-    private bool playLookOnce = false;
+    // private bool playWalkOnce = false;
+    // private bool playLookOnce = false;
 
 	[System.Serializable]
 	public struct GroupDistance
@@ -98,7 +98,7 @@ public class EnemyAiScript : MonoBehaviour {
 
 		public float m_Distance;
 	}
-    public GroupDistance[] m_DistanceBetweenGameObjects;
+    private GroupDistance[] m_DistanceBetweenGameObjects;
 
 	// Return Movement Speed
 	public float getMovementSpeed() { return g_MovementSpeed; }
@@ -112,7 +112,7 @@ public class EnemyAiScript : MonoBehaviour {
         g_CurrentAction = 0;
 
         m_CurWait = 0.0f;
-        m_WaitTotal = 0.01f;
+        // m_WaitTotal = 0.01f;
         m_TargetPatrolName = string.Empty;
         m_NumberOfStaticWaypoints = 0;
 
@@ -323,7 +323,7 @@ public class EnemyAiScript : MonoBehaviour {
 	    {
             return;
 	    }*/
-
+        
 	    if (!other.gameObject.tag.Equals(StringManager.Tags.Waypoints))
 	    {
             return;
@@ -385,36 +385,7 @@ public class EnemyAiScript : MonoBehaviour {
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
 		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime);
 	}
-
-	bool AI_Static_Setup()
-	{
-		bool success = false;
-
-		// Define g_ActionQueue here
-
-		return success;
-	}
-
-	bool AI_Static_IsOnScene()
-	{
-		return false;
-	}
-
-	void AI_Static_ChangeBehaviour(bool a_IsOnScene)
-	{
-		// enemy should be a DontDestroyOnLoad 
-		if( a_IsOnScene)
-		{
-			// Enable Gravity
-			// Enable Colliders
-		}
-		else
-		{
-			// Disable Gravity
-			// Disable Colliders
-		}
-	}
-
+    
 	void AI_Static_SetNextPatternIndex(GameObject a_CurPosition)
 	{
 		g_LastPatrolSpot = a_CurPosition;
@@ -436,7 +407,7 @@ public class EnemyAiScript : MonoBehaviour {
 	void AI_Static_GeneratePath()
 	{
 	    // Find Nearest Waypoint to current Position
-		GameObject[] list = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
+		// GameObject[] list = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
 		Vector3 thisGameObject = gameObject.transform.position;
 		// Vector3 next;
 		// float lastNearestDistance = float.MaxValue;

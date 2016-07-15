@@ -316,10 +316,15 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-	    Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
+	    /*Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
 	    if (other.gameObject.name.Equals(StringManager.Names.player) 
             || other.gameObject.name.Equals(StringManager.Resources.debugLvPrototype) 
             || other.gameObject.name.Equals("enemy_placeholder(forward_walk)"))
+	    {
+            return;
+	    }*/
+
+	    if (!other.gameObject.tag.Equals(StringManager.Tags.Waypoints))
 	    {
             return;
 	    }

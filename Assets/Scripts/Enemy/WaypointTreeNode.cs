@@ -3,8 +3,8 @@ using System.Collections;
 
 public class WaypointTreeNode : MonoBehaviour
 {
-    public bool m_HasSubWaypoints;
-    public GameObject[] m_SubWayPoints;
+    private bool m_HasSubWaypoints;
+    private GameObject[] m_SubWayPoints;
 
     public string m_UniqueName;
     public GameObject[] m_NearbyWaypoints;

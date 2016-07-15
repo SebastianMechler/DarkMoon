@@ -73,8 +73,8 @@ public class EnemyAiScript : MonoBehaviour {
 	public GameObject m_StartDynamicWaypoint;
 	public GameObject m_FirstDynamicWaypoint;
     // public while debugging
-    public GameObject m_LastWaypoint;
-    public GameObject m_NextWaypoint;
+    private GameObject m_LastWaypoint;
+    private GameObject m_NextWaypoint;
     public float m_WaitAfterEachWaypoint = 4.1f;
     private float m_WaitTimer;
 	private GameObject[] m_TempWaypointList;

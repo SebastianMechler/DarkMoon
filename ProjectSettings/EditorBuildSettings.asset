@@ -9,12 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainScene.unity
   - enabled: 1
     path: Assets/Scenes/Prototype_EnemyScript.unity
-  - enabled: 0
-    path: Assets/Scenes/BrianScenes/Brian_MainScene.unity
-  - enabled: 0
-    path: Assets/Scenes/BrianScenes/Brian_Prototype_EnemyScript.unity
-  - enabled: 0
-    path: Assets/Scenes/BrianScenes/Copy_Prototype_EnemyScript.unity
   - enabled: 1
     path: Assets/Scenes/DeathScreen.unity
   - enabled: 1

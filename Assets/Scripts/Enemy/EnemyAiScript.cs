@@ -52,12 +52,12 @@ public class EnemyAiScript : MonoBehaviour {
 		}
 	}
 
-	public GameObject g_FieldOfView;
+	// private GameObject g_FieldOfView;
 	private ActionQueue[] g_ActionQueue;
     private float g_TurnRate = 1000.0f;
     private float g_MovementSpeed = 4.0f;
-    private float g_MovementSpeedNormal = 4.0f;
-	private float g_MovementSpeedHaste = 7.0f;
+    public float g_MovementSpeedNormal = 4.0f;
+	public float g_MovementSpeedHaste = 7.0f;
 
 	private GameObject g_LastPatrolSpot;
 	private int g_NumberOfActions;
@@ -87,8 +87,8 @@ public class EnemyAiScript : MonoBehaviour {
 
     // Animation Data
     public GameObject m_AnimationController;
-    // private bool playWalkOnce = false;
-    // private bool playLookOnce = false;
+    private bool m_AnimationIsWalking = false;
+    private bool m_AnimationIsRunning = false;
 
 	[System.Serializable]
 	public struct GroupDistance
@@ -151,7 +151,6 @@ public class EnemyAiScript : MonoBehaviour {
             // For Noise, we increae the Movement Speed
             g_MovementSpeed = g_MovementSpeedHaste;
             // ..
-            return;
         }
 
         // Change from STATIC to DYNAMIC
@@ -169,9 +168,9 @@ public class EnemyAiScript : MonoBehaviour {
             m_MovementPattern = replace;
             // For Dynamic Movement, we move at Normal Speed
             g_MovementSpeed = g_MovementSpeedNormal;
-
-            return;
         }
+
+        UpdateAnimationController();
     }
 
 	// Use this for initialization
@@ -243,7 +242,8 @@ public class EnemyAiScript : MonoBehaviour {
 			        {
 			            g_MovementSpeed = 0.0f;
 			            m_CurrentAction = ActionType.PATROL;
-			        }
+                        m_MovementPattern = MovementPattern.DYNAMIC;
+                    }
                     break;
 
 				case ActionType.PATROL:
@@ -258,16 +258,39 @@ public class EnemyAiScript : MonoBehaviour {
 
     void UpdateAnimationController()
     {
-        if (m_CurrentAction == ActionType.PATROL)
-        {
-            m_AnimationController.GetComponent<Animator>().SetFloat("walkingSpeed", g_MovementSpeed);
-        }
-
         if (m_CurrentAction == ActionType.WAITFOR_SECONDS)
         {
-            m_AnimationController.GetComponent<Animator>().SetFloat("walkingSpeed", 0.0f);
             m_AnimationController.GetComponent<Animator>().SetTrigger("triggerLookAround");
-        } 
+            m_AnimationIsWalking = false;
+            m_AnimationIsRunning = false;
+        }
+        else
+        {
+            switch (m_MovementPattern)
+            {
+                case MovementPattern.NONE:
+                    Debug.Log("Warning: Empty Movement Pattern");
+                    break;
+
+                case MovementPattern.DYNAMIC:
+                    m_AnimationIsWalking = true;
+                    m_AnimationIsRunning = false;
+                    break;
+
+                case MovementPattern.STATIC:
+                    m_AnimationIsWalking = false;
+                    m_AnimationIsRunning = true;
+                    break;
+
+                default:
+                    Debug.LogError("Unknown Movement Pattern");
+                    break;
+            }
+        }
+
+        m_AnimationController.GetComponent<Animator>().SetBool("isWalking", m_AnimationIsWalking);
+        m_AnimationController.GetComponent<Animator>().SetBool("isRunning", m_AnimationIsRunning);
+
     }
     
 

@@ -15,7 +15,7 @@ GameObject:
   - 114: {fileID: 11422438}
   m_Layer: 0
   m_Name: WaypointB
-  m_TagString: Untagged
+  m_TagString: Waypoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,8 +88,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575673499da51764d844df5b57349cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HasSubWaypoints: 0
-  m_SubWayPoints: []
   m_UniqueName: 
   m_NearbyWaypoints: []
 --- !u!114 &11437936

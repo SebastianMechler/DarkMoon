@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 m_movementVector *= m_runSpeedFactor;
                 EncodeMovementState(MovementState.RUN);
-                m_PlayerOxygen.m_regenerateStep = -6.5f;
+                m_PlayerOxygen.m_regenerateStep = -5.0f;
             }
             else
             {

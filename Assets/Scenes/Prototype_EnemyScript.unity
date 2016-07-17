@@ -17,7 +17,7 @@ RenderSettings:
   m_Fog: 1
   m_FogColor: {r: 0, g: 0, b: 0, a: 0.11372549}
   m_FogMode: 2
-  m_FogDensity: 0.03
+  m_FogDensity: 0.05
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
@@ -5950,6 +5950,10 @@ Prefab:
       propertyPath: m_FirstDynamicWaypoint
       value: 
       objectReference: {fileID: 1886998235}
+    - target: {fileID: 11457758, guid: 606c1ebff13fb694db22259ccc6002a3, type: 2}
+      propertyPath: g_MovementSpeedHaste
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 606c1ebff13fb694db22259ccc6002a3, type: 2}
   m_IsPrefabParent: 0

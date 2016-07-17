@@ -83,7 +83,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &6505378
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_item:
     m_type: 3
     m_name: ToolWrench
-    m_throwForce: 20
+    m_throwForce: 10
     m_isThrowable: 1
 --- !u!114 &11464414
 MonoBehaviour:

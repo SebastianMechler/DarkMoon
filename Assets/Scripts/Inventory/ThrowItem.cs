@@ -33,7 +33,8 @@ public class ThrowItem : MonoBehaviour
         Vector3 forward = Camera.main.transform.forward;
         m_rigidbody.AddForce(new Vector3(forward.x * itemForce, forward.y * itemForce, forward.z * itemForce), ForceMode.Impulse);
 
-        gameObject.AddComponent<SnapLightFading>();
+		if(gameObject.GetComponent<Light>() != null)
+			gameObject.AddComponent<SnapLightFading>();
     }
 
     public bool IsFlying()

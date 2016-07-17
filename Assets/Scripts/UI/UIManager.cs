@@ -122,8 +122,8 @@ public class UIManager : MonoBehaviour
         Image imageBackground = GameObject.Find(StringManager.UI.BatteryBackground).gameObject.GetComponent<Image>();
         imageBackground.enabled = true;
 
-        Image imageForeground = GameObject.Find(StringManager.UI.BatteryForgeround).gameObject.GetComponent<Image>();
-        imageForeground.enabled = true;
+        //Image imageForeground = GameObject.Find(StringManager.UI.BatteryForgeround).gameObject.GetComponent<Image>();
+        //imageForeground.enabled = true;
     }
 
     public void TogglePauseMenu()

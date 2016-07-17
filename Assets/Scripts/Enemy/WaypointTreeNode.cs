@@ -9,6 +9,8 @@ public class WaypointTreeNode : MonoBehaviour
     public string m_UniqueName;
     public GameObject[] m_NearbyWaypoints;
 
+	public bool m_FaceNextWaypoint = false;
+
     void Awake()
     {
         m_UniqueName = gameObject.GetHashCode().ToString();
@@ -18,4 +20,5 @@ public class WaypointTreeNode : MonoBehaviour
 	public GameObject[] getAllSubWaypoints() { return m_SubWayPoints; }
 	public bool hasSubWaypoints() { return m_HasSubWaypoints; }
 	public string getName() { return m_UniqueName; }
+	public bool shouldFaceNextWaypoint() { return m_FaceNextWaypoint; }
 }

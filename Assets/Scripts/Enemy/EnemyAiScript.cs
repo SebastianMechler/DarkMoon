@@ -72,9 +72,11 @@ public class EnemyAiScript : MonoBehaviour {
 	// Dynamic Movement Pattern
 	public GameObject m_StartDynamicWaypoint;
 	public GameObject m_FirstDynamicWaypoint;
-    // public while debugging
-    private GameObject m_LastWaypoint;
-    private GameObject m_NextWaypoint;
+
+	// public while debugging
+	public GameObject m_LastWaypoint;
+	public GameObject m_NextWaypoint;
+
     public float m_WaitAfterEachWaypoint = 4.1f;
     private float m_WaitTimer;
 	private GameObject[] m_TempWaypointList;
@@ -379,7 +381,16 @@ public class EnemyAiScript : MonoBehaviour {
 
 			    m_WaitTimer = 0.0f;
 			    m_CurrentAction = ActionType.WAITFOR_SECONDS;
-			}
+				// gameObject.transform.LookAt(m_NextWaypoint.transform);
+
+				if (other.gameObject.GetComponent<WaypointTreeNode>().shouldFaceNextWaypoint())
+				{
+					g_TurnRate = 100000.0f;
+					// Debug.Log("Make Enemy face next Waypoint first");
+					AI_RotateToTargetPosition(m_LastWaypoint.transform.position, m_NextWaypoint.transform.position);
+					g_TurnRate = 1000.0f;
+				}
+            }
 		}
 	}
 
@@ -398,20 +409,9 @@ public class EnemyAiScript : MonoBehaviour {
 
 	void AI_Static_PatrolMovement()
 	{
-		Vector3 to = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position;
-        Vector3 fr = gameObject.transform.position;
-        // Vector3 fr = g_LastPatrolSpot.transform.position;
-		to.y = 0.0f;
-		fr.y = 0.0f;
-		Vector3 toTarget = to - fr;
-		toTarget.y = 0.0f;
+		AI_RotateToTargetPosition(gameObject.transform.position, g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position);
 
-	    g_MovementSpeed = g_MovementSpeedHaste; //g_MovementSpeedNormal;
-
-        // Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
-        float turnRate = g_TurnRate * Time.deltaTime;
-		Quaternion lookRotation = Quaternion.LookRotation(toTarget);
-		transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
+		g_MovementSpeed = g_MovementSpeedHaste;
 		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime);
 	}
     
@@ -484,6 +484,11 @@ public class EnemyAiScript : MonoBehaviour {
             nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
         }
         // ####################################################
+
+		if(NearestWaypoint == m_NoiseClosestWaypoint)
+		{
+			Debug.Log("Nearby Waypoint is actually the NoiseWaypoint");
+		}
 
         // Find respective Struct Entry for found Waypoint
         int startingIndex = -1;
@@ -606,20 +611,21 @@ public class EnemyAiScript : MonoBehaviour {
 	 *		Dynamic Movement Pattern	 *
 	 * ********************************* */
      
-	void AI_Dynamic_PatrolMovement()
+	void AI_RotateToTargetPosition(Vector3 a_Source, Vector3 a_Target)
 	{
-		// Vector3 from = m_LastWaypoint.transform.position;
-		Vector3 from = gameObject.transform.position;
-		Vector3 to = m_NextWaypoint.transform.position;
-        Vector3 toTarget = to - from;
+		Vector3 toTarget = a_Target - a_Source;
 		toTarget.y = 0.0f;
 
-        g_MovementSpeed = g_MovementSpeedNormal;
-
-        // Vector3 toTarget = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position - g_LastPatrolSpot.transform.position;
-        float turnRate = g_TurnRate * Time.deltaTime;
+		float turnRate = g_TurnRate * Time.deltaTime;
 		Quaternion lookRotation = Quaternion.LookRotation(toTarget);
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
+	}
+
+	void AI_Dynamic_PatrolMovement()
+	{
+		AI_RotateToTargetPosition(gameObject.transform.position, m_NextWaypoint.transform.position);
+
+		g_MovementSpeed = g_MovementSpeedNormal;
 		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime);
 	}
 

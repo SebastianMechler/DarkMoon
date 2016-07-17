@@ -4,12 +4,18 @@ using System.Collections;
 public class CreateNoiseDynamically : MonoBehaviour
 {
 
-    public GameObject m_Enemy;
+    private GameObject m_Enemy;
     public string m_UniqueName;
     //public bool m_PlaySoundOnEnter;
+    public bool m_GenerateNoiseOnGroundContact = false;
     private GameObject m_NearestWaypoint;
 
     float lastNearestDistance = float.MaxValue;
+
+    void Start()
+    {
+        m_Enemy = GameObject.FindGameObjectWithTag(StringManager.Tags.enemy);
+    }
 
     public string getName()
     {
@@ -47,12 +53,15 @@ public class CreateNoiseDynamically : MonoBehaviour
     public void MakeNoiseAtCurrentPosition()
     {
         UpdateNearestWaypoint();
+        Debug.Log("Get Enemy to target '"+ m_NearestWaypoint.name +"' as a noise source");
         m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
+        gameObject.GetComponent<CreateNoiseDynamically>().enabled = false;
     }
 
     public void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag.Equals(StringManager.Tags.player))
+        Debug.Log("Thrown Item collided with: " + other.gameObject.name);
+        if (other.gameObject.tag.Equals(StringManager.Tags.floor) && m_GenerateNoiseOnGroundContact)
         {
             MakeNoiseAtCurrentPosition();
         }

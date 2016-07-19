@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("[0.0f to max] defines the factor the speed will be multiplied with if crouching.")]
     public float m_crouchSpeedFactor = 0.5f;
 
+    [Tooltip("[0.0f to max] Defines the distance to obstacles from players position to the air (Up) which the player must have in order to be able to uncrouch.")]
+    public float m_uncrouchObstacleDistance = 0.7f;
+
     private PlayerOxygen m_PlayerOxygen = null;
 
     private MovementState m_movementState = MovementState.NONE; // current state of the player ==> multiple states will be encoded here bitwise
@@ -97,20 +100,20 @@ public class PlayerMovement : MonoBehaviour
         // Update player state
         UpdatePlayerState();
 
-        // Test output for all encoded MovementStates
-        /*
-        if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.interactWithObject))
-        {
-          Debug.Log("===============================================");
-          Debug.Log("WALK: " + HasMovementState(MovementState.WALK));
-          Debug.Log("RUN: " + HasMovementState(MovementState.RUN));
-          Debug.Log("STAND: " + HasMovementState(MovementState.STAND));
-          Debug.Log("CROUCH: " + HasMovementState(MovementState.CROUCH));
-          Debug.Log("===============================================");
-        }
-        */
+    // Test output for all encoded MovementStates
 
+    if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.interactWithObject))
+    {
+      Debug.Log("===============================================");
+      Debug.Log("WALK: " + HasMovementState(MovementState.WALK));
+      Debug.Log("RUN: " + HasMovementState(MovementState.RUN));
+      Debug.Log("STAND: " + HasMovementState(MovementState.STAND));
+      Debug.Log("CROUCH: " + HasMovementState(MovementState.CROUCH));
+      Debug.Log("===============================================");
+    }
+    
 
+    CanUncrouch();
 
         if (m_movementVector != Vector3.zero)
         {
@@ -133,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
         if (m_movementVector == Vector3.zero)
         {
             EncodeMovementState(MovementState.STAND);
+            m_PlayerOxygen.m_regenerateStep = -0.5f;
         }
         else
         {
@@ -161,7 +165,15 @@ public class PlayerMovement : MonoBehaviour
         {
             if (m_capsuleCollider.height != m_crouchHeightMax)
             {
-                Crouch(m_crouchSpeed);
+              if (CanUncrouch())
+              {
+                  Crouch(m_crouchSpeed);
+              }
+              else
+              {
+                // player is still crouching!
+                EncodeMovementState(MovementState.CROUCH);
+              }
             }
         }
     }
@@ -188,6 +200,35 @@ public class PlayerMovement : MonoBehaviour
             return false;
         }
     }
+
+  public bool CanUncrouch()
+  {
+    // checks through raycast if the player has enough space to WorldSpace up to uncrouch himself
+    float rayScale = 0.15f;
+
+    // a ray will be cast to each side from the players position with a given offset
+    // looks like this:
+    //      *
+    // * player *
+    //      *
+    // each * is a raycast and a raycast from the player itself will also be cast
+    // with this method we can determine if he has any obstacles that would block him from uncrouching
+
+    Ray rayMiddle = new Ray(this.gameObject.transform.position, Vector3.up);
+    Ray rayLeft = new Ray(this.gameObject.transform.position + Vector3.left * rayScale, Vector3.up);
+    Ray rayRight = new Ray(this.gameObject.transform.position + Vector3.right * rayScale, Vector3.up);
+    Ray rayForward = new Ray(this.gameObject.transform.position + Vector3.forward * rayScale, Vector3.up);
+    Ray rayBack = new Ray(this.gameObject.transform.position + Vector3.back * rayScale, Vector3.up);
+
+    Debug.DrawLine(this.gameObject.transform.position, this.gameObject.transform.position + 5 * Vector3.up);
+    if (Physics.Raycast(rayMiddle, m_uncrouchObstacleDistance) || Physics.Raycast(rayLeft, m_uncrouchObstacleDistance) || Physics.Raycast(rayRight, m_uncrouchObstacleDistance)
+      || Physics.Raycast(rayForward, m_uncrouchObstacleDistance) || Physics.Raycast(rayBack, m_uncrouchObstacleDistance))
+    {
+      return false;
+    }
+
+    return true;
+  }
 }
 
 

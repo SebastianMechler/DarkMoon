@@ -117,7 +117,7 @@ MonoBehaviour:
   myList:
   - type: 0
     volume: 1
-    clip: {fileID: 8300000, guid: 363b738ad7826084c87990b0162f7671, type: 3}
+    clip: {fileID: 8300000, guid: d60b4ccabb45a614da3f644b31c65cc0, type: 3}
   - type: 1
     volume: 1
     clip: {fileID: 8300000, guid: 88f31fb977a578147854124d826dabb7, type: 3}
@@ -126,7 +126,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 94a9f5a0366f474458d4505f78d3fe9b, type: 3}
   - type: 5
     volume: 1
-    clip: {fileID: 8300000, guid: e6760b2dcaf7ed8459f778714d9aab47, type: 3}
+    clip: {fileID: 8300000, guid: 665a96e9d93f28e4981ea36dee17a358, type: 3}
   - type: 6
     volume: 1
     clip: {fileID: 8300000, guid: 0ae8eae7935ff434da4354f6210be5b5, type: 3}

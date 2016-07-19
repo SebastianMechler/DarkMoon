@@ -11,6 +11,7 @@ public class SingletonManager : MonoBehaviour
   private static AudioManager m_audioManager = null;
   private static Minimap m_minimap = null;
   private static GrayScaleManager m_grayScaleManager = null;
+  private static GameObject m_enemy = null;
 
   public static MouseManager MouseManager
     {
@@ -107,6 +108,19 @@ public class SingletonManager : MonoBehaviour
         m_grayScaleManager = GrayScaleManager.GetInstance();
       }
       return m_grayScaleManager;
+    }
+  }
+
+  public static GameObject Enemy
+  {
+    get
+    {
+      if (m_enemy == null)
+      {
+        m_enemy = EnemyAiScript.GetInstance();
+      }
+
+      return m_enemy;
     }
   }
 }

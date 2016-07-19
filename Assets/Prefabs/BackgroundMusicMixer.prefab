@@ -153,7 +153,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 00f877a4b2fe374478f9d96532cde82c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1783e6dca623c640b316c2cec701263, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -227,7 +227,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5fac43f70aa7f514598e07aa68dc6804, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1783e6dca623c640b316c2cec701263, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -301,7 +301,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ff520ef65a416ba4c9dcacee0572df54, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 583cc856362205f40898f7f617be0846, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -375,7 +375,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9096c756080c243438ba3abf7c1e539b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a1783e6dca623c640b316c2cec701263, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 0}
   m_Enemy: {fileID: 0}
-  m_HecticThreshold: 20
+  m_HecticThreshold: 30
   m_TrackSilent: {fileID: 8275124}
   m_TrackMystic: {fileID: 8226690}
   m_TrackHectic: {fileID: 8290640}

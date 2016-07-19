@@ -662,4 +662,9 @@ public class EnemyAiScript : MonoBehaviour {
 		m_LastWaypoint = m_NextWaypoint;
 		m_NextWaypoint = m_TempWaypointList[RandomNext];
 	}
+
+  public static GameObject GetInstance()
+  {
+    return GameObject.Find(StringManager.Names.enemy);
+  }
 }

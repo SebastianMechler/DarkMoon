@@ -31,6 +31,7 @@ public class StringManager : MonoBehaviour
         public const string enemy = "Enemy";
         public const string noise = "NoiseSource";
         public const string floor = "Floor";
+        public const string door = "Door";
     }
 
     public class Layer

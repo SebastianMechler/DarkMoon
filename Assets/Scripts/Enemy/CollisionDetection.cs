@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class CollisionDetection : MonoBehaviour
 {
     public Transform m_HeadPosition;
-    private float m_PivotYOffset = -0.5f;
+    private float m_PivotYOffset = 0.5f;
     private float m_TreshholdFactor = 1.2f;
 
     void OnTriggerStay(Collider other)
@@ -30,7 +30,7 @@ public class CollisionDetection : MonoBehaviour
                 string thisTag = hits[i].collider.gameObject.tag;
 
                 if (!thisTag.Equals(StringManager.Tags.Waypoints) && !thisTag.Equals(StringManager.Tags.interactableObject) && 
-                    !thisTag.Equals(StringManager.Tags.player) && !thisTag.Equals(StringManager.Tags.enemy) &&
+                    !thisTag.Equals(StringManager.Tags.enemy) && !thisTag.Equals(StringManager.Tags.player) &&
                     !thisTag.Equals(StringManager.Tags.noise) && !thisTag.Equals(StringManager.Tags.floor))
                 {
                     Debug.Log("Something named '" + hits[i].collider.gameObject.name + "' tagged '" + thisTag + "' is Blocking the View");

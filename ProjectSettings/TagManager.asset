@@ -13,6 +13,7 @@ TagManager:
   - Alarm
   - NoiseSource
   - Floor
+  - Door
   layers:
   - Default
   - TransparentFX

@@ -1265,7 +1265,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 268582202}
   m_Layer: 0
-  m_Name: AI
+  m_Name: EnemyGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

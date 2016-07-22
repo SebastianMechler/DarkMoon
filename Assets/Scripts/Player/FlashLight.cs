@@ -13,12 +13,12 @@ public class FlashLight : MonoBehaviour
 	public bool m_hasBeenPickedUp = true; // will be set to true if the item is picked up
 	public FlashLightState m_flashState = FlashLightState.OFF; // controls the current state of the flashLight
 	private Light m_light; // reference to light component to switch it off or on through 'Range'
-	private float m_range; // backup the range, because it will be set to 0 if off, and to this range if on
+	//private float m_range; // backup the range, because it will be set to 0 if off, and to this range if on
 
 	void Start()
 	{
 		m_light = GetComponent<Light>();
-		m_range = m_light.range; // make a backup of the starting range
+		// m_range = m_light.range; // make a backup of the starting range
 		// m_light.range = 0.0f; // set light range on start to 0.0f
 	}
 

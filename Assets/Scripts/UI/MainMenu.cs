@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-  float m_waitTimeOnClick = 1.0f;
+  //float m_waitTimeOnClick = 1.0f;
   float m_waitTimeExitGame = 0.0f;
 
   public void OnClick_MainMenu_NewGame()

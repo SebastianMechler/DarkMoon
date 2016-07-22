@@ -26,14 +26,14 @@ public class CollisionDetection : MonoBehaviour
             bool playerInPlainView = true;
             for (int i = 0; i < hits.Length; i++)
             {
-                RaycastHit hit = hits[i];
+                // RaycastHit hit = hits[i];
                 string thisTag = hits[i].collider.gameObject.tag;
 
                 if (!thisTag.Equals(StringManager.Tags.Waypoints) && !thisTag.Equals(StringManager.Tags.interactableObject) && 
                     !thisTag.Equals(StringManager.Tags.enemy) && !thisTag.Equals(StringManager.Tags.player) &&
                     !thisTag.Equals(StringManager.Tags.noise) && !thisTag.Equals(StringManager.Tags.floor))
                 {
-                    Debug.Log("Something named '" + hits[i].collider.gameObject.name + "' tagged '" + thisTag + "' is Blocking the View");
+                    // Debug.Log("Something named '" + hits[i].collider.gameObject.name + "' tagged '" + thisTag + "' is Blocking the View");
                     return;
                 }
                 

@@ -17,23 +17,23 @@ public class UIManager : MonoBehaviour
 {
 
     PlayerOxygen m_playerOxygen = null;
-    Scrollbar m_oxygenScrollBar = null;
+    //Scrollbar m_oxygenScrollBar = null;
     Image m_oxygenHandle = null;
 
     PlayerBattery m_playerBattery = null;
-    Scrollbar m_batteryScrollBar = null;
+    //Scrollbar m_batteryScrollBar = null;
     Image m_batteryHandle = null;
 
     void Start()
     {
         // oxygen
         m_playerOxygen = SingletonManager.Player.GetComponent<PlayerOxygen>();
-        m_oxygenScrollBar = GetOxygen().GetComponent<Scrollbar>();
+        //m_oxygenScrollBar = GetOxygen().GetComponent<Scrollbar>();
         m_oxygenHandle = GetOxygen().transform.FindChild("Sliding Area").gameObject.transform.FindChild("Handle").GetComponent<Image>();
 
         // battery
         m_playerBattery = SingletonManager.Player.GetComponent<PlayerBattery>();
-        m_batteryScrollBar = GetBattery().GetComponent<Scrollbar>();
+        //m_batteryScrollBar = GetBattery().GetComponent<Scrollbar>();
         m_batteryHandle = GetBattery().transform.FindChild("Sliding Area").gameObject.transform.FindChild("Handle").GetComponent<Image>();
     }
 

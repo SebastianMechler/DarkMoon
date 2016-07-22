@@ -47,20 +47,20 @@ public class CreateNoiseDynamically : MonoBehaviour
             }
         }
 
-        Debug.Log("Nearest waypoint dynamically set to: " + m_NearestWaypoint.gameObject.name);
+        // Debug.Log("Nearest waypoint dynamically set to: " + m_NearestWaypoint.gameObject.name);
     }
 
     public void MakeNoiseAtCurrentPosition()
     {
         UpdateNearestWaypoint();
-        Debug.Log("Get Enemy to target '"+ m_NearestWaypoint.name +"' as a noise source");
+        // Debug.Log("Get Enemy to target '"+ m_NearestWaypoint.name +"' as a noise source");
         m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
         gameObject.GetComponent<CreateNoiseDynamically>().enabled = false;
     }
 
     public void OnCollisionEnter(Collision other)
     {
-        Debug.Log("Thrown Item collided with: " + other.gameObject.name);
+        // Debug.Log("Thrown Item collided with: " + other.gameObject.name);
         if (other.gameObject.tag.Equals(StringManager.Tags.floor) && m_GenerateNoiseOnGroundContact)
         {
             MakeNoiseAtCurrentPosition();

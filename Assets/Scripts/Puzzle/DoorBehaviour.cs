@@ -39,10 +39,20 @@ public class DoorBehaviour : MonoBehaviour {
 	
 	public void OpeningDoor()
 	{
-		m_Animator.SetTrigger("triggerExitAnimation");
-		ChangeDoorState(DoorState.OPENING);
-	    // m_AudioSource.clip = Resources.Load<AudioClip>("");
+	    if (m_DoorState == DoorState.OPEN || m_DoorState == DoorState.OPENING)
+	    {
+            return;
+	    }
+
+        m_Animator.SetTrigger("triggerExitAnimation");
+        ChangeDoorState(DoorState.OPENING);
+		// m_AudioSource.clip = Resources.Load<AudioClip>("");
 	}
+
+    public DoorState getDoorState()
+    {
+        return m_DoorState;
+    }
 
 	private void ChangeDoorState(DoorState state)
 	{
@@ -50,11 +60,11 @@ public class DoorBehaviour : MonoBehaviour {
 
 		if(m_DoorState == DoorState.OPENING)
 		{
-			m_Animator.SetTrigger("triggerDoorOpening");
 			ChangeLightColor(m_OpeningColor);
 			m_Animator.speed = 1.0f;
 			m_Timer = 0.6f;
-		}
+            m_Animator.SetTrigger("triggerDoorOpening");
+        }
 	}
 
 	// Use this for initialization
@@ -106,6 +116,7 @@ public class DoorBehaviour : MonoBehaviour {
 		switch (m_DoorState)
 		{
 			case DoorState.OPENING:
+		        Debug.Log("DoorState.OPENING");
 				m_DoorState = DoorState.OPEN;
 				m_Timer = 4.0f;
 				m_Animator.speed = 0.0f;
@@ -113,14 +124,16 @@ public class DoorBehaviour : MonoBehaviour {
 				break;
 
 			case DoorState.OPEN:
-				m_DoorState = DoorState.CLOSING;
+                Debug.Log("DoorState.OPEN");
+                m_DoorState = DoorState.CLOSING;
 				m_Timer = 0.6f;
 				m_Animator.speed = 1.0f;
 				ChangeLightColor(m_ClosingColor);
 				break;
 
 			case DoorState.CLOSING:
-				m_DoorState = DoorState.CLOSED;
+                Debug.Log("DoorState.CLOSING");
+                m_DoorState = DoorState.CLOSED;
 				m_Timer = 0.0f;
 				m_Animator.SetTrigger("triggerExitAnimation");
 				ChangeLightColor(m_ClosedColor);

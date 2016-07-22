@@ -4,34 +4,44 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]
 public class DoorBehaviour : MonoBehaviour {
 
-	private const string m_AnimationName = "Take 001";
+    public enum SoundType
+    {
+        SILENT,
+        NORMAL,
+        NOISY
+    }
 
-	private Animator m_Animator = null;
-	
-	public GameObject[] m_LightGameObjects = null;
-	private Light[] m_Lights = null;
-	private int m_LightCount = 0;
+    public enum DoorState
+    {
+        OPENING,
+        OPEN,
+        CLOSING,
+        CLOSED
+    }
 
-	public enum DoorState
-	{
-		OPENING,
-		OPEN,
-		CLOSING,
-		CLOSED
-	}
-	private DoorState m_DoorState = DoorState.CLOSED;
+    public SoundType m_SoundType = SoundType.SILENT;
+    private DoorState m_DoorState = DoorState.CLOSED;
+    private const string m_AnimationName = "Take 001";
+    private Animator m_Animator = null;
+    private float m_Timer = 0.0f;
 
+    public AudioSource m_AudioSourceSilent;
+    public AudioSource m_AudioSourceNormal;
+    public AudioSource m_AudioSourceNoisy;
 	public Color m_OpenColor = Color.cyan;
 	public Color m_OpeningColor = Color.green;
 	public Color m_ClosedColor = Color.red;
 	public Color m_ClosingColor = Color.yellow;
-
-	private float m_Timer = 0.0f;
+    public GameObject[] m_LightGameObjects = null;
+    private int m_LightCount = 0;
+    private Light[] m_Lights = null;
+    
 	
 	public void OpeningDoor()
 	{
 		m_Animator.SetTrigger("triggerExitAnimation");
 		ChangeDoorState(DoorState.OPENING);
+	    // m_AudioSource.clip = Resources.Load<AudioClip>("");
 	}
 
 	private void ChangeDoorState(DoorState state)
@@ -50,8 +60,9 @@ public class DoorBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		m_Animator = GetComponent<Animator>();
+	    // m_AudioSource = GetComponent<AudioSource>();
 
-		m_LightCount = m_LightGameObjects.Length;
+        m_LightCount = m_LightGameObjects.Length;
 		m_Lights = new Light[m_LightCount];
 		for (int i = 0; i < m_LightCount; i++)
 		{

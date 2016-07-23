@@ -8,7 +8,9 @@ public class DoorBehaviour : MonoBehaviour {
     {
         SILENT,
         NORMAL,
-        NOISY
+        NOISY,
+        BROKEN,
+        STUCKED
     }
 
     public enum DoorState
@@ -16,7 +18,11 @@ public class DoorBehaviour : MonoBehaviour {
         OPENING,
         OPEN,
         CLOSING,
-        CLOSED
+        CLOSED,
+        OPENING_BROKEN,
+        BROKEN,
+        OPENING_STUCKED,
+        STUCKED
     }
 
     public SoundType m_SoundType = SoundType.SILENT;
@@ -32,6 +38,8 @@ public class DoorBehaviour : MonoBehaviour {
 	public Color m_OpeningColor = Color.green;
 	public Color m_ClosedColor = Color.red;
 	public Color m_ClosingColor = Color.yellow;
+    public Color m_StuckedColor = Color.magenta;
+    public Color m_BrokenColor = Color.grey;
     public GameObject[] m_LightGameObjects = null;
     private int m_LightCount = 0;
     private Light[] m_Lights = null;
@@ -102,18 +110,29 @@ public class DoorBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.O) && m_DoorState == DoorState.CLOSED)
-		{
-			ChangeDoorState(DoorState.OPENING);
+
+        if (Input.GetKeyDown(KeyCode.Keypad0) && m_DoorState == DoorState.CLOSED)
+        {
+            ChangeDoorState(DoorState.OPENING);
         }
 
-		if(m_Timer > 0.0f)
-		{
-			m_Timer -= Time.deltaTime;
-			return;
-		}
+        if (Input.GetKeyDown(KeyCode.Keypad1) && m_DoorState == DoorState.CLOSED)
+        {
+            ChangeDoorState(DoorState.OPENING_BROKEN);
+        }
 
-		switch (m_DoorState)
+        if (Input.GetKeyDown(KeyCode.Keypad2) && m_DoorState == DoorState.CLOSED)
+        {
+            ChangeDoorState(DoorState.OPENING_STUCKED);
+        }
+
+        if (m_Timer > 0.0f)
+        {
+            m_Timer -= Time.deltaTime;
+            return;
+        }
+
+        switch (m_DoorState)
 		{
 			case DoorState.OPENING:
 		        Debug.Log("DoorState.OPENING");
@@ -138,6 +157,36 @@ public class DoorBehaviour : MonoBehaviour {
 				m_Animator.SetTrigger("triggerExitAnimation");
 				ChangeLightColor(m_ClosedColor);
 				break;
-		}
+
+            case DoorState.OPENING_BROKEN:
+                Debug.Log("DoorState.OPENING_BROKEN");
+                m_Animator.SetTrigger("triggerDoorOpening");
+                m_DoorState = DoorState.BROKEN;
+                m_Timer = 1.0f;
+                m_Animator.speed = 0.6f;
+                ChangeLightColor(m_OpenColor);
+                break;
+
+            case DoorState.BROKEN:
+                ChangeLightColor(m_BrokenColor);
+                m_Animator.speed = 0.0f;
+                this.enabled = false;
+                break;
+
+            case DoorState.OPENING_STUCKED:
+                Debug.Log("DoorState.OPENING_STUCKED");
+                m_Animator.SetTrigger("triggerDoorOpening");
+                m_DoorState = DoorState.STUCKED;
+                m_Timer = 1.0f;
+                m_Animator.speed = 0.3f;
+                ChangeLightColor(m_OpenColor);
+                break;
+
+            case DoorState.STUCKED:
+                m_Animator.speed = 0.0f;
+                ChangeLightColor(m_StuckedColor);
+                this.enabled = false;
+                break;
+        }
 	}
 }

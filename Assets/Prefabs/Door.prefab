@@ -64,7 +64,7 @@ GameObject:
   - 114: {fileID: 11405484}
   - 65: {fileID: 6514230}
   - 65: {fileID: 6598572}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 144628}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 185.283, y: 0.03999992, z: -92.666}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 466888}
@@ -668,7 +668,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -742,7 +742,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -816,7 +816,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -930,6 +930,8 @@ MonoBehaviour:
   m_OpeningColor: {r: 0, g: 1, b: 0, a: 1}
   m_ClosedColor: {r: 1, g: 0, b: 0, a: 1}
   m_ClosingColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  m_StuckedColor: {r: 1, g: 0, b: 1, a: 1}
+  m_BrokenColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_LightGameObjects:
   - {fileID: 152652}
   - {fileID: 117910}

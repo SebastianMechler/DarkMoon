@@ -87,9 +87,11 @@ public class ObjectInteractionBase : MonoBehaviour
 
     void SetInteractionHandState(bool state)
     {
+  
       if (m_interactionHand == null)
         m_interactionHand = GameObject.Find(StringManager.Names.interactionHandFromUI);
-      m_interactionHand.GetComponent<Image>().enabled = state;
+      //m_interactionHand.GetComponent<Image>().enabled = true;
+      
   }
 
   void OnTriggerExit(Collider other)

@@ -1173,6 +1173,34 @@ Prefab:
       propertyPath: m_Enemy
       value: 
       objectReference: {fileID: 1682064854}
+    - target: {fileID: 115122, guid: be7c038fca2b43042b1cc3266f8015c2, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11440146, guid: be7c038fca2b43042b1cc3266f8015c2, type: 2}
+      propertyPath: m_HecticThreshold
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 11440146, guid: be7c038fca2b43042b1cc3266f8015c2, type: 2}
+      propertyPath: m_MusicChangeFactor
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8263876, guid: be7c038fca2b43042b1cc3266f8015c2, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8290640, guid: be7c038fca2b43042b1cc3266f8015c2, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8226690, guid: be7c038fca2b43042b1cc3266f8015c2, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275124, guid: be7c038fca2b43042b1cc3266f8015c2, type: 2}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be7c038fca2b43042b1cc3266f8015c2, type: 2}
   m_IsPrefabParent: 0
@@ -12322,6 +12350,10 @@ Prefab:
     - target: {fileID: 456758, guid: 78ff148ffc6840845971708044721cff, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 144628, guid: 78ff148ffc6840845971708044721cff, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 78ff148ffc6840845971708044721cff, type: 2}

@@ -3,8 +3,8 @@ using System.Collections;
 
 public class BGMixer : MonoBehaviour {
 
-	public GameObject m_Player;
-	public GameObject m_Enemy;
+	private GameObject m_Player;
+	private GameObject m_Enemy;
 	public float m_HecticThreshold = 20.0f;
 
 	enum ActiveAudio
@@ -31,6 +31,10 @@ public class BGMixer : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+
+		m_Player = GameObject.FindGameObjectWithTag(StringManager.Tags.player);
+		m_Enemy = GameObject.FindGameObjectWithTag(StringManager.Tags.enemy);
+
 		m_TrackSilent.Play();
 		m_TrackSilent.volume = 1.0f;
 
@@ -52,7 +56,12 @@ public class BGMixer : MonoBehaviour {
 		float distance = Mathf.Abs(Vector3.Distance(m_Player.transform.position, m_Enemy.transform.position));
 		float speed = m_Enemy.GetComponent<EnemyAiScript>().getMovementSpeed();
 
-		if(speed > 4)
+		if(m_AudioNext != ActiveAudio.None)
+		{
+			return;
+		}
+
+		if(speed > 10.0f)
 		{
 			if (m_AudioActive != ActiveAudio.Danger && m_AudioActive != ActiveAudio.Danger)
 			{

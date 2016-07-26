@@ -3,13 +3,15 @@ using System.Collections;
 
 public class WaypointTreeNode : MonoBehaviour
 {
-    private bool m_HasSubWaypoints;
-    private GameObject[] m_SubWayPoints;
+	// private bool m_HasSubWaypoints;
+	// private GameObject[] m_SubWayPoints;
 
-    public string m_UniqueName;
+	public string m_UniqueName;
     public GameObject[] m_NearbyWaypoints;
 
+	public bool m_StaticSearchNearby = true;
 	public bool m_FaceNextWaypoint = false;
+	public bool m_MoveSlowPatrolToNextWaypoint = false;
 
     void Awake()
     {
@@ -17,8 +19,11 @@ public class WaypointTreeNode : MonoBehaviour
     }
 
 	public GameObject[] getAllWaypoints() { return m_NearbyWaypoints; }
-	public GameObject[] getAllSubWaypoints() { return m_SubWayPoints; }
-	public bool hasSubWaypoints() { return m_HasSubWaypoints; }
+	// public GameObject[] getAllSubWaypoints() { return m_SubWayPoints; }
+	// public bool hasSubWaypoints() { return m_HasSubWaypoints; }
 	public string getName() { return m_UniqueName; }
+
+	public bool shouldSearchNearby() { return m_StaticSearchNearby;  }
 	public bool shouldFaceNextWaypoint() { return m_FaceNextWaypoint; }
+	public bool shouldSlowWalkPatrolNextWaypoint() { return m_MoveSlowPatrolToNextWaypoint; }
 }

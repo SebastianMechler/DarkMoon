@@ -27,10 +27,18 @@ public enum GameState
   MENU,
 }
 
+public enum GameDifficulty
+{
+  Easy,
+  Medium,
+  Hard
+}
+
 public class GameManager : MonoBehaviour
 {
   public GameControls m_gameControls;
   public GameState m_gameState = GameState.MENU;
+  public GameDifficulty m_gameDifficulty = GameDifficulty.Easy;
 
   static bool m_isCreated = false;
 
@@ -50,10 +58,15 @@ public class GameManager : MonoBehaviour
     m_gameState = state;
   }
 
+  public void SetGameDifficulty(GameDifficulty difficulty)
+  {
+    m_gameDifficulty = difficulty;
+  }
+
   public static GameManager GetInstance()
-    {
-        return GameObject.Find(StringManager.Names.gameManager).GetComponent<GameManager>();
-    }
+  {
+      return GameObject.Find(StringManager.Names.gameManager).GetComponent<GameManager>();
+  }
 
   public static void ClearDebugConsole()
   {

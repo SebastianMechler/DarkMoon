@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-  //float m_waitTimeOnClick = 1.0f;
   float m_waitTimeExitGame = 0.0f;
 
   public void OnClick_MainMenu_NewGame()
@@ -22,6 +21,14 @@ public class MainMenu : MonoBehaviour
     m_waitTimeExitGame = 1.0f;
   }
 
+  public void OnClick_MainMenu_Option()
+  {
+    Debug.Log("Loading...");
+    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
+    SceneManager.LoadScene(StringManager.Scenes.optionScreen);
+    Time.timeScale = 1.0f;
+  }
+
   void Update()
   {
     if (m_waitTimeExitGame > 0.0f)
@@ -34,10 +41,5 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
       }
     }
-  }
-
-  IEnumerator Wait(float time)
-  {
-    yield return new WaitForSeconds(time);
   }
 }

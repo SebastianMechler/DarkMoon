@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/Scenes/DeathScreen.unity
   - enabled: 1
     path: Assets/Scenes/SuccessScreen.unity
+  - enabled: 1
+    path: Assets/Scenes/OptionScreen.unity

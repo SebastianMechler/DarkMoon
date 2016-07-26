@@ -96,6 +96,7 @@ public class StringManager : MonoBehaviour
         public const string game = "Prototype_EnemyScript";
         public const string deathScreen = "DeathScreen";
         public const string successScreen = "SuccessScreen";
+        public const string optionScreen = "OptionScreen";
     }
 }
 

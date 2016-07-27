@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         if (m_movementVector == Vector3.zero)
         {
             EncodeMovementState(MovementState.STAND);
-            m_PlayerOxygen.m_regenerateStep = -0.5f;
+            m_PlayerOxygen.m_regenerateStep = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regnerationOxygenNormal;
         }
         else
         {
@@ -145,12 +145,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 m_movementVector *= m_runSpeedFactor;
                 EncodeMovementState(MovementState.RUN);
-                m_PlayerOxygen.m_regenerateStep = -5.0f;
+                m_PlayerOxygen.m_regenerateStep = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regenerationOxygenRunning;
             }
             else
             {
                 EncodeMovementState(MovementState.WALK);
-                m_PlayerOxygen.m_regenerateStep = -0.5f;
+                m_PlayerOxygen.m_regenerateStep = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regnerationOxygenNormal;
             }
         }
 

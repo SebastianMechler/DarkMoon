@@ -11,7 +11,6 @@ public class MainMenu : MonoBehaviour
     SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     SceneManager.LoadScene(StringManager.Scenes.game);
     SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
-    SingletonManager.GameManager.SetGameState(GameState.INGAME);
     Time.timeScale = 1.0f;
   }
 

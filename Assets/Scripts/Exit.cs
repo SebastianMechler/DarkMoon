@@ -11,7 +11,6 @@ public class Exit : MonoBehaviour
       if (SingletonManager.MainTerminalController.IsAllDataActivated())
       {
         SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
-        SingletonManager.GameManager.SetGameState(GameState.MENU);
         SceneManager.LoadScene(StringManager.Scenes.successScreen);
       }
     }

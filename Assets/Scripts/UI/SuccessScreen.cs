@@ -9,7 +9,6 @@ public class SuccessScreen : MonoBehaviour
   {
     SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
-    SingletonManager.GameManager.SetGameState(GameState.INGAME);
     SceneManager.LoadScene(StringManager.Scenes.game);
   }
 
@@ -17,7 +16,6 @@ public class SuccessScreen : MonoBehaviour
   {
     SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
-    SingletonManager.GameManager.SetGameState(GameState.MENU);
     SceneManager.LoadScene(StringManager.Scenes.mainMenu);
   }
 }

@@ -49,15 +49,16 @@ public class PlayerObjectInteraction : MonoBehaviour
           m_currentInteractingObject.GetComponent<ObjectInteractionBase>().Disable();
 
         // save the new one
-        m_currentInteractingObject = go;
+        if (go.GetComponent<ObjectInteractionBase>().GetInteractionState())
+        {
+          m_currentInteractingObject = go;
 
-        // enable the new one
-        ObjectInteractionData data;
-        data.m_material = m_outlineMaterial;
-        go.GetComponent<ObjectInteractionBase>().Enable(data);
+          // enable the new one
+          ObjectInteractionData data;
+          data.m_material = m_outlineMaterial;
+          go.GetComponent<ObjectInteractionBase>().Enable(data);
+        }
       }
-
-
     }
     else
     {

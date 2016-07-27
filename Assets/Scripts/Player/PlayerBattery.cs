@@ -10,13 +10,16 @@ public class PlayerBattery : MonoBehaviour
   public float m_current = 0.0f; // how much oxygen the player currently has
 
   [Tooltip("[0.0f to max] Defines how much battery will be lost when flashLight is being used (play around with this).")]
-  public float m_regenerateStep = -1f; // regenerate oxygen each frame
+  public float m_regenerateStep = -1f; // regenerate oxygen each frame (FLASHLIGHT ONLY)
 
   FlashLight m_flashLight = null;
 
   void Start()
   {
     m_flashLight = FlashLight.GetInstance();
+
+    // FLASHLIGHT
+    m_regenerateStep = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regenerationFlashLight;
   }
 
   void Update()

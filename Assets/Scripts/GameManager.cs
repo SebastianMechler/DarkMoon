@@ -21,12 +21,6 @@ public struct GameControls
   public KeyCode ui_toggleMinimap;
 }
 
-public enum GameState
-{
-  INGAME,
-  MENU,
-}
-
 public enum GameDifficulty
 {
   Easy,
@@ -34,12 +28,29 @@ public enum GameDifficulty
   Hard
 }
 
+[System.Serializable]
+public struct GameDifficultySettings
+{
+  public GameDifficulty m_gameDifficulty;
+  public float m_regnerationOxygenNormal;
+  public float m_regenerationOxygenRunning;
+  public bool m_deathOnNoOxygen;
+  public float m_chestOxygenMultiplicatorMin;
+  public float m_chestOxygenMultiplicatorMax;
+  public float m_regenerationFlashLight;
+  public float m_regenerationRadar;
+  public float m_chestBatteryMultiplicatorMin;
+  public float m_chestBatteryMultiplicatorMax;
+  public bool m_itemsRecollectable;
+}
+
 public class GameManager : MonoBehaviour
 {
   public GameControls m_gameControls;
-  public GameState m_gameState = GameState.MENU;
   public GameDifficulty m_gameDifficulty = GameDifficulty.Easy;
 
+  public GameDifficultySettings[] m_gameDifficultySettings = new GameDifficultySettings[3];
+  
   static bool m_isCreated = false;
 
   void Awake()
@@ -51,11 +62,6 @@ public class GameManager : MonoBehaviour
     m_isCreated = true;
 
     DontDestroyOnLoad(this.transform.gameObject);
-  }
-
-  public void SetGameState(GameState state)
-  {
-    m_gameState = state;
   }
 
   public void SetGameDifficulty(GameDifficulty difficulty)
@@ -73,5 +79,14 @@ public class GameManager : MonoBehaviour
 	  var logEntries = System.Type.GetType("UnityEditorInternal.LogEntries,UnityEditor.dll");
 	  var clearMethod = logEntries.GetMethod("Clear", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
 	  clearMethod.Invoke(null, null);
+  }
+
+  // getter for current difficulty settings
+  public GameDifficultySettings CurrentGameDifficultySettings
+  {
+    get
+    {
+      return m_gameDifficultySettings[(int)m_gameDifficulty];
+    }
   }
 }

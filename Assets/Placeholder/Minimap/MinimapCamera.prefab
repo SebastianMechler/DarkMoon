@@ -97,8 +97,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_target: {fileID: 0}
   m_allowRotation: 1
-  m_viewDistance: 30
-  m_batteryCost: 1
+  m_viewDistance: 10
+  m_batteryCost: -1
 --- !u!124 &12449486
 Behaviour:
   m_ObjectHideFlags: 1

@@ -31,10 +31,13 @@ public class ObjectInteractionChest : ObjectInteractionBase
     Debug.Log("Interacting with chest: " + this.gameObject.name + " -> Found " + oxygenValue.ToString() + " oxygen and " + batteryValue.ToString() + " battery.");
 #endif
 
-    
+    // add multiplicator to oxygen/battery depending on the current game difficulty
+    GameDifficultySettings gameSettings = SingletonManager.GameManager.CurrentGameDifficultySettings;
+    float oxygenMultiplicator = Random.Range(gameSettings.m_chestOxygenMultiplicatorMin, gameSettings.m_chestOxygenMultiplicatorMax);
+    float batteryMultiplicator = Random.Range(gameSettings.m_chestBatteryMultiplicatorMin, gameSettings.m_chestBatteryMultiplicatorMax);
 
-    SingletonManager.Player.GetComponent<PlayerOxygen>().Increase(oxygenValue);
-    SingletonManager.Player.GetComponent<PlayerBattery>().Increase(batteryValue);
+    SingletonManager.Player.GetComponent<PlayerOxygen>().Increase(oxygenValue * oxygenMultiplicator);
+    SingletonManager.Player.GetComponent<PlayerBattery>().Increase(batteryValue * batteryMultiplicator);
 
     Disable();
     Destroy(this.gameObject);

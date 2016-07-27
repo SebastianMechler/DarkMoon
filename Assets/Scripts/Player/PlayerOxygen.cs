@@ -21,8 +21,8 @@ public class PlayerOxygen : MonoBehaviour
     GrayScaleManager m_grayScaleManager = null;
     void Start()
     {
-        m_grayScaleManager = SingletonManager.GrayScaleManager;
-        //m_grayScale = Camera.main.GetComponent<GrayScale>();
+      m_grayScaleManager = SingletonManager.GrayScaleManager;
+      m_regenerateStep = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regnerationOxygenNormal;
     }
 
     void Update()
@@ -64,12 +64,11 @@ public class PlayerOxygen : MonoBehaviour
         else
             m_current += value;
 
-        if (m_current == 0.0f && isZeroPreviously == false)
+        if (m_current == 0.0f && isZeroPreviously == false && SingletonManager.GameManager.CurrentGameDifficultySettings.m_deathOnNoOxygen)
         {
             SingletonManager.AudioManager.Play(AudioType.OXYGEN_OUT);
 
             SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
-            SingletonManager.GameManager.SetGameState(GameState.MENU);
             SceneManager.LoadScene(StringManager.Scenes.deathScreen);
         }
     }

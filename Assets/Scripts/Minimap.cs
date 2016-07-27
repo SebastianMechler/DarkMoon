@@ -6,12 +6,15 @@ public class Minimap : MonoBehaviour
   public Transform m_target; // player
   public bool m_allowRotation = true; // should the minimap be rotated when the player rotates?
   public float m_viewDistance = 30.0f; // view distance of camera, the higher, the more the player will see in minimap
-  public float m_batteryCost = 1.0f; // costs when enabled each frame
+  public float m_batteryCost = -1.0f; // costs when enabled each frame
   private bool m_enabled = true;
 
   void Start()
   {
     SetViewDistance(m_viewDistance);
+
+    // set the radar costs from the current gamedifficultysettings
+    m_batteryCost = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regenerationRadar;
   }
 
 	void Update()
@@ -39,7 +42,7 @@ public class Minimap : MonoBehaviour
       return;
 
     this.transform.position = new Vector3(m_target.transform.position.x, this.transform.position.y, m_target.transform.position.z);
-    SingletonManager.Player.GetComponent<PlayerBattery>().Increase(-m_batteryCost * Time.deltaTime);
+    SingletonManager.Player.GetComponent<PlayerBattery>().Increase(m_batteryCost * Time.deltaTime);
 
     if (m_allowRotation)
     {

@@ -52,6 +52,41 @@ MonoBehaviour:
     ui_togglePauseMenu: 27
     ui_toggleMinimap: 103
   m_gameState: 1
+  m_gameDifficulty: 0
+  m_gameDifficultySettings:
+  - m_gameDifficulty: 0
+    m_regnerationOxygenNormal: -0.25
+    m_regenerationOxygenRunning: -1
+    m_deathOnNoOxygen: 0
+    m_chestOxygenMultiplicatorMin: 1
+    m_chestOxygenMultiplicatorMax: 1
+    m_regenerationFlashLight: -0.25
+    m_regenerationRadar: -0.1
+    m_chestBatteryMultiplicatorMin: 1
+    m_chestBatteryMultiplicatorMax: 1
+    m_itemsRecollectable: 1
+  - m_gameDifficulty: 1
+    m_regnerationOxygenNormal: -0.35
+    m_regenerationOxygenRunning: -3
+    m_deathOnNoOxygen: 1
+    m_chestOxygenMultiplicatorMin: 0.66
+    m_chestOxygenMultiplicatorMax: 0.88
+    m_regenerationFlashLight: -1
+    m_regenerationRadar: -0.25
+    m_chestBatteryMultiplicatorMin: 0.66
+    m_chestBatteryMultiplicatorMax: 0.88
+    m_itemsRecollectable: 1
+  - m_gameDifficulty: 2
+    m_regnerationOxygenNormal: -0.5
+    m_regenerationOxygenRunning: -5
+    m_deathOnNoOxygen: 1
+    m_chestOxygenMultiplicatorMin: 0.44
+    m_chestOxygenMultiplicatorMax: 0.66
+    m_regenerationFlashLight: -3
+    m_regenerationRadar: -1
+    m_chestBatteryMultiplicatorMin: 0.44
+    m_chestBatteryMultiplicatorMax: 0.66
+    m_itemsRecollectable: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

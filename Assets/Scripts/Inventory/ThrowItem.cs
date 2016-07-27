@@ -40,6 +40,13 @@ public class ThrowItem : MonoBehaviour
 
     if (gameObject.GetComponent<Light>() != null)
       gameObject.AddComponent<SnapLightFading>();
+
+    // Recollectable item?
+    if (SingletonManager.GameManager.CurrentGameDifficultySettings.m_itemsRecollectable == false)
+    {
+      //GetComponent<ObjectInteractionItem>().m_item.m_isThrowable = false;
+      GetComponent<ObjectInteractionBase>().SetInteractionState(false);
+    }
   }
 
   public bool IsFlying()

@@ -9,7 +9,6 @@ public class DeathScreen : MonoBehaviour
     SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     SceneManager.LoadScene(StringManager.Scenes.game);
     SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
-    SingletonManager.GameManager.SetGameState(GameState.INGAME);
   }
 
   public void OnClick_DeathScreen_MainMenu()
@@ -17,6 +16,5 @@ public class DeathScreen : MonoBehaviour
     SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     SceneManager.LoadScene(StringManager.Scenes.mainMenu);
     SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
-    SingletonManager.GameManager.SetGameState(GameState.MENU);
   }
 }

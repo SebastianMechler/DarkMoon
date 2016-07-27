@@ -35,7 +35,6 @@ public class OptionScreen : MonoBehaviour
   {
     SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
     SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
-    SingletonManager.GameManager.SetGameState(GameState.MENU);
     SceneManager.LoadScene(StringManager.Scenes.mainMenu);
   }
 }

@@ -18,7 +18,7 @@ public class StringManager : MonoBehaviour
         public const string flashLight = "FlashLight";
         public const string minimap = "MinimapCamera";
         public const string grayScaleManager = "GrayScaleManager";
-        public const string inventoryIcon = "InventoryIcon";
+        public const string inventoryIconSnapLight = "InventoryIconSnapLight";
         public const string iconWrench = "iconWrench";
         public const string iconSnapLight = "iconSnapLight";
     }
@@ -82,6 +82,7 @@ public class StringManager : MonoBehaviour
         public const string MinimapCircleOutline = "MinimapCircleOutline";
         public const string MinimapRect = "MinimapRect";
         public const string HiddenState = "HiddenStateImage";
+        public const string inventoryIconWrench = "InventoryIconWrench";
     }
 
 

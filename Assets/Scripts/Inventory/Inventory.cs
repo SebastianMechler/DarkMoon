@@ -70,11 +70,13 @@ public class Inventory : MonoBehaviour
 {
     public List<Item> m_itemList = new List<Item>();
     private Image m_InventoryIcon = null;
+    private Image m_InventoryIconWrench = null;
 
-    void Start()
-    {
-        m_InventoryIcon = GameObject.Find(StringManager.Names.inventoryIcon).GetComponent<Image>();
-    }
+  void Start()
+  {
+    m_InventoryIcon = GameObject.Find(StringManager.Names.inventoryIconSnapLight).GetComponent<Image>();
+    m_InventoryIconWrench = GameObject.Find(StringManager.UI.inventoryIconWrench).GetComponent<Image>();
+  }
 
     void Update()
     {
@@ -84,7 +86,32 @@ public class Inventory : MonoBehaviour
             ThrowFirstItem();
         }
 
-        DisplayLast();
+      //DisplayLast();
+      UpdateIconInUI();
+    }
+
+  public void UpdateIconInUI()
+  {
+    if (IsItemInInventory(ItemType.ToolWrench))
+    {
+      m_InventoryIconWrench.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+      m_InventoryIconWrench.sprite = Resources.Load<Sprite>(StringManager.Names.iconWrench);
+    }
+    else
+    {
+     m_InventoryIconWrench.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+    }
+
+      if (IsItemInInventory(ItemType.SnapLight))
+      {
+        m_InventoryIcon.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        m_InventoryIcon.sprite = Resources.Load<Sprite>(StringManager.Names.iconSnapLight);
+      }
+      else
+      {
+        m_InventoryIcon.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+      }
+
     }
 
     public void DisplayLast()

@@ -14,7 +14,7 @@ public class Minimap : MonoBehaviour
     SetViewDistance(m_viewDistance);
 
     // set the radar costs from the current gamedifficultysettings
-    m_batteryCost = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regenerationRadar;
+    UpdateCosts();
   }
 
 	void Update()
@@ -70,5 +70,10 @@ public class Minimap : MonoBehaviour
   public static Minimap GetInstance()
   {
     return GameObject.Find(StringManager.Names.minimap).GetComponent<Minimap>();
+  }
+
+  public void UpdateCosts()
+  {
+    m_batteryCost = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regenerationRadar;
   }
 }

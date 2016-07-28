@@ -21,6 +21,7 @@ public class StringManager : MonoBehaviour
         public const string inventoryIconSnapLight = "InventoryIconSnapLight";
         public const string iconWrench = "iconWrench";
         public const string iconSnapLight = "iconSnapLight";
+        public const string xmlSave = "XmlSave";
     }
 
     public class Tags

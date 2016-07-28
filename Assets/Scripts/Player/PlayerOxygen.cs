@@ -22,7 +22,7 @@ public class PlayerOxygen : MonoBehaviour
     void Start()
     {
       m_grayScaleManager = SingletonManager.GrayScaleManager;
-      m_regenerateStep = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regnerationOxygenNormal;
+      UpdateCosts();
     }
 
     void Update()
@@ -91,4 +91,9 @@ public class PlayerOxygen : MonoBehaviour
     {
         return m_current / m_max;
     }
+
+  public void UpdateCosts()
+  {
+    m_regenerateStep = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regnerationOxygenNormal;
+  }
 }

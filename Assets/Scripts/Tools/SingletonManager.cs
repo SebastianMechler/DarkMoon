@@ -12,6 +12,7 @@ public class SingletonManager : MonoBehaviour
   private static Minimap m_minimap = null;
   private static GrayScaleManager m_grayScaleManager = null;
   private static GameObject m_enemy = null;
+  private static XmlSave m_xmlSave = null;
 
   public static MouseManager MouseManager
     {
@@ -121,6 +122,19 @@ public class SingletonManager : MonoBehaviour
       }
 
       return m_enemy;
+    }
+  }
+
+  public static XmlSave XmlSave
+  {
+    get
+    {
+      if (m_xmlSave == null)
+      {
+        m_xmlSave = XmlSave.GetInstance();
+      }
+
+      return m_xmlSave;
     }
   }
 }

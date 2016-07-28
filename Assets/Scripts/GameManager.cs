@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 {
   public GameControls m_gameControls;
   public GameDifficulty m_gameDifficulty = GameDifficulty.Easy;
-
+  public bool m_isSaveGame = false;
   public GameDifficultySettings[] m_gameDifficultySettings = new GameDifficultySettings[3];
   
   static bool m_isCreated = false;
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     }
     m_isCreated = true;
 
-    DontDestroyOnLoad(this.transform.gameObject);
+    DontDestroyOnLoad(this.gameObject);
   }
 
   public void SetGameDifficulty(GameDifficulty difficulty)

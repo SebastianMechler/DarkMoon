@@ -188,10 +188,7 @@ public class UIManager : MonoBehaviour
     //
     public void OnClick_PauseMenu_ButtonNewGame()
     {
-        SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
-        Time.timeScale = 1.0f;
-        SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+      NewGame();
     }
 
     public void OnClick_PauseMenu_Resume()
@@ -208,13 +205,37 @@ public class UIManager : MonoBehaviour
 
     public void OnClick_PauseMenu_MainMenu()
     {
-        SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
-        Time.timeScale = 1.0f;
-        SceneManager.LoadScene(StringManager.Scenes.mainMenu);
+      SwitchToMainMenu();
     }
 
     public static UIManager GetInstance()
     {
         return GameObject.Find(StringManager.Names.uiManager).GetComponent<UIManager>();
     }
+
+  public static void NewGame()
+  {
+    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
+    SceneManager.LoadScene(StringManager.Scenes.game);
+    SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
+    Time.timeScale = 1.0f;
+    SingletonManager.GameManager.m_isSaveGame = false;
+  }
+
+  public static void ResumeGame()
+  {
+    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
+    SceneManager.LoadScene(StringManager.Scenes.game);
+    SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
+    Time.timeScale = 1.0f;
+    SingletonManager.GameManager.m_isSaveGame = true;
+  }
+
+  public static void SwitchToMainMenu()
+  {
+    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
+    SceneManager.LoadScene(StringManager.Scenes.mainMenu);
+    SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
+    Time.timeScale = 1.0f;
+  }
 }

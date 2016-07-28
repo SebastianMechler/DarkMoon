@@ -19,7 +19,7 @@ public class PlayerBattery : MonoBehaviour
     m_flashLight = FlashLight.GetInstance();
 
     // FLASHLIGHT
-    m_regenerateStep = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regenerationFlashLight;
+    UpdateCosts();
   }
 
   void Update()
@@ -74,5 +74,10 @@ public class PlayerBattery : MonoBehaviour
   public bool HasBattery()
   {
     return m_current > 0.0f;
+  }
+
+  public void UpdateCosts()
+  {
+    m_regenerateStep = SingletonManager.GameManager.CurrentGameDifficultySettings.m_regenerationFlashLight;
   }
 }

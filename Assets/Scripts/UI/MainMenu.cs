@@ -6,12 +6,14 @@ public class MainMenu : MonoBehaviour
 {
   float m_waitTimeExitGame = 0.0f;
 
+  public void OnClick_MainMenu_Resume()
+  {
+    UIManager.ResumeGame();
+  }
+
   public void OnClick_MainMenu_NewGame()
   {
-    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
-    SceneManager.LoadScene(StringManager.Scenes.game);
-    SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
-    Time.timeScale = 1.0f;
+    UIManager.NewGame();
   }
 
   public void OnClick_MainMenu_Exit()
@@ -27,6 +29,8 @@ public class MainMenu : MonoBehaviour
     SceneManager.LoadScene(StringManager.Scenes.optionScreen);
     Time.timeScale = 1.0f;
   }
+
+
 
   void Update()
   {

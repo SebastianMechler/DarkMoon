@@ -56,5 +56,8 @@ public class Terminal : ObjectInteractionBase
     }
 
     SingletonManager.MainTerminalController.UpdateData(m_terminalType);
+
+    // Save Game
+    SingletonManager.XmlSave.Save();
   }
 }

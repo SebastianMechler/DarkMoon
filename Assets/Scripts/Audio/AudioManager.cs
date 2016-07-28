@@ -61,7 +61,7 @@ public class AudioManager : MonoBehaviour
     }
     m_isCreated = true;
 
-    DontDestroyOnLoad(this.transform.gameObject);
+    DontDestroyOnLoad(this.gameObject);
   }
 
   void Start ()

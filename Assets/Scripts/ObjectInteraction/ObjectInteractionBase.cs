@@ -89,7 +89,7 @@ public class ObjectInteractionBase : MonoBehaviour
     {
   
       if (m_interactionHand == null)
-        m_interactionHand = GameObject.Find(StringManager.Names.interactionHandFromUI);
+        m_interactionHand = GameObject.Find(StringManager.Names.crosshair);
       //m_interactionHand.GetComponent<Image>().enabled = true;
       
   }

@@ -8720,6 +8720,10 @@ Prefab:
       propertyPath: m_TagString
       value: Waypoint
       objectReference: {fileID: 0}
+    - target: {fileID: 11422438, guid: a7b783022d792e949a4fba7c087c7690, type: 2}
+      propertyPath: m_StaticSearchNearby
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7b783022d792e949a4fba7c087c7690, type: 2}
   m_IsPrefabParent: 0
@@ -8934,24 +8938,11 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11422946, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
-      propertyPath: m_FontData.m_Font
-      value: 
-      objectReference: {fileID: 12800000, guid: ba4f0ee6a7386544ea2a5c4534239a02,
-        type: 3}
-    - target: {fileID: 22424488, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.927
+    - target: {fileID: 183642, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
+      propertyPath: m_Name
+      value: Crosshair
       objectReference: {fileID: 0}
-    - target: {fileID: 22424488, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -78.876
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11460874, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
-    - {fileID: 11476058, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
-    - {fileID: 11422482, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
-    - {fileID: 11475012, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1440689461

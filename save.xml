@@ -1,13 +1,13 @@
 <xml>
   <Player>
-    <Position X="188.9685" Y="0.7164048" Z="-82.89793" />
-    <Rotation X="18.07356" Y="126.2983" Z="0" />
-    <Oxygen>89.98286</Oxygen>
-    <Battery>71.96406</Battery>
+    <Position X="190.6773" Y="0.716405" Z="-82.89795" />
+    <Rotation X="33.88037" Y="207.8036" Z="0" />
+    <Oxygen>76.2254</Oxygen>
+    <Battery>67.56044</Battery>
   </Player>
   <Enemy>
-    <Position X="196.6616" Y="0.8759864" Z="-126.259" />
-    <Rotation X="0" Y="-0.5340697" Z="0" />
+    <Position X="197.3401" Y="0.809464" Z="-125.8286" />
+    <Rotation X="0" Y="-0.5352495" Z="0" />
   </Enemy>
   <GameDifficulty>0</GameDifficulty>
   <TerminalOne>

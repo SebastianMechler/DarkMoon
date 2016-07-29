@@ -149,16 +149,18 @@ public class UIManager : MonoBehaviour
         {
             Time.timeScale = 0.0f;
             SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
+            SetCrosshairVisibility(false);
         }
         else
         {
             Time.timeScale = 1.0f;
             SingletonManager.MouseManager.SetMouseState(MouseState.LOCKED);
+            SetCrosshairVisibility(true);
         }
 
         SingletonManager.UIManager.SetUIVisibility(UIType.PauseMenu, !isVisisble);
     }
-
+    
     public void ToggleMinimap(bool state)
     {
         // Circle
@@ -197,11 +199,16 @@ public class UIManager : MonoBehaviour
 
         imgCircle.enabled = state;
     }
+    
+    public void SetCrosshairVisibility(bool state)
+    {
+      GameObject.Find(StringManager.Names.crosshair).GetComponent<Image>().enabled = state;
+    }
 
-    //
-    // PAUSE MENU
-    //
-    public void OnClick_PauseMenu_ButtonNewGame()
+  //
+  // PAUSE MENU
+  //
+  public void OnClick_PauseMenu_ButtonNewGame()
     {
       NewGame();
     }

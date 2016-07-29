@@ -106,7 +106,10 @@ public class XmlSave : MonoBehaviour
     LoadEnemy();
     LoadGameDifficulty();
     LoadTerminalData();
-    
+
+    // Screen.SetResolution @options
+
+    SingletonManager.UIManager.TogglePauseMenu();
   }
 
   #region PlayerNode

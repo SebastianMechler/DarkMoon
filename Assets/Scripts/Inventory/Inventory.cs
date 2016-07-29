@@ -80,13 +80,16 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        // TESTING PURPOSE ONLY
-        if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.throwItem))
-        {
-            ThrowFirstItem();
-        }
+      if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.throwItemLightStick))
+      {
+        ThrowItem(GetItemOfType(ItemType.SnapLight));
+      }
 
-      //DisplayLast();
+      if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.throwItemToolWrench))
+      {
+        ThrowItem(GetItemOfType(ItemType.ToolWrench));
+      }
+
       UpdateIconInUI();
     }
 
@@ -207,14 +210,24 @@ public class Inventory : MonoBehaviour
 
         return false;
     }
-
-    public void ThrowFirstItem()
+    
+    public Item GetItemOfType(ItemType type)
     {
-        if (m_itemList.Count == 0)
-            return;
+      foreach (Item itemFromList in m_itemList)
+      {
+        if (itemFromList.m_type == type)
+        {
+          return itemFromList;
+        }
+      }
 
-        Item item = m_itemList[0];
-        item.GetGameObject().transform.position = Camera.main.transform.position; //+ (Camera.main.transform.forward * 1.5f);
+      return null;
+  }
+
+
+    public void ThrowItem(Item item)
+    {
+        item.GetGameObject().transform.position = Camera.main.transform.position;
         item.SetEnableState(true);
         item.Throw();
         RemoveItem(item);

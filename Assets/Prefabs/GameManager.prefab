@@ -48,11 +48,12 @@ MonoBehaviour:
     crouch: 99
     interactWithObject: 101
     flashLight: 102
-    throwItem: 116
+    throwItemLightStick: 116
+    throwItemToolWrench: 122
     ui_togglePauseMenu: 27
     ui_toggleMinimap: 103
-  m_gameState: 1
   m_gameDifficulty: 0
+  m_isSaveGame: 0
   m_gameDifficultySettings:
   - m_gameDifficulty: 0
     m_regnerationOxygenNormal: -0.25
@@ -87,6 +88,10 @@ MonoBehaviour:
     m_chestBatteryMultiplicatorMin: 0.44
     m_chestBatteryMultiplicatorMax: 0.66
     m_itemsRecollectable: 0
+  m_settings:
+    m_soundVolume: 0
+    m_musicVolume: 0
+    m_cameraGamma: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

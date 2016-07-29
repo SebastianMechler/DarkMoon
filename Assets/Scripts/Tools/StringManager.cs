@@ -10,7 +10,7 @@ public class StringManager : MonoBehaviour
         public const string gameManager = "GameManager";
         public const string objectInteraction = "ObjectInteraction"; // invisisble collider which is used to interact with objects
         public const string doorState = "DoorState"; // name of gameobject which indicates the current state of a door
-        public const string interactionHandFromUI = "InteractionHand"; // sprite which will be drawn as image in the UI to show the player can interact
+        public const string crosshair = "Crosshair"; // sprite which will be drawn as image in the UI to show the player can interact
         public const string mainTerminalController = "MainTerminal";
         public const string uiManager = "UIManager";
         public const string player = "Player";

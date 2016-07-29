@@ -14,7 +14,8 @@ public struct GameControls
   public KeyCode crouch;
   public KeyCode interactWithObject;
   public KeyCode flashLight;
-  public KeyCode throwItem;
+  public KeyCode throwItemLightStick;
+  public KeyCode throwItemToolWrench;
 
   // ui
   public KeyCode ui_togglePauseMenu;
@@ -44,13 +45,22 @@ public struct GameDifficultySettings
   public bool m_itemsRecollectable;
 }
 
+[System.Serializable]
+public struct OptionSettings
+{
+  public float m_soundVolume; // implemented
+  public float m_musicVolume; // michael
+  public float m_cameraGamma; // research
+}
+
 public class GameManager : MonoBehaviour
 {
   public GameControls m_gameControls;
   public GameDifficulty m_gameDifficulty = GameDifficulty.Easy;
   public bool m_isSaveGame = false;
   public GameDifficultySettings[] m_gameDifficultySettings = new GameDifficultySettings[3];
-  
+  public OptionSettings m_settings;
+
   static bool m_isCreated = false;
 
   void Awake()
@@ -90,3 +100,4 @@ public class GameManager : MonoBehaviour
     }
   }
 }
+

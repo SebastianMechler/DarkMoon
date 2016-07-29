@@ -75,7 +75,7 @@ public class AudioManager : MonoBehaviour
   public void Play(AudioType type)
   {
     AudioSource source = GetComponent<AudioSource>();//Camera.main.GetComponent<AudioSource>();
-    source.volume = m_audioMap[type].volume;
+    source.volume = m_audioMap[type].volume * SingletonManager.GameManager.m_settings.m_soundVolume;
     source.PlayOneShot(m_audioMap[type].clip);    
   }
 

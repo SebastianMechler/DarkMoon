@@ -71,6 +71,7 @@ public class XmlSave : MonoBehaviour
     SavePlayer();
     SaveEnemey();
     SaveGameDifficulty();
+    SaveTerminalData();
 
     m_document.Save(file);
     Debug.Log("XmlSave saved.");
@@ -104,6 +105,8 @@ public class XmlSave : MonoBehaviour
     LoadPlayer();
     LoadEnemy();
     LoadGameDifficulty();
+    LoadTerminalData();
+    
   }
 
   #region PlayerNode
@@ -293,6 +296,101 @@ public class XmlSave : MonoBehaviour
     SingletonManager.Minimap.UpdateCosts();
     SingletonManager.Player.GetComponent<PlayerOxygen>().UpdateCosts();
     SingletonManager.Player.GetComponent<PlayerBattery>().UpdateCosts();
+  }
+  #endregion
+
+  #region TerminalNode
+  public void CreateTerminalNode()
+  {
+    // creates all nodes if they dont exist already
+
+    string[] terminals = new string[3];
+    terminals[0] = XmlNodes.Terminal.terminalOne;
+    terminals[1] = XmlNodes.Terminal.terminalTwo;
+    terminals[2] = XmlNodes.Terminal.terminalThree;
+
+    for (int i = 0; i < terminals.Length; i++)
+    {
+      XmlElement ele = (XmlElement)GetXmlNode(terminals[i]);
+      if (ele == null)
+      {
+        // element does not exist, create it
+        ele = m_document.CreateElement(terminals[i]);
+        m_document.DocumentElement.AppendChild(ele);
+      }
+
+      // Terminal => activated
+      XmlElement activated = (XmlElement)GetXmlNode(XmlNodes.Terminal.activated, ele);
+      if (activated == null)
+      {
+        // element does not exist, create it
+        activated = m_document.CreateElement(XmlNodes.Terminal.activated);
+        activated.InnerText = false.ToString();
+        ele.AppendChild(activated);
+      }
+
+      // Terminal => collected
+      XmlElement collected = (XmlElement)GetXmlNode(XmlNodes.Terminal.collected, ele);
+      if (collected == null)
+      {
+        // element does not exist, create it
+        collected = m_document.CreateElement(XmlNodes.Terminal.collected);
+        collected.InnerText = false.ToString();
+        ele.AppendChild(collected);
+      }
+    }
+  }
+
+  public void SaveTerminalData()
+  {
+    CreateTerminalNode();
+
+    string[] terminals = new string[3];
+    terminals[0] = XmlNodes.Terminal.terminalOne;
+    terminals[1] = XmlNodes.Terminal.terminalTwo;
+    terminals[2] = XmlNodes.Terminal.terminalThree;
+
+    for (int i = 0; i < terminals.Length; i++)
+    {
+      TerminalNode terminal = new TerminalNode(GetXmlNode(terminals[i]));
+      TerminalInformation terminalInformation = SingletonManager.MainTerminalController.GetTerminalInformation(i);
+      terminal.SetActivated(terminalInformation.isActivated);
+      terminal.SetCollected(terminalInformation.isCollected);
+    }
+  }
+
+  public void LoadTerminalData()
+  {
+    CreateTerminalNode();
+
+    string[] terminals = new string[3];
+    terminals[0] = XmlNodes.Terminal.terminalOne;
+    terminals[1] = XmlNodes.Terminal.terminalTwo;
+    terminals[2] = XmlNodes.Terminal.terminalThree;
+
+    for (int i = 0; i < terminals.Length; i++)
+    {
+      TerminalNode terminal = new TerminalNode(GetXmlNode(terminals[i]));
+
+      TerminalInformation terminalInformation = new TerminalInformation();
+      terminalInformation.isActivated = terminal.GetActivated();
+      terminalInformation.isCollected = terminal.GetCollected();
+
+      SingletonManager.MainTerminalController.SetTerminalInformation(i, terminalInformation);
+
+      // update visual
+      if (terminalInformation.isCollected)
+      {
+        SingletonManager.UIManager.GetUIObject((UIType)i + 1).GetComponent<Canvas>().enabled = true;
+      }
+
+      if (terminalInformation.isActivated)
+      {
+        SingletonManager.UIManager.GetTerminalToggle((UIType)i+1).isOn = true; // i + 1 because TerminalOne is listed with number 1 in UIType enum
+      }
+
+
+    }
   }
   #endregion
 

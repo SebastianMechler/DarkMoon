@@ -39,7 +39,7 @@ public class Terminal : ObjectInteractionBase
     switch (m_terminalType)
     {
       case TerminalType.MAIN_TERMINAL:
-        SingletonManager.UIManager.SetUIVisibility(UIType.MainTerminal, true);
+        //SingletonManager.UIManager.SetUIVisibility(UIType.MainTerminal, true);
         break;
       case TerminalType.TERMINAL_ONE:
         SingletonManager.UIManager.SetUIVisibility(UIType.TerminalOne, true);

@@ -66,25 +66,28 @@ public class StringManager : MonoBehaviour
     }
 
 
-    public class UI
-    {
-        public const string MainTerminal = "MainTerminalUI";
-        public const string TerminalOne = "TerminalOneUI";
-        public const string TerminalTwo = "TerminalTwoUI";
-        public const string TerminalThree = "TerminalThreeUI";
-        public const string OxygenBackground = "OxygenBackground";
-        public const string BatteryBackground = "BatteryBackground";
-        public const string BatteryForgeround = "BatteryForeground";
-        public const string BatteryText = "BatteryText";
-        public const string PauseMenu = "PauseMenuUI";
-        public const string MainMenu = "MainMenuUI";
-        public const string MinimapCirclePanel = "MinimapCirclePanel";
-        public const string MinimapCircle = "MinimapCircle";
-        public const string MinimapCircleOutline = "MinimapCircleOutline";
-        public const string MinimapRect = "MinimapRect";
-        public const string HiddenState = "HiddenStateImage";
-        public const string inventoryIconWrench = "InventoryIconWrench";
-    }
+  public class UI
+  {
+    public const string MainTerminal = "MainTerminalUI";
+    public const string TerminalOne = "TerminalOneUI";
+    public const string TerminalTwo = "TerminalTwoUI";
+    public const string TerminalThree = "TerminalThreeUI";
+    public const string OxygenBackground = "OxygenBackground";
+    public const string BatteryBackground = "BatteryBackground";
+    public const string BatteryForgeround = "BatteryForeground";
+    public const string BatteryText = "BatteryText";
+    public const string PauseMenu = "PauseMenuUI";
+    public const string MainMenu = "MainMenuUI";
+    public const string MinimapCirclePanel = "MinimapCirclePanel";
+    public const string MinimapCircle = "MinimapCircle";
+    public const string MinimapCircleOutline = "MinimapCircleOutline";
+    public const string MinimapRect = "MinimapRect";
+    public const string HiddenState = "HiddenStateImage";
+    public const string inventoryIconWrench = "InventoryIconWrench";
+    public const string ToggleTerminalOne = "Toggle_TerminalOne";
+    public const string ToggleTerminalTwo = "Toggle_TerminalTwo";
+    public const string ToggleTerminalThree = "Toggle_TerminalThree";
+  }
 
 
     public class UsedScripts

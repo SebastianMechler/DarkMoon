@@ -93,6 +93,21 @@ public class UIManager : MonoBehaviour
         return null;
     }
 
+    public Toggle GetTerminalToggle(UIType type)
+    {
+      switch (type)
+      {
+        case UIType.TerminalOne:
+          return GameObject.Find(StringManager.UI.ToggleTerminalOne).gameObject.GetComponent<Toggle>();
+      case UIType.TerminalTwo:
+          return GameObject.Find(StringManager.UI.ToggleTerminalTwo).gameObject.GetComponent<Toggle>();
+      case UIType.TerminalThree:
+          return GameObject.Find(StringManager.UI.ToggleTerminalThree).gameObject.GetComponent<Toggle>();
+      }
+
+      return null;
+    }
+
     public void UpdateIngameUI()
     {
         // Update Oxygen bar

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 
 [System.Serializable]
 public struct TerminalInformation
@@ -12,7 +12,7 @@ public struct TerminalInformation
 // script which holds information about collected data
 public class MainTerminalController : MonoBehaviour
 {
-  TerminalInformation[] m_terminals = new TerminalInformation[(int)TerminalType.COUNT]; // create an array with the number of terminals (-1 cause MAIN_TERMINAL is not needed)
+  public TerminalInformation[] m_terminals = new TerminalInformation[(int)TerminalType.COUNT]; // create an array with the number of terminals (-1 cause MAIN_TERMINAL is not needed)
 
   public void UpdateData(TerminalType type)
   {
@@ -24,8 +24,22 @@ public class MainTerminalController : MonoBehaviour
         if (m_terminals[i].isCollected == true)
         {
           // activate data
-          m_terminals[i].isActivated = true;
-          Debug.Log("Player has activated: " + (TerminalType)i);
+            m_terminals[i].isActivated = true;
+            Debug.Log("Player has activated: " + (TerminalType)i);
+
+          // update ingame-ui
+          switch ((TerminalType)i)
+          {
+            case TerminalType.TERMINAL_ONE:
+              SingletonManager.UIManager.GetTerminalToggle(UIType.TerminalOne).isOn = true;
+              break;
+            case TerminalType.TERMINAL_TWO:
+              SingletonManager.UIManager.GetTerminalToggle(UIType.TerminalTwo).isOn = true;
+              break;
+            case TerminalType.TERMINAL_THREE:
+              SingletonManager.UIManager.GetTerminalToggle(UIType.TerminalThree).isOn = true;
+              break;
+          }
         }
       }
     }
@@ -34,9 +48,8 @@ public class MainTerminalController : MonoBehaviour
       // note that the data has been collected now by the player
       // he still needs to run to the main terminal and interact with it to activate it
       // data has been collected now
-      m_terminals[(int)type].isCollected = true;
-      Debug.Log("Player has collected Data: " + type.ToString());
-      
+        m_terminals[(int)type].isCollected = true;
+        Debug.Log("Player has collected Data: " + type.ToString());    
     }
 
 
@@ -68,6 +81,17 @@ public class MainTerminalController : MonoBehaviour
     {
       return false;
     }
+  }
+
+  public void SetTerminalInformation(int index, TerminalInformation information)
+  {
+    // TODO: ADD VISUALIZE EFFECT (interact with the objects...)
+    m_terminals[index] = information;
+  }
+
+  public TerminalInformation GetTerminalInformation(int index)
+  {
+    return m_terminals[index];
   }
 
   public static MainTerminalController GetInstance()

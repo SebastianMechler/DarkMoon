@@ -38,4 +38,14 @@ public class XmlNodeBase
   {
     return int.Parse(node.InnerText);
   }
+
+  public void SetBool(XmlNode node, bool value)
+  {
+    node.InnerText = value.ToString();
+  }
+
+  public bool GetBool(XmlNode node)
+  {
+    return bool.Parse(node.InnerText);
+  }
 }

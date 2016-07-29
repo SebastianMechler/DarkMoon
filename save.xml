@@ -1,13 +1,25 @@
 <xml>
   <Player>
-    <Position X="154.7557" Y="0.7227347" Z="-116.4352" />
-    <Rotation X="38.92797" Y="289.1053" Z="0" />
-    <Oxygen>29.69805</Oxygen>
-    <Battery>78.73113</Battery>
+    <Position X="188.9685" Y="0.7164048" Z="-82.89793" />
+    <Rotation X="18.07356" Y="126.2983" Z="0" />
+    <Oxygen>89.98286</Oxygen>
+    <Battery>71.96406</Battery>
   </Player>
   <Enemy>
-    <Position X="185.2919" Y="0.79" Z="-119.7343" />
-    <Rotation X="0" Y="0.9999762" Z="0" />
+    <Position X="196.6616" Y="0.8759864" Z="-126.259" />
+    <Rotation X="0" Y="-0.5340697" Z="0" />
   </Enemy>
   <GameDifficulty>0</GameDifficulty>
+  <TerminalOne>
+    <IsActivated>True</IsActivated>
+    <IsCollected>True</IsCollected>
+  </TerminalOne>
+  <TerminalTwo>
+    <IsActivated>True</IsActivated>
+    <IsCollected>True</IsCollected>
+  </TerminalTwo>
+  <TerminalThree>
+    <IsActivated>True</IsActivated>
+    <IsCollected>True</IsCollected>
+  </TerminalThree>
 </xml>

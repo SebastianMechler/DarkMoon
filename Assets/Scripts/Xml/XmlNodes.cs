@@ -3,7 +3,6 @@ using System.Collections;
 
 public class XmlNodes
 {
-  // Player
   public class Player
   {
     public const string player = "Player";
@@ -24,4 +23,15 @@ public class XmlNodes
   {
     public const string gameDifficulty = "GameDifficulty";
   }
+
+  public class Terminal
+  {
+    public const string terminalOne = "TerminalOne";
+    public const string terminalTwo = "TerminalTwo";
+    public const string terminalThree = "TerminalThree";
+
+    public const string activated = "IsActivated";
+    public const string collected = "IsCollected";
+  }
 }
+

@@ -392,22 +392,22 @@ Light:
   m_Enabled: 0
   serializedVersion: 6
   m_Type: 0
-  m_Color: {r: 0.75026107, g: 0.8014706, b: 0.4302011, a: 1}
-  m_Intensity: 2
-  m_Range: 40
-  m_SpotAngle: 80
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 4.91
+  m_Range: 4.5
+  m_SpotAngle: 87
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_Strength: 1
-    m_Bias: 0.05
+    m_Bias: 0
     m_NormalBias: 0.4
     m_NearPlane: 0.2
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -489,8 +489,8 @@ MonoBehaviour:
   m_sensitivityY: 500
   m_minimumX: -360
   m_maximumX: 360
-  m_minimumY: -50
-  m_maximumY: 50
+  m_minimumY: -90
+  m_maximumY: 90
 --- !u!114 &11414780
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -9116,18 +9116,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
-    - target: {fileID: 11412558, guid: 398149574d5baa446bbad2ae3fad663b, type: 2}
-      propertyPath: m_minimumY
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 11412558, guid: 398149574d5baa446bbad2ae3fad663b, type: 2}
-      propertyPath: m_maximumY
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489362, guid: 398149574d5baa446bbad2ae3fad663b, type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 398149574d5baa446bbad2ae3fad663b, type: 2}
   m_IsPrefabParent: 0

@@ -11,7 +11,7 @@ public class DebugRenderOptions : MonoBehaviour {
 	private bool m_WaypointsVisible = false;
 
 	public GameObject m_FlashLight = null;
-	private bool m_FlashLightDefault = true;
+	private bool m_FlashLightDefault = false;
 	private Color m_FlashLightColor;
 	private LightRenderMode m_FlashLightRenderMode;
 
@@ -70,8 +70,8 @@ public class DebugRenderOptions : MonoBehaviour {
 			// Sebastian
 			light.range = 40.0f;
 			light.spotAngle = 80.0f;
-			light.color = m_FlashLightColor;
-			light.intensity = 2.0f;
+			light.color = new Color(0.8f, 0.8f, 0.4f, 1.0f);
+            light.intensity = 2.0f;
 			light.shadows = LightShadows.None;
 			light.renderMode = m_FlashLightRenderMode;
         }

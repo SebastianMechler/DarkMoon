@@ -1754,6 +1754,138 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 105668, guid: a7b783022d792e949a4fba7c087c7690, type: 2}
   m_PrefabInternal: {fileID: 767470927}
+--- !u!1 &848837233 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 103388, guid: fad6a15418f42f742887bf9e7eafbb78, type: 2}
+  m_PrefabInternal: {fileID: 1322560608}
+--- !u!114 &848837236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 848837233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e610d1b467e00ef46b9f5315c15edd95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0.18759869
+      value: 0.61109245
+      inSlope: 1.1410564
+      outSlope: 1.1410564
+      tangentMode: 0
+    - time: 0.430908
+      value: 0.27410057
+      inSlope: -0.423491
+      outSlope: -0.423491
+      tangentMode: 0
+    - time: 0.80951023
+      value: 0.610709
+      inSlope: 0.44852495
+      outSlope: 0.44852495
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  m_SecondCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 0.535222
+      value: 0.38560882
+      inSlope: -0.4800409
+      outSlope: -0.4800409
+      tangentMode: 0
+    - time: 0.7329277
+      value: 0.72527045
+      inSlope: -0.34049153
+      outSlope: -0.34049153
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  m_ThirdCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+    - time: 0.05107119
+      value: 0.36762938
+      inSlope: 1.7530471
+      outSlope: 1.7530471
+      tangentMode: 0
+    - time: 0.23001057
+      value: 0.13516426
+      inSlope: 1.3202429
+      outSlope: 1.3202429
+      tangentMode: 0
+    - time: 0.3354354
+      value: 0.8980792
+      inSlope: 1.0591745
+      outSlope: 1.0591745
+      tangentMode: 0
+    - time: 0.51735985
+      value: 0.43751207
+      inSlope: 0.6940961
+      outSlope: 0.6940961
+      tangentMode: 0
+    - time: 0.6277907
+      value: 0.8108867
+      inSlope: 2.1865964
+      outSlope: 2.1865964
+      tangentMode: 0
+    - time: 0.81035125
+      value: 0.052323103
+      inSlope: -0.8937144
+      outSlope: -0.8937144
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  m_FourthCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_FifthCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_SpeedFactor: 0.15
+  m_LifeDuration: -1
 --- !u!4 &852024720 stripped
 Transform:
   m_PrefabParentObject: {fileID: 454152, guid: fbba020b72cd0b04790960de424ad2fd, type: 2}

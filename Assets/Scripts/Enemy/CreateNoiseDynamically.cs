@@ -72,7 +72,7 @@ public class CreateNoiseDynamically : MonoBehaviour
         // Debug.Log("Get Enemy to target '"+ m_NearestWaypoint.name +"' as a noise source");
         m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
     }
-
+    
     public void OnCollisionEnter(Collision other)
     {
         // Debug.Log("Thrown Item collided with: " + other.gameObject.name);

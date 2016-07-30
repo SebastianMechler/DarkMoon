@@ -155,7 +155,6 @@ public class EnemyAiScript : MonoBehaviour {
 
         if (m_MovementPattern == MovementPattern.DYNAMIC)
         {
-            // TODO: LateStart or the likes
             if (m_TargetPatrolName.Length <= 1)
             {
                 m_TargetPatrolName = m_FirstDynamicWaypoint.GetComponent<WaypointTreeNode>().getName();
@@ -168,7 +167,7 @@ public class EnemyAiScript : MonoBehaviour {
                     break;
 
                 case ActionType.WAITFOR_SECONDS:
-                    m_WaitTimer += Time.deltaTime;
+                    m_WaitTimer += Time.fixedDeltaTime;
                     if (m_WaitTimer >= m_WaitAfterEachWaypoint)
                     {
                         g_MovementSpeed = 0.0f;
@@ -202,7 +201,6 @@ public class EnemyAiScript : MonoBehaviour {
             if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))
             {
                 AI_Static_SetNextPatternIndex(other.gameObject);
-
             }
         }
 
@@ -435,7 +433,7 @@ public class EnemyAiScript : MonoBehaviour {
     #region StaticMovementPattern
     void AI_Static_WaitForSeconds()
 	{
-		m_CurWait += Time.deltaTime;
+		m_CurWait += Time.fixedDeltaTime;
 		if(m_CurWait >= g_ActionQueue[g_CurrentAction].m_WaitInSeconds)
 		{
 			m_CurWait = 0;
@@ -448,7 +446,7 @@ public class EnemyAiScript : MonoBehaviour {
 		AI_RotateToTargetPosition(gameObject.transform.position, g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position);
 
 		g_MovementSpeed = g_MovementSpeedHaste;
-		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime /* * m_SlowMoveFactor*/);
+		transform.Translate(Vector3.forward * g_MovementSpeed * Time.fixedDeltaTime /* * m_SlowMoveFactor*/);
 	}
     
 	void AI_Static_SetNextPatternIndex(GameObject a_CurPosition)
@@ -459,6 +457,10 @@ public class EnemyAiScript : MonoBehaviour {
         // Debug.Log("[!] Check if Last Waypoint is Reached. ( " + g_CurrentAction + " =?= " + m_NumberOfStaticWaypoints + " )");
         if (g_CurrentAction >= m_NumberOfStaticWaypoints)
         {
+            g_TurnRate = 100000.0f;
+            AI_RotateToTargetPosition(transform.position, m_NoiseSource.transform.position);
+            g_TurnRate = 1000.0f;
+
             changeMovementPattern(MovementPattern.DYNAMIC, null, null);
             return;
         }
@@ -635,7 +637,7 @@ public class EnemyAiScript : MonoBehaviour {
 		Vector3 toTarget = a_Target - a_Source;
 		toTarget.y = 0.0f;
 
-		float turnRate = g_TurnRate * Time.deltaTime;
+		float turnRate = g_TurnRate * Time.fixedDeltaTime;
 		Quaternion lookRotation = Quaternion.LookRotation(toTarget);
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
 	}
@@ -645,7 +647,7 @@ public class EnemyAiScript : MonoBehaviour {
 		AI_RotateToTargetPosition(gameObject.transform.position, m_NextWaypoint.transform.position);
 
 		g_MovementSpeed = g_MovementSpeedNormal;
-		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime * m_SlowMoveFactor);
+		transform.Translate(Vector3.forward * g_MovementSpeed * Time.fixedDeltaTime * m_SlowMoveFactor);
 	}
 
 	void AI_Dynamic_SetNextWaypoint()

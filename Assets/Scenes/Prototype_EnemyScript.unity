@@ -9120,10 +9120,6 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 183642, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
-      propertyPath: m_Name
-      value: Crosshair
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 80d0c6e4053dfc449a1fe4bccc2d0db6, type: 2}
   m_IsPrefabParent: 0
@@ -9817,7 +9813,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 144628, guid: 78ff148ffc6840845971708044721cff, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 78ff148ffc6840845971708044721cff, type: 2}

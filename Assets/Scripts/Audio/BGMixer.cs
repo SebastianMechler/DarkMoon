@@ -65,7 +65,7 @@ public class BGMixer : MonoBehaviour {
 		{
 			if (m_AudioActive != ActiveAudio.Danger && m_AudioActive != ActiveAudio.Danger)
 			{
-                // Debug.Log("[!] Auto Change to: ActiveAudio.Danger");
+                Debug.Log("[!] Auto Change to: ActiveAudio.Danger");
                 m_AudioNext = ActiveAudio.Danger;
 				m_CounterDown = 1.0f;
 				m_CounterUp = 0.0f;
@@ -73,16 +73,16 @@ public class BGMixer : MonoBehaviour {
 		}
 		else if (distance <= m_HecticThreshold && m_AudioActive != ActiveAudio.Hectic)
 		{
-            // Debug.Log("[!] Auto Change to: ActiveAudio.Hectic");
+            Debug.Log("[!] Auto Change to: ActiveAudio.Hectic");
             m_AudioNext = ActiveAudio.Hectic;
 			m_CounterDown = 1.0f;
 			m_CounterUp = 0.0f;
 		}
 		else
 		{
-			if (m_AudioActive != ActiveAudio.Silent)
+			if ( distance > m_HecticThreshold && speed < 10.0f && m_AudioActive != ActiveAudio.Silent)
 			{
-				// Debug.Log("[!] Auto Change to: ActiveAudio.Silent");
+				Debug.Log("[!] Auto Change to: ActiveAudio.Silent");
 				m_AudioNext = ActiveAudio.Silent;
 				m_CounterDown = 1.0f;
 				m_CounterUp = 0.0f;
@@ -207,7 +207,7 @@ public class BGMixer : MonoBehaviour {
 			{
 				m_AudioActive = m_AudioNext;
 				m_AudioNext = ActiveAudio.None;
-                // Debug.Log(" == Music Changed == ");
+                Debug.Log(" == Music Changed == ");
             }
         }
     }

@@ -9,12 +9,28 @@ public class CreateNoiseDynamically : MonoBehaviour
     //public bool m_PlaySoundOnEnter;
     public bool m_GenerateNoiseOnGroundContact = false;
     private GameObject m_NearestWaypoint;
+    private float m_Cooldown = 0.0f;
+    private bool m_EnableNoiseCreation = true;
 
     float lastNearestDistance = float.MaxValue;
 
     void Start()
     {
         m_Enemy = GameObject.FindGameObjectWithTag(StringManager.Tags.enemy);
+    }
+
+    void FixedUpdate()
+    {
+        if (m_Cooldown > 0.0f)
+        {
+            m_Cooldown -= Time.fixedDeltaTime;
+        }
+
+        if (m_Cooldown < 0.0f)
+        {
+            m_EnableNoiseCreation = true;
+            m_Cooldown = 0.0f;
+        }
     }
 
     public string getName()
@@ -55,16 +71,18 @@ public class CreateNoiseDynamically : MonoBehaviour
         UpdateNearestWaypoint();
         // Debug.Log("Get Enemy to target '"+ m_NearestWaypoint.name +"' as a noise source");
         m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
-        gameObject.GetComponent<CreateNoiseDynamically>().enabled = false;
     }
 
     public void OnCollisionEnter(Collision other)
     {
         // Debug.Log("Thrown Item collided with: " + other.gameObject.name);
-        if (other.gameObject.tag.Equals(StringManager.Tags.floor) && m_GenerateNoiseOnGroundContact)
+        if (other.gameObject.tag.Equals(StringManager.Tags.floor) && m_GenerateNoiseOnGroundContact && m_EnableNoiseCreation)
         {
+            m_EnableNoiseCreation = false;
+            m_Cooldown = 4.0f;
+            // Destroy(gameObject.GetComponent<CreateNoiseDynamically>());
+            // GetComponent<CreateNoiseDynamically>().enabled = false;
             MakeNoiseAtCurrentPosition();
         }
-
     }
 }

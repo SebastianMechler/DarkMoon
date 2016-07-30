@@ -24,8 +24,6 @@ public class EnemyAiScript : MonoBehaviour {
 
 	private MovementPattern m_MovementPattern = MovementPattern.DYNAMIC;
 
-	// Static Movement Pattern
-
 	[System.Serializable]
 	public struct ActionQueue
 	{
@@ -57,7 +55,7 @@ public class EnemyAiScript : MonoBehaviour {
     private float g_TurnRate = 1000.0f;
     private float g_MovementSpeed = 4.0f;
     public float g_MovementSpeedNormal = 4.0f;
-	public float g_MovementSpeedHaste = 7.0f;
+	public float g_MovementSpeedHaste = 11.0f;
 
 	private GameObject g_LastPatrolSpot;
 	private int g_NumberOfActions;
@@ -104,9 +102,226 @@ public class EnemyAiScript : MonoBehaviour {
 	}
     private GroupDistance[] m_DistanceBetweenGameObjects;
 
-	// Return Movement Speed
-	public float getMovementSpeed() { return g_MovementSpeed; }
+    #region UnityBaseFunctions
+    void Start()
+    {
 
+        if (m_MovementPattern == MovementPattern.STATIC)
+        {
+            g_NumberOfActions = g_ActionQueue.Length;
+            g_LastPatrolSpot = gameObject;
+            g_CurrentAction = 0;
+            m_CurrentAction = g_ActionQueue[g_CurrentAction].m_ThisAction;
+            m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.name;
+        }
+
+        if (m_MovementPattern == MovementPattern.DYNAMIC)
+        {
+            m_LastWaypoint = m_StartDynamicWaypoint;
+            m_NextWaypoint = m_FirstDynamicWaypoint;
+            m_CurrentAction = ActionType.PATROL;
+            m_TargetPatrolName = m_FirstDynamicWaypoint.GetComponent<WaypointTreeNode>().getName();
+        }
+
+        // do crazy stuff
+        CalculateAllDistances();
+    }
+
+    void FixedUpdate()
+    {
+
+        UpdateAnimationController();
+
+        if (m_MovementPattern == MovementPattern.STATIC)
+        {
+            switch (m_CurrentAction)
+            {
+                case ActionType.NONE:
+                    Debug.LogError("Not specified Action for Enemy AI");
+                    break;
+
+                case ActionType.PATROL:
+                    AI_Static_PatrolMovement();
+                    break;
+
+                case ActionType.WAITFOR_SECONDS:
+                    g_MovementSpeed = 0.0f;
+                    AI_Static_WaitForSeconds();
+                    break;
+            }
+        }
+
+        if (m_MovementPattern == MovementPattern.DYNAMIC)
+        {
+            // TODO: LateStart or the likes
+            if (m_TargetPatrolName.Length <= 1)
+            {
+                m_TargetPatrolName = m_FirstDynamicWaypoint.GetComponent<WaypointTreeNode>().getName();
+            }
+
+            switch (m_CurrentAction)
+            {
+                case ActionType.NONE:
+                    Debug.LogError("Not specified Action for Enemy AI");
+                    break;
+
+                case ActionType.WAITFOR_SECONDS:
+                    m_WaitTimer += Time.deltaTime;
+                    if (m_WaitTimer >= m_WaitAfterEachWaypoint)
+                    {
+                        g_MovementSpeed = 0.0f;
+                        m_CurrentAction = ActionType.PATROL;
+                        m_MovementPattern = MovementPattern.DYNAMIC;
+                    }
+                    break;
+
+                case ActionType.PATROL:
+                    AI_Dynamic_PatrolMovement();
+                    break;
+            }
+        }
+
+        m_ReadOnly_Speed = g_MovementSpeed;
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        /*Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
+	    if (other.gameObject.name.Equals(StringManager.Names.player) 
+            || other.gameObject.name.Equals(StringManager.Resources.debugLvPrototype) 
+            || other.gameObject.name.Equals("enemy_placeholder(forward_walk)"))
+	    {
+            return;
+	    }*/
+
+        if (!other.gameObject.tag.Equals(StringManager.Tags.Waypoints))
+        {
+            return;
+        }
+
+        // Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
+        if (m_MovementPattern == MovementPattern.STATIC)
+        {
+            string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();
+            if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))
+            {
+                AI_Static_SetNextPatternIndex(other.gameObject);
+
+            }
+        }
+
+        if (m_MovementPattern == MovementPattern.DYNAMIC)
+        {
+            string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();
+            // Debug.Log("Compare '"+triggerGameObjectName+"' (trigger) with '"+m_TargetPatrolName+"' (saved)");
+            if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))
+            {
+                AI_Dynamic_SetNextWaypoint();
+                m_TargetPatrolName = m_NextWaypoint.GetComponent<WaypointTreeNode>().getName();
+
+                m_WaitTimer = 0.0f;
+                m_CurrentAction = ActionType.WAITFOR_SECONDS;
+                // gameObject.transform.LookAt(m_NextWaypoint.transform);
+
+                if (other.gameObject.GetComponent<WaypointTreeNode>().shouldFaceNextWaypoint())
+                {
+                    g_TurnRate = 100000.0f;
+                    // Debug.Log("Make Enemy face next Waypoint first");
+                    AI_RotateToTargetPosition(m_LastWaypoint.transform.position, m_NextWaypoint.transform.position);
+                    g_TurnRate = 1000.0f;
+                }
+            }
+        }
+    }
+    #endregion
+
+    #region PrivateFunctions
+    private void UpdateAnimationController()
+    {
+        if (m_CurrentAction == ActionType.WAITFOR_SECONDS)
+        {
+            m_AnimationController.GetComponent<Animator>().SetTrigger("triggerLookAround");
+            m_AnimationIsWalking = false;
+            m_AnimationIsRunning = false;
+        }
+        else
+        {
+            switch (m_MovementPattern)
+            {
+                case MovementPattern.NONE:
+                    Debug.Log("Warning: Empty Movement Pattern");
+                    break;
+
+                case MovementPattern.DYNAMIC:
+                    m_AnimationIsWalking = true;
+                    m_AnimationIsRunning = false;
+                    break;
+
+                case MovementPattern.STATIC:
+                    m_AnimationIsWalking = false;
+                    m_AnimationIsRunning = true;
+                    break;
+
+                default:
+                    Debug.LogError("Unknown Movement Pattern");
+                    break;
+            }
+        }
+
+        m_AnimationController.GetComponent<Animator>().SetBool("isWalking", m_AnimationIsWalking);
+        m_AnimationController.GetComponent<Animator>().SetBool("isRunning", m_AnimationIsRunning);
+
+    }
+
+    private void CalculateAllDistances()
+    {
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
+        GameObject[] childObjects;
+        int numberOfObjects = allObjects.Length;
+
+        int sizeCounter = 0;
+        for (int i = 0; i < numberOfObjects; i++)
+        {
+            GameObject current = allObjects[i];
+            childObjects = current.GetComponent<WaypointTreeNode>().getAllWaypoints();
+            int numberOfChilds = childObjects.Length;
+            for (int j = 0; j < numberOfChilds; j++)
+            {
+                ++sizeCounter;
+            }
+        }
+        m_DistanceBetweenGameObjects = new GroupDistance[sizeCounter];
+
+        Vector3 posParent, posChild;
+        int indexCounter = 0;
+
+        for (int i = 0; i < numberOfObjects; i++)
+        {
+            GameObject current = allObjects[i];
+            posParent = current.transform.position;
+
+            childObjects = current.GetComponent<WaypointTreeNode>().getAllWaypoints();
+            int numberOfChilds = childObjects.Length;
+            for (int j = 0; j < numberOfChilds; j++)
+            {
+                posChild = childObjects[j].transform.position;
+
+                GroupDistance newGroup = new GroupDistance();
+                newGroup.m_WaypointFrom = current;
+                newGroup.m_WaypointFrom_Name = current.GetComponent<WaypointTreeNode>().getName();
+                newGroup.m_WaypointTo = childObjects[j];
+                newGroup.m_WaypointTo_Name = childObjects[j].GetComponent<WaypointTreeNode>().getName();
+                newGroup.m_Distance = Mathf.Abs(Vector3.Distance(posParent, posChild));
+
+                m_DistanceBetweenGameObjects[indexCounter] = newGroup;
+                ++indexCounter;
+            }
+        }
+
+
+    }
+    
     private void resetAllData()
     {
         m_MovementPattern = MovementPattern.NONE;
@@ -131,7 +346,9 @@ public class EnemyAiScript : MonoBehaviour {
 
         // m_DistanceBetweenGameObjects = null;
     }
+    #endregion
 
+    #region SaveLoad
     public struct XmlConstruct
     {
         public string LastWaypointName;
@@ -207,276 +424,10 @@ public class EnemyAiScript : MonoBehaviour {
             changeMovementPattern(MovementPattern.STATIC, m_NoiseSource, m_NoiseClosestWaypoint);
         }
     }
-
-	// public function
-	public void changeMovementPattern(MovementPattern replace, GameObject source, GameObject closest)
-	{
-        // Change from DYNAMIC to STATIC
-        if (replace == MovementPattern.STATIC)
-	    {
-            // Reset Much Data, Much Wow
-            resetAllData();
-
-            // A Noise occured, track the source and the closest Waypoint
-            m_NoiseSource = source;
-            m_NoiseClosestWaypoint = closest;
-            // Generate a Path Starting at the Nearest Waypoint to the Enemy,
-            //  Leading to the the closest Waypoint of the Noise
-            AI_Static_GeneratePath();
-            AI_Static_ListToArray();
-            // Reset MovementPattern, for the Update Functionality to work differently
-            m_MovementPattern = replace;
-            // For Noise, we increae the Movement Speed
-            g_MovementSpeed = g_MovementSpeedHaste;
-            // ..
-            m_IsHunting = true;
-        }
-
-        // Change from STATIC to DYNAMIC
-	    if (replace == MovementPattern.DYNAMIC)
-	    {
-            // We take the Current Position 
-            g_LastPatrolSpot = gameObject;
-
-            m_LastWaypoint = m_NoiseClosestWaypoint;
-            m_NextWaypoint = m_NoiseClosestWaypoint;
-
-            // Patrol Movement
-            m_CurrentAction = ActionType.PATROL;
-            // Reset MovementPattern, for the Update Functionality to work differently
-            m_MovementPattern = replace;
-            // For Dynamic Movement, we move at Normal Speed
-            g_MovementSpeed = g_MovementSpeedNormal;
-
-            m_IsHunting = false;
-        }
-
-        UpdateAnimationController();
-    }
-
-	// Use this for initialization
-	void Start () {
-
-		if(m_MovementPattern == MovementPattern.STATIC)
-		{
-			g_NumberOfActions = g_ActionQueue.Length;
-			g_LastPatrolSpot = gameObject;
-			g_CurrentAction = 0;
-			m_CurrentAction = g_ActionQueue[g_CurrentAction].m_ThisAction;
-			m_TargetPatrolName = g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.gameObject.name;
-		}
-
-		if (m_MovementPattern == MovementPattern.DYNAMIC)
-		{
-			m_LastWaypoint = m_StartDynamicWaypoint;
-			m_NextWaypoint = m_FirstDynamicWaypoint;
-			m_CurrentAction = ActionType.PATROL;
-			m_TargetPatrolName = m_FirstDynamicWaypoint.GetComponent<WaypointTreeNode>().getName();
-		}
-
-		// do crazy stuff
-		CalculateAllDistances();
-    }
-	
-	
-	void FixedUpdate()
-	{
-
-	    UpdateAnimationController();
-
-		if ( m_MovementPattern == MovementPattern.STATIC )
-		{
-			switch (m_CurrentAction)
-			{
-				case ActionType.NONE:
-					Debug.LogError("Not specified Action for Enemy AI");
-					break;
-
-				case ActionType.PATROL:
-                    AI_Static_PatrolMovement();
-					break;
-
-				case ActionType.WAITFOR_SECONDS:
-                    g_MovementSpeed = 0.0f;
-                    AI_Static_WaitForSeconds();
-					break;
-			}
-		}
-
-		if ( m_MovementPattern == MovementPattern.DYNAMIC)
-		{
-			// TODO: LateStart or the likes
-			if(m_TargetPatrolName.Length <= 1)
-			{
-				m_TargetPatrolName = m_FirstDynamicWaypoint.GetComponent<WaypointTreeNode>().getName();
-			}
-
-			switch (m_CurrentAction)
-			{
-				case ActionType.NONE:
-					Debug.LogError("Not specified Action for Enemy AI");
-					break;
-
-                case ActionType.WAITFOR_SECONDS:
-                    m_WaitTimer += Time.deltaTime;
-			        if (m_WaitTimer >= m_WaitAfterEachWaypoint)
-			        {
-			            g_MovementSpeed = 0.0f;
-			            m_CurrentAction = ActionType.PATROL;
-                        m_MovementPattern = MovementPattern.DYNAMIC;
-                    }
-                    break;
-
-				case ActionType.PATROL:
-                    AI_Dynamic_PatrolMovement();
-					break;
-			}
-		}
-
-	    m_ReadOnly_Speed = g_MovementSpeed;
-
-	}
-
-    void UpdateAnimationController()
-    {
-        if (m_CurrentAction == ActionType.WAITFOR_SECONDS)
-        {
-            m_AnimationController.GetComponent<Animator>().SetTrigger("triggerLookAround");
-            m_AnimationIsWalking = false;
-            m_AnimationIsRunning = false;
-        }
-        else
-        {
-            switch (m_MovementPattern)
-            {
-                case MovementPattern.NONE:
-                    Debug.Log("Warning: Empty Movement Pattern");
-                    break;
-
-                case MovementPattern.DYNAMIC:
-                    m_AnimationIsWalking = true;
-                    m_AnimationIsRunning = false;
-                    break;
-
-                case MovementPattern.STATIC:
-                    m_AnimationIsWalking = false;
-                    m_AnimationIsRunning = true;
-                    break;
-
-                default:
-                    Debug.LogError("Unknown Movement Pattern");
-                    break;
-            }
-        }
-
-        m_AnimationController.GetComponent<Animator>().SetBool("isWalking", m_AnimationIsWalking);
-        m_AnimationController.GetComponent<Animator>().SetBool("isRunning", m_AnimationIsRunning);
-
-    }
+    #endregion
     
-
-	void CalculateAllDistances()
-	{
-		GameObject[] allObjects = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
-		GameObject[] childObjects;
-		int numberOfObjects = allObjects.Length;
-
-		int sizeCounter = 0;
-		for (int i = 0; i < numberOfObjects; i++)
-		{
-			GameObject current = allObjects[i];
-			childObjects = current.GetComponent<WaypointTreeNode>().getAllWaypoints();
-			int numberOfChilds = childObjects.Length;
-			for (int j = 0; j < numberOfChilds; j++)
-			{
-				++sizeCounter;
-            }
-		}
-		m_DistanceBetweenGameObjects = new GroupDistance[sizeCounter];
-
-		Vector3 posParent, posChild;
-		int indexCounter = 0;
-
-		for (int i = 0; i < numberOfObjects; i++)
-		{
-			GameObject current = allObjects[i];
-			posParent = current.transform.position;
-
-			childObjects = current.GetComponent<WaypointTreeNode>().getAllWaypoints();
-			int numberOfChilds = childObjects.Length;
-			for(int j = 0; j < numberOfChilds; j++)
-			{
-				posChild = childObjects[j].transform.position;
-
-				GroupDistance newGroup = new GroupDistance();
-				newGroup.m_WaypointFrom = current;
-				newGroup.m_WaypointFrom_Name = current.GetComponent<WaypointTreeNode>().getName();
-				newGroup.m_WaypointTo = childObjects[j];
-				newGroup.m_WaypointTo_Name = childObjects[j].GetComponent<WaypointTreeNode>().getName();
-				newGroup.m_Distance = Mathf.Abs(Vector3.Distance(posParent, posChild));
-
-				m_DistanceBetweenGameObjects[indexCounter] = newGroup;
-				++indexCounter;
-            }
-        }
-
-
-    }
-
-	void OnTriggerEnter(Collider other)
-	{
-        /*Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
-	    if (other.gameObject.name.Equals(StringManager.Names.player) 
-            || other.gameObject.name.Equals(StringManager.Resources.debugLvPrototype) 
-            || other.gameObject.name.Equals("enemy_placeholder(forward_walk)"))
-	    {
-            return;
-	    }*/
-
-        if (!other.gameObject.tag.Equals(StringManager.Tags.Waypoints))
-	    {
-            return;
-	    }
-
-        // Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
-        if (m_MovementPattern == MovementPattern.STATIC)
-		{
-            string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();
-            if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))
-			{
-				AI_Static_SetNextPatternIndex(other.gameObject);
-				
-            }
-		}
-
-		if (m_MovementPattern == MovementPattern.DYNAMIC)
-		{
-			string triggerGameObjectName = other.gameObject.GetComponent<WaypointTreeNode>().getName();
-			// Debug.Log("Compare '"+triggerGameObjectName+"' (trigger) with '"+m_TargetPatrolName+"' (saved)");
-			if (other.gameObject.tag == StringManager.Tags.Waypoints && triggerGameObjectName.Equals(m_TargetPatrolName))
-			{
-				AI_Dynamic_SetNextWaypoint();
-				m_TargetPatrolName = m_NextWaypoint.GetComponent<WaypointTreeNode>().getName();
-
-			    m_WaitTimer = 0.0f;
-			    m_CurrentAction = ActionType.WAITFOR_SECONDS;
-				// gameObject.transform.LookAt(m_NextWaypoint.transform);
-
-				if (other.gameObject.GetComponent<WaypointTreeNode>().shouldFaceNextWaypoint())
-				{
-					g_TurnRate = 100000.0f;
-					// Debug.Log("Make Enemy face next Waypoint first");
-					AI_RotateToTargetPosition(m_LastWaypoint.transform.position, m_NextWaypoint.transform.position);
-					g_TurnRate = 1000.0f;
-				}
-            }
-		}
-	}
-
-	/* ********************************* *
-	 *		Static Movement Pattern		 *
-	 * ********************************* */
-	void AI_Static_WaitForSeconds()
+    #region StaticMovementPattern
+    void AI_Static_WaitForSeconds()
 	{
 		m_CurWait += Time.deltaTime;
 		if(m_CurWait >= g_ActionQueue[g_CurrentAction].m_WaitInSeconds)
@@ -670,12 +621,10 @@ public class EnemyAiScript : MonoBehaviour {
 
         m_TargetPatrolName = g_ActionQueue[0].m_NextPatrolSpot.GetComponent<WaypointTreeNode>().getName();
     }
+    #endregion
 
-	/* ********************************* *
-	 *		Dynamic Movement Pattern	 *
-	 * ********************************* */
-     
-	void AI_RotateToTargetPosition(Vector3 a_Source, Vector3 a_Target)
+    #region DynamicMovementPattern
+    void AI_RotateToTargetPosition(Vector3 a_Source, Vector3 a_Target)
 	{
 		Vector3 toTarget = a_Target - a_Source;
 		toTarget.y = 0.0f;
@@ -726,9 +675,61 @@ public class EnemyAiScript : MonoBehaviour {
 		m_LastWaypoint = m_NextWaypoint;
 		m_NextWaypoint = m_TempWaypointList[RandomNext];
 	}
+    #endregion
 
-  public static GameObject GetInstance()
-  {
-    return GameObject.Find(StringManager.Names.enemy);
-  }
+    #region PublicFunctions
+    // Return Movement Speed
+    public float getMovementSpeed() { return g_MovementSpeed; }
+
+    // public function
+    public void changeMovementPattern(MovementPattern replace, GameObject source, GameObject closest)
+    {
+        // Change from DYNAMIC to STATIC
+        if (replace == MovementPattern.STATIC)
+        {
+            // Reset Much Data, Much Wow
+            resetAllData();
+
+            // A Noise occured, track the source and the closest Waypoint
+            m_NoiseSource = source;
+            m_NoiseClosestWaypoint = closest;
+            // Generate a Path Starting at the Nearest Waypoint to the Enemy,
+            //  Leading to the the closest Waypoint of the Noise
+            AI_Static_GeneratePath();
+            AI_Static_ListToArray();
+            // Reset MovementPattern, for the Update Functionality to work differently
+            m_MovementPattern = replace;
+            // For Noise, we increae the Movement Speed
+            g_MovementSpeed = g_MovementSpeedHaste;
+            // ..
+            m_IsHunting = true;
+        }
+
+        // Change from STATIC to DYNAMIC
+        if (replace == MovementPattern.DYNAMIC)
+        {
+            // We take the Current Position 
+            g_LastPatrolSpot = gameObject;
+
+            m_LastWaypoint = m_NoiseClosestWaypoint;
+            m_NextWaypoint = m_NoiseClosestWaypoint;
+
+            // Patrol Movement
+            m_CurrentAction = ActionType.PATROL;
+            // Reset MovementPattern, for the Update Functionality to work differently
+            m_MovementPattern = replace;
+            // For Dynamic Movement, we move at Normal Speed
+            g_MovementSpeed = g_MovementSpeedNormal;
+
+            m_IsHunting = false;
+        }
+
+        UpdateAnimationController();
+    }
+
+    public static GameObject GetInstance()
+    {
+        return GameObject.Find(StringManager.Names.enemy);
+    }
+    #endregion
 }

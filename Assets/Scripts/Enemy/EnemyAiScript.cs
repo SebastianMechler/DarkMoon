@@ -162,7 +162,50 @@ public class EnemyAiScript : MonoBehaviour {
 
     public void SetSavedData(XmlConstruct setup)
     {
+        // Set Position
+        transform.position = setup.CurrentPosition;
+        // Set Rotation
+        transform.rotation = new Quaternion(setup.CurrentRotation.x, setup.CurrentRotation.y, setup.CurrentRotation.z, 1.0f);
+
+        GameObject[] list = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
+        for (int i = 0; i < list.Length; i++)
+        {
+            // Set LastWaypoint
+            if (list[i].name.Equals(setup.LastWaypointName))
+            {
+                m_LastWaypoint = list[i];
+            }
+
+            // Set NextWaypoint
+            if (list[i].name.Equals(setup.NextWaypointName))
+            {
+                m_NextWaypoint = list[i];
+            }
+
+            // Set Closest Noise Waypoint
+            if (list[i].name.Equals(setup.HuntingWaypointName))
+            {
+                m_NoiseClosestWaypoint = list[i];
+            }
+
+            // Set Noise Source
+            if (list[i].name.Equals(setup.HuntingWaypointSourceName))
+            {
+                m_NoiseSource = list[i];
+            }
+        }
         
+        // Set Movement Pattern
+        m_MovementPattern = setup.Pattern;
+
+        // Set Hunting State
+        m_IsHunting = setup.IsHunting;
+
+        // If Hunting, just to be save, order Pattern Change
+        if (m_IsHunting)
+        {
+            changeMovementPattern(MovementPattern.STATIC, m_NoiseSource, m_NoiseClosestWaypoint);
+        }
     }
 
 	// public function

@@ -74,6 +74,12 @@ public class GameManager : MonoBehaviour
     DontDestroyOnLoad(this.gameObject);
   }
 
+    void Start()
+    {
+        m_settings.m_soundVolume = 1.0f;
+        m_settings.m_musicVolume = 1.0f;
+    }
+
   public void SetGameDifficulty(GameDifficulty difficulty)
   {
     m_gameDifficulty = difficulty;

@@ -23,6 +23,8 @@ public class BGMixer : MonoBehaviour {
 	public AudioSource m_TrackHectic;
 	public AudioSource m_TrackDanger;
 
+    public float m_BgmFactor = 1.0f;
+
 	[Range(0.05f, 0.5f)]
 	public float m_MusicChangeFactor = 0.25f;
 
@@ -32,11 +34,13 @@ public class BGMixer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		m_Player = GameObject.FindGameObjectWithTag(StringManager.Tags.player);
+        m_BgmFactor = SingletonManager.GameManager.m_settings.m_musicVolume;
+
+        m_Player = GameObject.FindGameObjectWithTag(StringManager.Tags.player);
 		m_Enemy = GameObject.FindGameObjectWithTag(StringManager.Tags.enemy);
 
 		m_TrackSilent.Play();
-		m_TrackSilent.volume = 1.0f;
+		m_TrackSilent.volume = 1.0f * m_BgmFactor;
 
 		m_TrackMystic.Play();
 		m_TrackMystic.volume = 0.0f;
@@ -145,8 +149,8 @@ public class BGMixer : MonoBehaviour {
             // CheckKeyDown();
             CheckBehaviour();
 		}
-
-		if (m_AudioActive != m_AudioNext && m_AudioNext != ActiveAudio.None)
+        
+        if (m_AudioActive != m_AudioNext && m_AudioNext != ActiveAudio.None)
 		{
 			m_CounterDown -= Time.deltaTime * m_MusicChangeFactor;
 			m_CounterUp += Time.deltaTime * m_MusicChangeFactor;
@@ -160,19 +164,19 @@ public class BGMixer : MonoBehaviour {
 			switch (m_AudioNext)
 			{
 				case ActiveAudio.Silent:
-					m_TrackSilent.volume = (m_TrackSilent.volume <= 1.0f ? m_CounterUp : 1.0f);
+					m_TrackSilent.volume = (m_TrackSilent.volume <= 1.0f ? m_CounterUp : 1.0f) * m_BgmFactor;
                     break;
 
 				case ActiveAudio.Mystic:
-					m_TrackMystic.volume = (m_TrackMystic.volume <= 1.0f ? m_CounterUp : 1.0f);
+					m_TrackMystic.volume = (m_TrackMystic.volume <= 1.0f ? m_CounterUp : 1.0f) * m_BgmFactor;
 					break;
 
 				case ActiveAudio.Hectic:
-					m_TrackHectic.volume = (m_TrackHectic.volume <= 1.0f ? m_CounterUp : 1.0f);
+					m_TrackHectic.volume = (m_TrackHectic.volume <= 1.0f ? m_CounterUp : 1.0f) * m_BgmFactor;
 					break;
 
 				case ActiveAudio.Danger:
-					m_TrackDanger.volume = (m_TrackDanger.volume <= 1.0f ? m_CounterUp : 1.0f);
+					m_TrackDanger.volume = (m_TrackDanger.volume <= 1.0f ? m_CounterUp : 1.0f) * m_BgmFactor;
 					break;
 
 				default:
@@ -183,19 +187,19 @@ public class BGMixer : MonoBehaviour {
 			switch (m_AudioActive)
 			{
 				case ActiveAudio.Silent:
-					m_TrackSilent.volume = (m_TrackSilent.volume >= 0.0f ? m_CounterDown : 0.0f);
+					m_TrackSilent.volume = (m_TrackSilent.volume >= 0.0f ? m_CounterDown : 0.0f) * m_BgmFactor;
 					break;
 
 				case ActiveAudio.Mystic:
-					m_TrackMystic.volume = (m_TrackMystic.volume >= 0.0f ? m_CounterDown : 0.0f);
+					m_TrackMystic.volume = (m_TrackMystic.volume >= 0.0f ? m_CounterDown : 0.0f) * m_BgmFactor;
 					break;
 
 				case ActiveAudio.Hectic:
-					m_TrackHectic.volume = (m_TrackHectic.volume >= 0.0f ? m_CounterDown : 0.0f);
+					m_TrackHectic.volume = (m_TrackHectic.volume >= 0.0f ? m_CounterDown : 0.0f) * m_BgmFactor;
 					break;
 
 				case ActiveAudio.Danger:
-					m_TrackDanger.volume = (m_TrackDanger.volume >= 0.0f ? m_CounterDown : 0.0f);
+					m_TrackDanger.volume = (m_TrackDanger.volume >= 0.0f ? m_CounterDown : 0.0f) * m_BgmFactor;
 					break;
 
 				default:

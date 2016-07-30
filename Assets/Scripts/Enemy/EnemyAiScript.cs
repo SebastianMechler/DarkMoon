@@ -56,6 +56,8 @@ public class EnemyAiScript : MonoBehaviour {
     private float g_MovementSpeed = 4.0f;
     public float g_MovementSpeedNormal = 4.0f;
 	public float g_MovementSpeedHaste = 11.0f;
+    // Only Changed if required, else 1.0f
+    private float m_SlowMoveFactor = 1.0f; 
 
 	private GameObject g_LastPatrolSpot;
 	private int g_NumberOfActions;
@@ -187,13 +189,6 @@ public class EnemyAiScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        /*Debug.Log("Colliding gameObject.name: " + other.gameObject.name + " with gameObject: " + gameObject.name);
-	    if (other.gameObject.name.Equals(StringManager.Names.player) 
-            || other.gameObject.name.Equals(StringManager.Resources.debugLvPrototype) 
-            || other.gameObject.name.Equals("enemy_placeholder(forward_walk)"))
-	    {
-            return;
-	    }*/
 
         if (!other.gameObject.tag.Equals(StringManager.Tags.Waypoints))
         {
@@ -220,8 +215,18 @@ public class EnemyAiScript : MonoBehaviour {
                 AI_Dynamic_SetNextWaypoint();
                 m_TargetPatrolName = m_NextWaypoint.GetComponent<WaypointTreeNode>().getName();
 
-                m_WaitTimer = 0.0f;
-                m_CurrentAction = ActionType.WAITFOR_SECONDS;
+                if (other.gameObject.GetComponent<WaypointTreeNode>().shouldSearchNearby())
+                {
+                    m_WaitTimer = 0.0f;
+                    m_CurrentAction = ActionType.WAITFOR_SECONDS;
+                }
+
+                m_SlowMoveFactor = 1.0f;
+                if (other.gameObject.GetComponent<WaypointTreeNode>().shouldSlowWalkPatrolNextWaypoint())
+                {
+                    m_SlowMoveFactor = 0.4f;
+                }
+
                 // gameObject.transform.LookAt(m_NextWaypoint.transform);
 
                 if (other.gameObject.GetComponent<WaypointTreeNode>().shouldFaceNextWaypoint())
@@ -344,6 +349,7 @@ public class EnemyAiScript : MonoBehaviour {
         finalisedRoute = null;
         finalisedRouteCheck = null;
 
+        m_SlowMoveFactor = 1.0f;
         // m_DistanceBetweenGameObjects = null;
     }
     #endregion
@@ -442,7 +448,7 @@ public class EnemyAiScript : MonoBehaviour {
 		AI_RotateToTargetPosition(gameObject.transform.position, g_ActionQueue[g_CurrentAction].m_NextPatrolSpot.transform.position);
 
 		g_MovementSpeed = g_MovementSpeedHaste;
-		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime);
+		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime /* * m_SlowMoveFactor*/);
 	}
     
 	void AI_Static_SetNextPatternIndex(GameObject a_CurPosition)
@@ -639,7 +645,7 @@ public class EnemyAiScript : MonoBehaviour {
 		AI_RotateToTargetPosition(gameObject.transform.position, m_NextWaypoint.transform.position);
 
 		g_MovementSpeed = g_MovementSpeedNormal;
-		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime);
+		transform.Translate(Vector3.forward * g_MovementSpeed * Time.deltaTime * m_SlowMoveFactor);
 	}
 
 	void AI_Dynamic_SetNextWaypoint()

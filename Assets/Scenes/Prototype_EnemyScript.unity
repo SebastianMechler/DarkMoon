@@ -2169,6 +2169,14 @@ Prefab:
       propertyPath: m_TagString
       value: Waypoint
       objectReference: {fileID: 0}
+    - target: {fileID: 11422438, guid: a7b783022d792e949a4fba7c087c7690, type: 2}
+      propertyPath: m_StaticSearchNearby
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11422438, guid: a7b783022d792e949a4fba7c087c7690, type: 2}
+      propertyPath: m_StaticSlowPatrol
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7b783022d792e949a4fba7c087c7690, type: 2}
   m_IsPrefabParent: 0

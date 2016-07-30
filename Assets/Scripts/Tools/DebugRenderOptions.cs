@@ -11,7 +11,7 @@ public class DebugRenderOptions : MonoBehaviour {
 	private bool m_WaypointsVisible = false;
 
 	public GameObject m_FlashLight = null;
-	private bool m_FlashLightDefault = false;
+	private bool m_FlashLightDefault = true;
 	private Color m_FlashLightColor;
 	private LightRenderMode m_FlashLightRenderMode;
 

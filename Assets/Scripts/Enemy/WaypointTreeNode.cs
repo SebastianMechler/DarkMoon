@@ -9,9 +9,9 @@ public class WaypointTreeNode : MonoBehaviour
 	public string m_UniqueName;
     public GameObject[] m_NearbyWaypoints;
 
-	public bool m_StaticSearchNearby = true;
+	public bool m_StaticDoSearch = true;
 	public bool m_FaceNextWaypoint = false;
-	public bool m_MoveSlowPatrolToNextWaypoint = false;
+	public bool m_StaticSlowPatrol = false;
 
     void Awake()
     {
@@ -23,7 +23,7 @@ public class WaypointTreeNode : MonoBehaviour
 	// public bool hasSubWaypoints() { return m_HasSubWaypoints; }
 	public string getName() { return m_UniqueName; }
 
-	public bool shouldSearchNearby() { return m_StaticSearchNearby;  }
+	public bool shouldSearchNearby() { return m_StaticDoSearch;  }
 	public bool shouldFaceNextWaypoint() { return m_FaceNextWaypoint; }
-	public bool shouldSlowWalkPatrolNextWaypoint() { return m_MoveSlowPatrolToNextWaypoint; }
+	public bool shouldSlowWalkPatrolNextWaypoint() { return m_StaticSlowPatrol; }
 }

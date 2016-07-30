@@ -83,6 +83,7 @@ public class EnemyAiScript : MonoBehaviour {
 	private GameObject m_NoiseSource;
 	private GameObject m_NoiseClosestWaypoint;
 	public List<GameObject> finalisedRoute;
+    private bool m_IsHunting = false;
 	private List<string> finalisedRouteCheck;
 
     public float m_ReadOnly_Speed;
@@ -99,7 +100,6 @@ public class EnemyAiScript : MonoBehaviour {
 		public string m_WaypointFrom_Name;
 		public GameObject m_WaypointTo;
 		public string m_WaypointTo_Name;
-
 		public float m_Distance;
 	}
     private GroupDistance[] m_DistanceBetweenGameObjects;
@@ -132,6 +132,39 @@ public class EnemyAiScript : MonoBehaviour {
         // m_DistanceBetweenGameObjects = null;
     }
 
+    public struct XmlConstruct
+    {
+        public string LastWaypointName;
+        public string NextWaypointName;
+        public MovementPattern Pattern;
+        public Vector3 CurrentPosition;
+        public Vector3 CurrentRotation;
+        public bool IsHunting;
+        public string HuntingWaypointSourceName;
+        public string HuntingWaypointName;
+    }
+
+    public XmlConstruct GetSaveData()
+    {
+        XmlConstruct state = new XmlConstruct
+        {
+            LastWaypointName = m_LastWaypoint.name,
+            NextWaypointName = m_NextWaypoint.name,
+            Pattern = m_MovementPattern,
+            CurrentPosition = transform.position,
+            CurrentRotation = transform.rotation.eulerAngles,
+            IsHunting = m_IsHunting,
+            HuntingWaypointSourceName = m_NoiseSource.name,
+            HuntingWaypointName = m_NoiseClosestWaypoint.name
+        };
+        return state;
+    }
+
+    public void SetSavedData(XmlConstruct setup)
+    {
+        
+    }
+
 	// public function
 	public void changeMovementPattern(MovementPattern replace, GameObject source, GameObject closest)
 	{
@@ -153,6 +186,7 @@ public class EnemyAiScript : MonoBehaviour {
             // For Noise, we increae the Movement Speed
             g_MovementSpeed = g_MovementSpeedHaste;
             // ..
+            m_IsHunting = true;
         }
 
         // Change from STATIC to DYNAMIC
@@ -170,6 +204,8 @@ public class EnemyAiScript : MonoBehaviour {
             m_MovementPattern = replace;
             // For Dynamic Movement, we move at Normal Speed
             g_MovementSpeed = g_MovementSpeedNormal;
+
+            m_IsHunting = false;
         }
 
         UpdateAnimationController();
@@ -199,8 +235,8 @@ public class EnemyAiScript : MonoBehaviour {
 		CalculateAllDistances();
     }
 	
-	// Update is called once per frame
-	void Update ()
+	
+	void FixedUpdate()
 	{
 
 	    UpdateAnimationController();
@@ -436,27 +472,9 @@ public class EnemyAiScript : MonoBehaviour {
 	void AI_Static_GeneratePath()
 	{
 	    // Find Nearest Waypoint to current Position
-		// GameObject[] list = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
 		Vector3 thisGameObject = gameObject.transform.position;
-		// Vector3 next;
-		// float lastNearestDistance = float.MaxValue;
-	    // float distance = float.MaxValue;
         GameObject NearestWaypoint = null;
 		string nearestWaypointName;
-
-		// Search all Waypoints now
-		/*int size = list.Length;
-		for (int i = 0; i < size; i++)
-		{
-			next = list[i].transform.position;
-			distance = Vector3.Distance(thisGameObject, next);
-			if (distance < lastNearestDistance)
-			{
-				lastNearestDistance = distance;
-				NearestWaypoint = list[i];
-			}
-		}
-		nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();*/
 
         // Minor Fix
         // ####################################################
@@ -483,11 +501,14 @@ public class EnemyAiScript : MonoBehaviour {
             NearestWaypoint = m_NextWaypoint;
             nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
         }
-        // ####################################################
 
 		if(NearestWaypoint == m_NoiseClosestWaypoint)
 		{
+            //TODO:
 			Debug.Log("Nearby Waypoint is actually the NoiseWaypoint");
+            finalisedRoute = new List<GameObject>();
+		    finalisedRoute.Add(m_NoiseClosestWaypoint);
+            return;
 		}
 
         // Find respective Struct Entry for found Waypoint

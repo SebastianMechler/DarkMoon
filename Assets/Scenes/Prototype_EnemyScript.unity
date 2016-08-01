@@ -2801,6 +2801,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11471610, guid: 5aa117b38d082dc4593a4aff0a79aa71, type: 2}
+      propertyPath: myList.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4c21548e0a4e2cc43a5f4a7c40a5c786, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5aa117b38d082dc4593a4aff0a79aa71, type: 2}
   m_IsPrefabParent: 0
@@ -9243,6 +9247,21 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bae31cecfc08c94bb1d9268ff19770f, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1494177161 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 183344, guid: 398149574d5baa446bbad2ae3fad663b, type: 2}
+  m_PrefabInternal: {fileID: 1548578424}
+--- !u!114 &1494177178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1494177161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed74412c13e69f4ab04e6087b97a905, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1496786516 stripped
 Transform:
   m_PrefabParentObject: {fileID: 409610, guid: 8896ad9d0bfcb4a4db5978d9fbcfd334, type: 2}
@@ -9286,7 +9305,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 16
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11445760, guid: 398149574d5baa446bbad2ae3fad663b, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 11445760, guid: 398149574d5baa446bbad2ae3fad663b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 398149574d5baa446bbad2ae3fad663b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1548578425 stripped

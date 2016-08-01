@@ -164,6 +164,15 @@ public class XmlSave : MonoBehaviour
       battery.InnerText = "0.0";
       ele.AppendChild(battery);
     }
+
+    XmlElement flashLight = (XmlElement)GetXmlNode(XmlNodes.Player.flashLight, ele);
+    if (flashLight == null)
+    {
+      // element does not exist, create it
+      flashLight = m_document.CreateElement(XmlNodes.Player.flashLight);
+      flashLight.InnerText = "False";
+      ele.AppendChild(flashLight);
+    }
   }
 
   void SavePlayer()
@@ -185,6 +194,8 @@ public class XmlSave : MonoBehaviour
 
     float battery = SingletonManager.Player.GetComponent<PlayerBattery>().m_current;
     player.SetBattery(battery);
+
+    player.SetFlashLight(FlashLight.GetInstance().m_hasBeenPickedUp);
   }
 
   void LoadPlayer()
@@ -206,6 +217,9 @@ public class XmlSave : MonoBehaviour
 
     SingletonManager.Player.GetComponent<PlayerOxygen>().m_current = player.GetOxygen();
     SingletonManager.Player.GetComponent<PlayerBattery>().m_current = player.GetBattery();
+
+    FlashLight.GetInstance().m_hasBeenPickedUp = player.GetFlashLight();
+
   }
   #endregion
 
@@ -243,6 +257,60 @@ public class XmlSave : MonoBehaviour
       rotation.SetAttribute("Z", "0.0");
       ele.AppendChild(rotation);
     }
+
+    XmlElement lastWaypointName = (XmlElement)GetXmlNode(XmlNodes.Enemey.lastWaypointName, ele);
+    if (lastWaypointName == null)
+    {
+      // element does not exist, create it
+      lastWaypointName = m_document.CreateElement(XmlNodes.Enemey.lastWaypointName);
+      lastWaypointName.InnerText = "";
+      ele.AppendChild(lastWaypointName);
+    }
+
+    XmlElement nextWaypointName = (XmlElement)GetXmlNode(XmlNodes.Enemey.nextWaypointName, ele);
+    if (nextWaypointName == null)
+    {
+      // element does not exist, create it
+      nextWaypointName = m_document.CreateElement(XmlNodes.Enemey.nextWaypointName);
+      nextWaypointName.InnerText = "";
+      ele.AppendChild(nextWaypointName);
+    }
+
+    XmlElement movementPattern = (XmlElement)GetXmlNode(XmlNodes.Enemey.movementPattern, ele);
+    if (movementPattern == null)
+    {
+      // element does not exist, create it
+      movementPattern = m_document.CreateElement(XmlNodes.Enemey.movementPattern);
+      movementPattern.InnerText = "0";
+      ele.AppendChild(movementPattern);
+    }
+
+    XmlElement isHunting = (XmlElement)GetXmlNode(XmlNodes.Enemey.isHunting, ele);
+    if (isHunting == null)
+    {
+      // element does not exist, create it
+      isHunting = m_document.CreateElement(XmlNodes.Enemey.isHunting);
+      isHunting.InnerText = "False";
+      ele.AppendChild(isHunting);
+    }
+
+    XmlElement huntingWaypointSourceName = (XmlElement)GetXmlNode(XmlNodes.Enemey.huntingWaypointSourceName, ele);
+    if (huntingWaypointSourceName == null)
+    {
+      // element does not exist, create it
+      huntingWaypointSourceName = m_document.CreateElement(XmlNodes.Enemey.huntingWaypointSourceName);
+      huntingWaypointSourceName.InnerText = "";
+      ele.AppendChild(huntingWaypointSourceName);
+    }
+
+    XmlElement huntingWaypointName = (XmlElement)GetXmlNode(XmlNodes.Enemey.huntingWaypointName, ele);
+    if (huntingWaypointName == null)
+    {
+      // element does not exist, create it
+      huntingWaypointName = m_document.CreateElement(XmlNodes.Enemey.huntingWaypointName);
+      huntingWaypointName.InnerText = "";
+      ele.AppendChild(huntingWaypointName);
+    }
   }
 
   void SaveEnemey()
@@ -250,10 +318,7 @@ public class XmlSave : MonoBehaviour
     CreateEnemyNode();
 
     EnemyNode enemy = new EnemyNode(GetXmlNode(XmlNodes.Enemey.enemy));
-    enemy.SetPosition(SingletonManager.Enemy.GetComponent<Transform>().position);
-
-    Quaternion rotation = SingletonManager.Enemy.GetComponent<Transform>().rotation;
-    enemy.SetRotation(new Vector3(rotation.x, rotation.y, rotation.z));
+    enemy.SetEnemyData(SingletonManager.Enemy.GetComponent<EnemyAiScript>().GetSaveData());
   }
 
   void LoadEnemy()
@@ -261,8 +326,7 @@ public class XmlSave : MonoBehaviour
     CreateEnemyNode();
 
     EnemyNode enemy = new EnemyNode(GetXmlNode(XmlNodes.Enemey.enemy));
-    SingletonManager.Enemy.GetComponent<Transform>().position = enemy.GetPosition();
-    SingletonManager.Enemy.GetComponent<Transform>().rotation = new Quaternion(enemy.GetRotation().x, enemy.GetRotation().y, enemy.GetRotation().z, 1.0f);
+    SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetSavedData(enemy.GetEnemyData());
   }
   #endregion
 

@@ -21,6 +21,7 @@ public enum AudioType
   FLASHLIGHT_ON,
   FLASHLIGHT_OFF,
   PLAYER_DEATH,
+  ITEM_COLLISION_TOOLWRENCH,
 }
 
 [System.Serializable]

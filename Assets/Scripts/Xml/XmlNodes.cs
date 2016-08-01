@@ -10,6 +10,7 @@ public class XmlNodes
     public const string position = "Position";
     public const string battery = "Battery";
     public const string oxygen = "Oxygen";
+    public const string flashLight = "FlashLight";
   }
 
   public class Enemey
@@ -17,6 +18,12 @@ public class XmlNodes
     public const string enemy = "Enemy";
     public const string rotation = "Rotation";
     public const string position = "Position";
+    public const string lastWaypointName = "LastWaypointName";
+    public const string nextWaypointName = "NextWaypointName";
+    public const string movementPattern = "MovementPattern";
+    public const string isHunting = "IsHunting";
+    public const string huntingWaypointSourceName = "HuntingWaypointSourceName";
+    public const string huntingWaypointName = "HuntingWaypointName";
   }
 
   public class GameDifficulty

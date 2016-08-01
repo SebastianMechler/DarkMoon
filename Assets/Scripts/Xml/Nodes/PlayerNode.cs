@@ -12,6 +12,7 @@ public class PlayerNode : XmlNodeBase
   private XmlNode m_rotation = null; // child
   private XmlNode m_oxygen = null; // child
   private XmlNode m_battery = null; // child
+  private XmlNode m_isFlashLightPickedUp = null; // child
 
   public PlayerNode(XmlNode mainNode)
   {
@@ -25,6 +26,7 @@ public class PlayerNode : XmlNodeBase
     m_rotation = m_main.ChildNodes[1]; // ADD LOOP here to be safe
     m_oxygen = m_main.ChildNodes[2]; // ADD LOOP here to be safe
     m_battery = m_main.ChildNodes[3]; // ADD LOOP here to be safe
+    m_isFlashLightPickedUp = m_main.ChildNodes[4]; // ADD LOOP here to be safe
   }
 
   public Vector3 GetPosition()
@@ -65,6 +67,16 @@ public class PlayerNode : XmlNodeBase
   public void SetBattery(float value)
   {
     SetFloat(m_battery, value);
+  }
+
+  public void SetFlashLight(bool isPickedUp)
+  {
+    SetBool(m_isFlashLightPickedUp, isPickedUp);
+  }
+
+  public bool GetFlashLight()
+  {
+    return GetBool(m_isFlashLightPickedUp);
   }
 }
 

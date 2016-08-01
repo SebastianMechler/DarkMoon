@@ -48,4 +48,14 @@ public class XmlNodeBase
   {
     return bool.Parse(node.InnerText);
   }
+
+  public void SetString(XmlNode node, string value)
+  {
+    node.InnerText = value;
+  }
+
+  public string GetString(XmlNode node)
+  {
+    return node.InnerText;
+  }
 }

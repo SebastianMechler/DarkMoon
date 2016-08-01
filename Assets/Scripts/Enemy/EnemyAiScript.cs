@@ -367,18 +367,38 @@ public class EnemyAiScript : MonoBehaviour {
 
     public XmlConstruct GetSaveData()
     {
-        XmlConstruct state = new XmlConstruct
-        {
-            LastWaypointName = m_LastWaypoint.name,
-            NextWaypointName = m_NextWaypoint.name,
-            Pattern = m_MovementPattern,
-            CurrentPosition = transform.position,
-            CurrentRotation = transform.rotation.eulerAngles,
-            IsHunting = m_IsHunting,
-            HuntingWaypointSourceName = m_NoiseSource.name,
-            HuntingWaypointName = m_NoiseClosestWaypoint.name
-        };
-        return state;
+      /*
+      XmlConstruct state = new XmlConstruct
+      {
+          LastWaypointName = m_LastWaypoint.name,
+          NextWaypointName = m_NextWaypoint.name,
+          Pattern = m_MovementPattern,
+          CurrentPosition = transform.position,
+          CurrentRotation = transform.rotation.eulerAngles,
+          IsHunting = m_IsHunting,
+          HuntingWaypointSourceName = m_NoiseSource.name,
+          HuntingWaypointName = m_NoiseClosestWaypoint.name
+      };
+      */
+      XmlConstruct state = new XmlConstruct();
+      state.LastWaypointName = m_LastWaypoint.name;
+      state.NextWaypointName = m_NextWaypoint.name;
+      state.Pattern = m_MovementPattern;
+      state.CurrentPosition = transform.position;
+      state.CurrentRotation = transform.rotation.eulerAngles;
+      state.IsHunting = m_IsHunting;
+      state.HuntingWaypointSourceName = "";//m_NoiseSource.name;
+      state.HuntingWaypointName = ""; // m_NoiseClosestWaypoint.name;
+
+      if (m_NoiseSource != null)
+      {
+        state.HuntingWaypointSourceName = m_NoiseSource.name;
+      }
+      if (m_NoiseClosestWaypoint != null)
+      {
+        state.HuntingWaypointName = m_NoiseClosestWaypoint.name;
+      }
+      return state;
     }
 
     public void SetSavedData(XmlConstruct setup)

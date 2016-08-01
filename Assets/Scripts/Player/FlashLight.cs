@@ -73,7 +73,7 @@ public class FlashLight : MonoBehaviour
 	public void SetPickup()
 	{
 		m_hasBeenPickedUp = true;
-		SingletonManager.UIManager.EnableBatteryUI();
+		//SingletonManager.UIManager.EnableBatteryUI();
 	}
 
 	public static FlashLight GetInstance()

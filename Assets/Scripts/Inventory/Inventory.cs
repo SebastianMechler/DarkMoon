@@ -83,6 +83,7 @@ public class Inventory : MonoBehaviour
       if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.throwItemLightStick))
       {
         ThrowItem(GetItemOfType(ItemType.SnapLight));
+      RenderSettings.ambientLight = Color.Lerp(Color.gray, Color.black, 0.7f);
       }
 
       if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.throwItemToolWrench))
@@ -227,6 +228,9 @@ public class Inventory : MonoBehaviour
 
     public void ThrowItem(Item item)
     {
+      if (item == null)
+        return;
+
         item.GetGameObject().transform.position = Camera.main.transform.position;
         item.SetEnableState(true);
         item.Throw();

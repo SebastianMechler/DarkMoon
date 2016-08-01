@@ -5,6 +5,8 @@ public class ThrowItem : MonoBehaviour
 {
   Rigidbody m_rigidbody;
   bool m_isFlying = false;
+  private float m_soundDelay = 0.25f;
+  private float m_currentSound = 0.0f;
 
   void Start()
   {
@@ -25,6 +27,28 @@ public class ThrowItem : MonoBehaviour
       }
       //Debug.Log("VELOCITY: " + m_rigidbody.velocity);
     }
+
+    if (m_currentSound > 0.0f)
+    {
+      m_currentSound -= Time.deltaTime;
+      if (m_currentSound < 0.0f)
+      {
+        m_currentSound = 0.0f;
+      }
+    }
+  }
+
+  public void OnCollisionEnter(Collision other)
+  {
+    if (m_isFlying && other.gameObject.tag != StringManager.Tags.player && other.gameObject.tag != StringManager.Tags.enemy)
+    {
+      if (m_currentSound <= 0.0f)
+      {
+        SingletonManager.AudioManager.Play(AudioType.ITEM_COLLISION_TOOLWRENCH);
+        m_currentSound = m_soundDelay;
+      }
+    }
+      
   }
 
   public void Throw(float itemForce)

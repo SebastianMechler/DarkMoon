@@ -1,33 +1,32 @@
 <xml>
   <Player>
-    <Position X="155.2728" Y="0.7227347" Z="-117.0772" />
-    <Rotation X="21.12118" Y="297.2519" Z="0" />
-    <Oxygen>81.5243</Oxygen>
-    <Battery>91.29894</Battery>
+    <Position X="-11.14253" Y="1.178195" Z="27.31855" />
+    <Rotation X="8.486094" Y="2.819801" Z="0" />
+    <Oxygen>62.76823</Oxygen>
+    <Battery>98.39815</Battery>
     <FlashLight>True</FlashLight>
   </Player>
   <Enemy>
-    <Position X="176.9327" Y="0.7900001" Z="-124.4981" />
-    <Rotation X="0" Y="151.0161" Z="0" />
-    <LastWaypointName>WaypointB02</LastWaypointName>
-    <NextWaypointName>WaypointB20</NextWaypointName>
+    <Position X="-35.78297" Y="0.8000001" Z="-4.541928" />
+    <Rotation X="0" Y="357.6543" Z="0" />
+    <LastWaypointName>WaypointG (14)</LastWaypointName>
+    <NextWaypointName>WaypointG (15)</NextWaypointName>
     <MovementPattern>1</MovementPattern>
     <IsHunting>False</IsHunting>
-    <HuntingWaypointSourceName>
-    </HuntingWaypointSourceName>
-    <HuntingWaypointName>WaypointB05</HuntingWaypointName>
+    <HuntingWaypointSourceName>WaypointNoiseSource (6)</HuntingWaypointSourceName>
+    <HuntingWaypointName>WaypointG (10)</HuntingWaypointName>
   </Enemy>
   <GameDifficulty>0</GameDifficulty>
   <TerminalOne>
     <IsActivated>False</IsActivated>
-    <IsCollected>True</IsCollected>
+    <IsCollected>False</IsCollected>
   </TerminalOne>
   <TerminalTwo>
     <IsActivated>False</IsActivated>
     <IsCollected>False</IsCollected>
   </TerminalTwo>
   <TerminalThree>
-    <IsActivated>False</IsActivated>
-    <IsCollected>False</IsCollected>
+    <IsActivated>True</IsActivated>
+    <IsCollected>True</IsCollected>
   </TerminalThree>
 </xml>

@@ -69,8 +69,8 @@ public class DoorBehaviour : MonoBehaviour {
 		if(m_DoorState == DoorState.OPENING)
 		{
 			ChangeLightColor(m_OpeningColor);
-			m_Animator.speed = 1.0f;
-			m_Timer = 0.6f;
+			m_Animator.speed = 1.00f;
+			m_Timer = 0.5f;
             m_Animator.SetTrigger("triggerDoorOpening");
         }
 	}

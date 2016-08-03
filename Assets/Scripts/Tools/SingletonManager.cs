@@ -13,6 +13,8 @@ public class SingletonManager : MonoBehaviour
   private static GrayScaleManager m_grayScaleManager = null;
   private static GameObject m_enemy = null;
   private static XmlSave m_xmlSave = null;
+  private static BGMixer m_bgmixer = null;
+  private static TextToSpeech m_textToSpeech = null;
 
   public static MouseManager MouseManager
     {
@@ -135,6 +137,32 @@ public class SingletonManager : MonoBehaviour
       }
 
       return m_xmlSave;
+    }
+  }
+
+  public static BGMixer BGMixer
+  {
+    get
+    {
+      if (m_bgmixer == null)
+      {
+        m_bgmixer = BGMixer.GetInstance();
+      }
+
+      return m_bgmixer;
+    }
+  }
+
+  public static TextToSpeech TextToSpeech
+  {
+    get
+    {
+      if (m_textToSpeech == null)
+      {
+        m_textToSpeech = TextToSpeech.GetInstance();
+      }
+
+      return m_textToSpeech;
     }
   }
 }

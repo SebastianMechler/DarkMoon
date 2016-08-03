@@ -22,6 +22,9 @@ public enum AudioType
   FLASHLIGHT_OFF,
   PLAYER_DEATH,
   ITEM_COLLISION_TOOLWRENCH,
+  TEXT_TO_SPEECH_WELCOME,
+  TEXT_TO_SPEECH_FLASHLIGHT_PICKUP,
+  TEXT_TO_SPEECH_INTERACT,
 }
 
 [System.Serializable]
@@ -61,7 +64,7 @@ public class AudioManager : MonoBehaviour
       Destroy(this.gameObject);
     }
     m_isCreated = true;
-
+    
     DontDestroyOnLoad(this.transform.gameObject);
   }
 
@@ -73,11 +76,32 @@ public class AudioManager : MonoBehaviour
     }
 	}
 
-  public void Play(AudioType type)
+  public AudioSource Play(AudioType type)
   {
-    AudioSource source = GetComponent<AudioSource>();//Camera.main.GetComponent<AudioSource>();
-    source.volume = m_audioMap[type].volume * SingletonManager.GameManager.m_settings.m_soundVolume;
-    source.PlayOneShot(m_audioMap[type].clip);    
+    //AudioSourcePlay play = new AudioSourcePlay();
+    AudioSourcePlay play = this.gameObject.AddComponent<AudioSourcePlay>();
+    AudioSource audioSource = this.gameObject.AddComponent<AudioSource>();
+    play.m_audioSource = audioSource;
+
+    audioSource.clip = m_audioMap[type].clip;
+    audioSource.volume = m_audioMap[type].volume * SingletonManager.GameManager.m_settings.m_soundVolume;
+    audioSource.Play();
+
+    return audioSource;
+
+    //AudioSource source = GetComponent<AudioSource>();//Camera.main.GetComponent<AudioSource>();
+    //source.volume = m_audioMap[type].volume * SingletonManager.GameManager.m_settings.m_soundVolume;
+
+    //source.PlayOneShot(m_audioMap[type].clip);
+
+    // create script
+    // add values
+    // attach script
+  }
+
+  public float GetPlayLengthFromType(AudioType type)
+  {
+    return m_audioMap[type].clip.length;
   }
 
   public static AudioManager GetInstance()

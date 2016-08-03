@@ -6,6 +6,8 @@ public class PlayerObjectInteraction : MonoBehaviour
   public Material m_outlineMaterial = null; // not used yet..
   public GameObject m_currentInteractingObject = null; // current object we are interacting with
   public float m_interactionDistance = 2.0f; // ray distance for object interaction
+
+  static bool g_isFirstInteract = false;
     /*
     void OnTriggerStay(Collider other)
     {
@@ -92,7 +94,16 @@ public class PlayerObjectInteraction : MonoBehaviour
     {
       //Debug.Log("Hit Interactable object" + hit.transform.gameObject.name.ToString());
       if (hit.transform.gameObject.tag == StringManager.Tags.interactableObject)
+      {
+        if (g_isFirstInteract == false)
+        {
+          SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.Interact);
+          g_isFirstInteract = true;
+        }
+
         return hit.transform.gameObject;
+      }
+        
     }
 
     return null;

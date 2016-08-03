@@ -235,6 +235,11 @@ public class UIManager : MonoBehaviour
         return GameObject.Find(StringManager.Names.uiManager).GetComponent<UIManager>();
     }
 
+  public GameObject GetTextToSpeech()
+  {
+    return GameObject.Find(StringManager.UI.TextToSpeechImage);
+  }
+
   public static void NewGame()
   {
     SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);

@@ -30,8 +30,9 @@ public class BGMixer : MonoBehaviour {
 
 	private float m_CounterDown = 0.0f;
 	private float m_CounterUp = 1.0f;
+
+  public float m_textToSpeechFactor = 1.0f;
 	
-	// Use this for initialization
 	void Start () {
 
         m_BgmFactor = SingletonManager.GameManager.m_settings.m_musicVolume;
@@ -176,8 +177,8 @@ public class BGMixer : MonoBehaviour {
 					break;
 
 				case ActiveAudio.Danger:
-					m_TrackDanger.volume = (m_TrackDanger.volume <= 1.0f ? m_CounterUp : 1.0f) * m_BgmFactor;
-					break;
+          m_TrackDanger.volume = (m_TrackDanger.volume <= 1.0f ? m_CounterUp : 1.0f) * m_BgmFactor;
+          break;
 
 				default:
 					Debug.LogError("Undefined NEXT Audio Source Type");
@@ -215,4 +216,27 @@ public class BGMixer : MonoBehaviour {
             }
         }
     }
+
+  public void LowerVolume()
+  {
+    m_textToSpeechFactor = 0.1f;
+    m_TrackSilent.volume *= m_textToSpeechFactor;
+    m_TrackMystic.volume *= m_textToSpeechFactor;
+    m_TrackHectic.volume *= m_textToSpeechFactor;
+    m_TrackDanger.volume *= m_textToSpeechFactor;
+  }
+
+  public void IncreaseVolume()
+  {
+    m_TrackSilent.volume /= m_textToSpeechFactor;
+    m_TrackMystic.volume /= m_textToSpeechFactor;
+    m_TrackHectic.volume /= m_textToSpeechFactor;
+    m_TrackDanger.volume /= m_textToSpeechFactor;
+    m_textToSpeechFactor = 1.0f; // if you change this, make sure to change when music changed!!
+  }
+
+  public static BGMixer GetInstance()
+  {
+    return GameObject.Find(StringManager.Names.bgmixer).GetComponent<BGMixer>();
+  }
 }

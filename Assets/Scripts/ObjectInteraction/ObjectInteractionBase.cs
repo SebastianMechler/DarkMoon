@@ -30,10 +30,8 @@ public class ObjectInteractionBase : MonoBehaviour
   protected ObjectInteractionData m_data;  
 
   public static GameObject m_interactionHand; // interactionHand which will be renderer as UI element in the game to show the player he can interact
-    
-    
 
-    public void UpdateBase()
+  public void UpdateBase()
     {
         if (m_isInteracting && Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.interactWithObject))
         {
@@ -63,7 +61,7 @@ public class ObjectInteractionBase : MonoBehaviour
         //renderer.material.color = Color.green;
 
         // Create Interaction object to show some visual effect to player
-
+        
         //GameObject go = (GameObject)GameObject.Instantiate(Resources.Load(StringManager.Resources.interactionObject), this.transform.position, Quaternion.identity);
         m_data = data;
 
@@ -87,7 +85,6 @@ public class ObjectInteractionBase : MonoBehaviour
 
     void SetInteractionHandState(bool state)
     {
-  
       if (m_interactionHand == null)
         m_interactionHand = GameObject.Find(StringManager.Names.crosshair);
       //m_interactionHand.GetComponent<Image>().enabled = true;

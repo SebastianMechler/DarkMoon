@@ -36,7 +36,7 @@ public class ObjectInteractionItem : ObjectInteractionBase
 
       case ItemType.FlashLight:
         FlashLight.GetInstance().SetPickup();
-        SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.FlashLightPickup);
+        //SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.FlashLightPickup);
         break;
 
       case ItemType.SnapLight:

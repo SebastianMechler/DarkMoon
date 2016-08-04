@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
   public bool m_isSaveGame = false;
   public GameDifficultySettings[] m_gameDifficultySettings = new GameDifficultySettings[3];
   public OptionSettings m_settings;
+  public bool m_isTutorial = true;
 
   static bool m_isCreated = false;
 

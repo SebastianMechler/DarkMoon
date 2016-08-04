@@ -166,6 +166,21 @@ MonoBehaviour:
   - type: 16
     volume: 1
     clip: {fileID: 8300000, guid: eb4775cfcd67dcd4d864a98a2f818d90, type: 3}
+  - type: 17
+    volume: 1
+    clip: {fileID: 8300000, guid: 611369c6b3b908b4bb94780657610ed4, type: 3}
+  - type: 18
+    volume: 1
+    clip: {fileID: 8300000, guid: 018820e035a3627468043e74f1f725d3, type: 3}
+  - type: 19
+    volume: 1
+    clip: {fileID: 8300000, guid: 84957671c3e507e43a6915c1d7c470dd, type: 3}
+  - type: 20
+    volume: 1
+    clip: {fileID: 8300000, guid: 53806e7e6a76e3f4d85d34b9a31c99ea, type: 3}
+  - type: 21
+    volume: 1
+    clip: {fileID: 8300000, guid: ab5b5903bbf9bd74f9441381a95a88b0, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

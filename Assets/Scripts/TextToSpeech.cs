@@ -8,6 +8,12 @@ public enum TextToSpeechType
   Welcome,
   FlashLightPickup,
   Interact,
+
+  TutorialCamera,
+  TutorialMovement,
+  TutorialInteractWithFlashLight,
+  TutorialOxygenAndBattery,
+  TutorialDoor,
 }
 
 [System.Serializable]
@@ -35,7 +41,7 @@ public class TextToSpeech : MonoBehaviour
     m_textToSpeech = SingletonManager.UIManager.GetTextToSpeech();
     m_image = m_textToSpeech.GetComponent<Image>();
     m_text = m_textToSpeech.GetComponentInChildren<Text>();
-    DoTextToSpeech(TextToSpeechType.Welcome);
+    //DoTextToSpeech(TextToSpeechType.Welcome);
   }
 	
 	void Update ()
@@ -59,7 +65,7 @@ public class TextToSpeech : MonoBehaviour
     m_text.enabled = isVisible;
   }
 
-  public void DoTextToSpeech(TextToSpeechType type)
+  public float DoTextToSpeech(TextToSpeechType type)
   {
     for (int i = 0; i < m_textToSpeechList.Count; i++)
     {
@@ -89,11 +95,11 @@ public class TextToSpeech : MonoBehaviour
         // show textospeech in mainui
         SetVisibility(true);
 
-        return;
+        return m_disableTimer;
       }
     }
 
-
+    return 0.0f;
   }
 
   public static TextToSpeech GetInstance()

@@ -1,22 +1,20 @@
 <xml>
   <Player>
-    <Position X="-40.35283" Y="0.9918286" Z="-9.164922" />
-    <Rotation X="38.55701" Y="241.8411" Z="0" />
-    <Oxygen>74.97806</Oxygen>
-    <Battery>94.72198</Battery>
+    <Position X="-40.91799" Y="0.9918286" Z="-11.35952" />
+    <Rotation X="40.78764" Y="326.4663" Z="0" />
+    <Oxygen>99.45497</Oxygen>
+    <Battery>88.77525</Battery>
     <FlashLight>True</FlashLight>
   </Player>
   <Enemy>
-    <Position X="-10.94449" Y="0.7900003" Z="-21.73605" />
-    <Rotation X="0" Y="0.0003385008" Z="0" />
-    <LastWaypointName>WaypointG (9)</LastWaypointName>
-    <NextWaypointName>WaypointG (17)</NextWaypointName>
+    <Position X="-11.15297" Y="0.7900001" Z="-20.97195" />
+    <Rotation X="0" Y="180.0004" Z="0" />
+    <LastWaypointName>WaypointG (17)</LastWaypointName>
+    <NextWaypointName>WaypointG (9)</NextWaypointName>
     <MovementPattern>1</MovementPattern>
     <IsHunting>False</IsHunting>
-    <HuntingWaypointSourceName>
-    </HuntingWaypointSourceName>
-    <HuntingWaypointName>
-    </HuntingWaypointName>
+    <HuntingWaypointSourceName>WaypointNoiseSource (2)</HuntingWaypointSourceName>
+    <HuntingWaypointName>WaypointG</HuntingWaypointName>
   </Enemy>
   <GameDifficulty>0</GameDifficulty>
   <TerminalOne>

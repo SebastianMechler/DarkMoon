@@ -16,7 +16,7 @@ public class PlayerOxygen : MonoBehaviour
     [Tooltip("[0.0f to 1.0f] At this percentage the GrayScale-Effect will take start to fade in.")]
     public float m_grayScaleEffectStart = 0.2f; // percentage when the GrayScale will start to fáde in (range from 0.0f to 1.0f)
                                                 //public float m_grayScaleIntensity = 0.3f; // value which indicates how strong the grayscale effect should appear based on oxygen range from 0.0f to 0.5f the higher the value the more grayScale will be effected from beginning
-
+    
     // GrayScale m_grayScale = null;
     GrayScaleManager m_grayScaleManager = null;
     void Start()

@@ -15,7 +15,7 @@ public enum UIType
 
 public class UIManager : MonoBehaviour
 {
-
+  public ImageFlasher m_imageFlahser; // used to set blinking for oxygen+battery ui
     PlayerOxygen m_playerOxygen = null;
     //Scrollbar m_oxygenScrollBar = null;
     Image m_oxygenHandle = null;
@@ -238,6 +238,11 @@ public class UIManager : MonoBehaviour
   public GameObject GetTextToSpeech()
   {
     return GameObject.Find(StringManager.UI.TextToSpeechImage);
+  }
+
+  public void FlashOxygenAndBattery(float time = -1.0f)
+  {
+    m_imageFlahser.Run(time);
   }
 
   public static void NewGame()

@@ -119,6 +119,7 @@ public class Tutorial : MonoBehaviour
         if (m_isTutorialStateDone[m_currentTutorialState] == false)
         {
           // Add blink effect
+          SingletonManager.UIManager.FlashOxygenAndBattery(GetTutorialStateDelay(m_currentTutorialState));
           SetTutorialStateDone(m_currentTutorialState);
         }
         break;

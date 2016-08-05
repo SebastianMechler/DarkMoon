@@ -65,7 +65,7 @@ public class TextToSpeech : MonoBehaviour
     m_text.enabled = isVisible;
   }
 
-  public float DoTextToSpeech(TextToSpeechType type)
+  public float DoTextToSpeech(TextToSpeechType type, float displayTime = -1.0f)
   {
     for (int i = 0; i < m_textToSpeechList.Count; i++)
     {
@@ -86,8 +86,17 @@ public class TextToSpeech : MonoBehaviour
         // set text
         m_text.text = m_textToSpeechList[i].m_text;
 
-        // get length from audio
-        m_disableTimer = SingletonManager.AudioManager.GetPlayLengthFromType(m_textToSpeechList[i].m_audioType);
+        
+        // display time
+        if (displayTime == -1.0f)
+        {
+          // set timer to time of audiolength
+          m_disableTimer = SingletonManager.AudioManager.GetPlayLengthFromType(m_textToSpeechList[i].m_audioType);
+        }
+        else
+        {
+          m_disableTimer = displayTime;
+        }      
 
         // play audio
         m_currentAudioSource = SingletonManager.AudioManager.Play(m_textToSpeechList[i].m_audioType);

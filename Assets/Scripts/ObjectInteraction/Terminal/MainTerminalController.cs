@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 [System.Serializable]
 public struct TerminalInformation
@@ -9,11 +10,31 @@ public struct TerminalInformation
   public bool isActivated; // will be set to true if isCollected is true and interaction with main terminal has been done
 }
 
+public enum TerminalState
+{
+  Locked,
+  Unlocked,
+}
+
+[System.Serializable]
+public class Terminals
+{
+  public TerminalType m_type;
+  public GameObject m_terminal;
+  public TerminalState m_state;
+}
+
 // script which holds information about collected data
 public class MainTerminalController : MonoBehaviour
 {
   public TerminalInformation[] m_terminals = new TerminalInformation[(int)TerminalType.COUNT]; // create an array with the number of terminals (-1 cause MAIN_TERMINAL is not needed)
 
+
+  // THIS IS THE NEW TERMINAL LIST
+  public List<Terminals> m_terminalList = new List<Terminals>();
+  // THIS IS THE NEW TERMINAL LIST
+
+  
   public void UpdateData(TerminalType type)
   {
     if (type == TerminalType.MAIN_TERMINAL)
@@ -92,6 +113,19 @@ public class MainTerminalController : MonoBehaviour
   public TerminalInformation GetTerminalInformation(int index)
   {
     return m_terminals[index];
+  }
+
+  public Terminals GetTerminalByType(TerminalType type)
+  {
+    for (int i = 0; i < m_terminalList.Count; i++)
+    {
+      if (m_terminalList[i].m_type == type)
+      {
+        return m_terminalList[i];
+      }
+    }
+
+    return null;
   }
 
   public static MainTerminalController GetInstance()

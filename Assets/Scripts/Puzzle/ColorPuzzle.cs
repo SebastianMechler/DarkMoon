@@ -16,7 +16,7 @@ public class ColorPuzzle : MonoBehaviour
 	void Start ()
   {
     m_sequenceFromPlayer = new GameObject[m_sequence.Length];
-    m_doorToOpen.GetComponent<ObjectInteractionDoor>().SetInteractionState(false);
+    // m_doorToOpen.GetComponent<ObjectInteractionDoor>().SetInteractionState(false);
   }
 
   public void ResetSequence()

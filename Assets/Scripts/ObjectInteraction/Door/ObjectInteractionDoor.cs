@@ -41,10 +41,11 @@ public class ObjectInteractionDoor : ObjectInteractionBase
         break;
 
       case DoorType.SECURITY:
+        Debug.LogError("DoorType.SECURITY unused for:" + gameObject.name);
         break;
 
       case DoorType.AIRLOCK:
-        Open();
+        Debug.LogError("DoorType.AIRLOCK unused for:" + gameObject.name);
         break;
     }
 
@@ -53,51 +54,25 @@ public class ObjectInteractionDoor : ObjectInteractionBase
 
   public void Open()
   {
-    Debug.Log("DoorOpeningXYZ");
-    //todo:
-    // m_door.GetComponent<DoorBehaviour>().
-    
-    if (m_isOpened)
+    if (m_door.GetComponent<DoorBehaviour>().enabled)
     {
-      //m_animation.Play(StringManager.Animations.Door.close);
-      ToBeDeletedLater_OpenDoorByRotating(90);
-      m_isOpened = false;
+      if (m_door.GetComponent<DoorBehaviour>().getDoorState() == DoorBehaviour.DoorState.CLOSED)
+      {
+        m_door.GetComponent<DoorBehaviour>().ChangeDoorState(DoorBehaviour.DoorState.OPENING);
+      }
     }
-    else
-    {
-      //m_animation.Play(StringManager.Animations.Door.open);
-      ToBeDeletedLater_OpenDoorByRotating(-90);
-      m_isOpened = true;
-    }
-
-    UpdateDoorState();
   }
 
 
   void UpdateDoorState()
   {
-    if (m_isOpened)
-    {
-      // green
-      Transform doorStateChild = this.transform.parent.FindChild(StringManager.Names.doorState);
-      Renderer renderer = doorStateChild.GetComponent<Renderer>();
-      renderer.material.color = Color.green;
-    }
-    else
-    {
-      // red
-      Transform doorStateChild = this.transform.parent.FindChild(StringManager.Names.doorState);
-      Renderer renderer = doorStateChild.GetComponent<Renderer>();
-      renderer.material.color = Color.red;
-    }
+
   }
-  
+
 
   void ToBeDeletedLater_OpenDoorByRotating(float angle)
   {
-    Vector3 rotateAroundPos = this.transform.parent.FindChild("DoorBorderLeft").transform.position;
 
-    this.transform.RotateAround(rotateAroundPos, Vector3.up, angle);
   }
 
   public bool GetOpenState()

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TerminalOpenAreaTwo : MonoBehaviour {
+public class TerminalOpenAreaTwo : MonoBehaviour
+{
+  public GameObject m_Door;
 
   void OnTriggerEnter(Collider other)
   {
@@ -16,7 +18,7 @@ public class TerminalOpenAreaTwo : MonoBehaviour {
         }
 
         // Open the door
-        Debug.Log("Open door.");
+        m_Door.GetComponent<DoorBehaviour>().ChangeDoorState(DoorBehaviour.DoorState.OPENING_STUCKED);
 
         // INFO: terminal-one
         TerminalInformation information = new TerminalInformation();

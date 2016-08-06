@@ -3,6 +3,8 @@ using System.Collections;
 
 public class TerminalTriggerGenerator : MonoBehaviour
 {
+  public GameObject m_Door;
+
   void OnTriggerEnter(Collider other)
   {
     if (other.gameObject.tag == StringManager.Tags.player)
@@ -16,6 +18,8 @@ public class TerminalTriggerGenerator : MonoBehaviour
         }
 
         // todo open door to generator room
+        m_Door.GetComponent<DoorBehaviour>().ChangeDoorState(DoorBehaviour.DoorState.OPENING_STUCKED);
+
         // INFO: terminal-three
         TerminalInformation information = new TerminalInformation();
         information.isActivated = true;

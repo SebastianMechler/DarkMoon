@@ -194,8 +194,8 @@ public class XmlSave : MonoBehaviour
     Vector3 rotationPlayer = SingletonManager.Player.GetComponent<Transform>().eulerAngles;
     player.SetRotation(new Vector3(Camera.main.transform.eulerAngles.x, rotationPlayer.y, rotationPlayer.z));
 
-    Debug.Log("Camera : " + Camera.main.transform.eulerAngles.x);
-    Debug.Log("Player : " + rotationPlayer.y);
+    // Debug.Log("Camera : " + Camera.main.transform.eulerAngles.x);
+    // Debug.Log("Player : " + rotationPlayer.y);
 
     float oxygen = SingletonManager.Player.GetComponent<PlayerOxygen>().m_current;
     player.SetOxygen(oxygen);

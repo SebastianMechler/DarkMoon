@@ -14,6 +14,7 @@ TagManager:
   - NoiseSource
   - Floor
   - Door
+  - PlayerAreaData
   layers:
   - Default
   - TransparentFX

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TerminalTriggerLab1 : MonoBehaviour
 {
-	void OnTriggerEnter(Collider other)
+  void OnTriggerEnter(Collider other)
   {
     if (other.gameObject.tag != StringManager.Tags.player)
       return;
@@ -34,25 +34,25 @@ public class TerminalTriggerLab1 : MonoBehaviour
 
       SingletonManager.XmlSave.Save();
     }
-        
 
-      if (SingletonManager.MainTerminalController.GetTerminalState(TerminalType.MAIN_TERMINAL) == TerminalState.Unlocked)
-      {
-        TerminalInformation information = new TerminalInformation();
-        Terminals terminal;
-        Transform displayState;
 
-        // INFO: terminal-one
-        information.isActivated = true;
-        information.isCollected = true;
-        SingletonManager.MainTerminalController.SetTerminalInformation((int)TerminalType.TERMINAL_ONE, information);
+    if (SingletonManager.MainTerminalController.GetTerminalState(TerminalType.MAIN_TERMINAL) == TerminalState.Unlocked)
+    {
+      TerminalInformation information = new TerminalInformation();
+      Terminals terminal;
+      Transform displayState;
 
-        terminal = SingletonManager.MainTerminalController.GetTerminalByType(TerminalType.TERMINAL_ONE);
-        displayState = terminal.m_terminal.transform.FindChild("display_2states");
-        displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
-        SingletonManager.MainTerminalController.SetTerminalState(TerminalType.TERMINAL_ONE, TerminalState.Unlocked);
+      // INFO: terminal-one
+      information.isActivated = true;
+      information.isCollected = true;
+      SingletonManager.MainTerminalController.SetTerminalInformation((int)TerminalType.TERMINAL_ONE, information);
 
-        SingletonManager.XmlSave.Save();
-      }
-   }
+      terminal = SingletonManager.MainTerminalController.GetTerminalByType(TerminalType.TERMINAL_ONE);
+      displayState = terminal.m_terminal.transform.FindChild("display_2states");
+      displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
+      SingletonManager.MainTerminalController.SetTerminalState(TerminalType.TERMINAL_ONE, TerminalState.Unlocked);
+
+      SingletonManager.XmlSave.Save();
+    }
+  }
 }

@@ -100,17 +100,6 @@ public class PlayerMovement : MonoBehaviour
         // Update player state
         UpdatePlayerState();
 
-    // Test output for all encoded MovementStates
-
-    if (Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.interactWithObject))
-    {
-      Debug.Log("===============================================");
-      Debug.Log("WALK: " + HasMovementState(MovementState.WALK));
-      Debug.Log("RUN: " + HasMovementState(MovementState.RUN));
-      Debug.Log("STAND: " + HasMovementState(MovementState.STAND));
-      Debug.Log("CROUCH: " + HasMovementState(MovementState.CROUCH));
-      Debug.Log("===============================================");
-    }
     
 
     CanUncrouch();

@@ -13,6 +13,8 @@ public class XmlSave : MonoBehaviour
 
   static bool m_isCreated = false;
 
+  string[] terminals = new string[5];
+
   void Awake()
   {
     if (m_isCreated)
@@ -22,6 +24,12 @@ public class XmlSave : MonoBehaviour
     m_isCreated = true;
 
     DontDestroyOnLoad(this.gameObject);
+
+    terminals[0] = XmlNodes.Terminal.mainTerminal;
+    terminals[1] = XmlNodes.Terminal.terminalOne;
+    terminals[2] = XmlNodes.Terminal.terminalTwo;
+    terminals[3] = XmlNodes.Terminal.terminalThree;
+    terminals[4] = XmlNodes.Terminal.terminalGenerator;
   }
 
   void Update()
@@ -69,7 +77,7 @@ public class XmlSave : MonoBehaviour
     }
 
     SavePlayer();
-    SaveEnemey();
+    //SaveEnemey();
     SaveGameDifficulty();
     SaveTerminalData();
 
@@ -103,7 +111,7 @@ public class XmlSave : MonoBehaviour
   public void LoadGameData()
   {
     LoadPlayer();
-    LoadEnemy();
+    //LoadEnemy();
     LoadGameDifficulty();
     LoadTerminalData();
 
@@ -370,12 +378,6 @@ public class XmlSave : MonoBehaviour
   public void CreateTerminalNode()
   {
     // creates all nodes if they dont exist already
-
-    string[] terminals = new string[3];
-    terminals[0] = XmlNodes.Terminal.terminalOne;
-    terminals[1] = XmlNodes.Terminal.terminalTwo;
-    terminals[2] = XmlNodes.Terminal.terminalThree;
-
     for (int i = 0; i < terminals.Length; i++)
     {
       XmlElement ele = (XmlElement)GetXmlNode(terminals[i]);
@@ -412,11 +414,6 @@ public class XmlSave : MonoBehaviour
   {
     CreateTerminalNode();
 
-    string[] terminals = new string[3];
-    terminals[0] = XmlNodes.Terminal.terminalOne;
-    terminals[1] = XmlNodes.Terminal.terminalTwo;
-    terminals[2] = XmlNodes.Terminal.terminalThree;
-
     for (int i = 0; i < terminals.Length; i++)
     {
       TerminalNode terminal = new TerminalNode(GetXmlNode(terminals[i]));
@@ -430,37 +427,56 @@ public class XmlSave : MonoBehaviour
   {
     CreateTerminalNode();
 
-    string[] terminals = new string[3];
-    terminals[0] = XmlNodes.Terminal.terminalOne;
-    terminals[1] = XmlNodes.Terminal.terminalTwo;
-    terminals[2] = XmlNodes.Terminal.terminalThree;
-
     for (int i = 0; i < terminals.Length; i++)
     {
-      TerminalNode terminal = new TerminalNode(GetXmlNode(terminals[i]));
+      TerminalNode terminalNode = new TerminalNode(GetXmlNode(terminals[i]));
 
       TerminalInformation terminalInformation = new TerminalInformation();
-      terminalInformation.isActivated = terminal.GetActivated();
-      terminalInformation.isCollected = terminal.GetCollected();
+      terminalInformation.isActivated = terminalNode.GetActivated();
+      terminalInformation.isCollected = terminalNode.GetCollected();
 
       SingletonManager.MainTerminalController.SetTerminalInformation(i, terminalInformation);
+      // SingletonManager.MainTerminalController.SetTerminalState((TerminalType)i, TerminalState.Locked);
+      Terminals terminal = SingletonManager.MainTerminalController.GetTerminalByType((TerminalType)i);
+      Transform displayState = terminal.m_terminal.transform.FindChild("display_2states");
 
       // update visual
       if (terminalInformation.isCollected)
       {
-        SingletonManager.UIManager.GetUIObject((UIType)i + 1).GetComponent<Canvas>().enabled = true;
-      }
+        if((TerminalType)i == TerminalType.TERMINAL_ONE && terminalInformation.isCollected)
+        {
+          Debug.Log("Load Door Open");
+        }
 
-      if (terminalInformation.isActivated)
+        SingletonManager.MainTerminalController.SetTerminalState((TerminalType)i, TerminalState.Unlocked);
+        displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
+      }
+      else if(terminalInformation.isActivated)
       {
-        SingletonManager.UIManager.GetTerminalToggle((UIType)i+1).isOn = true; // i + 1 because TerminalOne is listed with number 1 in UIType enum
+        SingletonManager.MainTerminalController.SetTerminalState((TerminalType)i, TerminalState.Unlocked);
+        displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
+        
+      }else 
+      {
+        SingletonManager.MainTerminalController.SetTerminalState((TerminalType)i, TerminalState.Locked);
+        displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.5f));
       }
+    }
 
-
+    Terminals t = SingletonManager.MainTerminalController.GetTerminalByType(TerminalType.TERMINAL_TWO);
+    Transform d = t.m_terminal.transform.FindChild("display_2states");
+    if (SingletonManager.MainTerminalController.GetTerminalInformation((int)TerminalType.TERMINAL_TWO).isCollected == true)
+    {
+      d.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
+    }
+    else
+    {
+      d.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
     }
   }
   #endregion
 
+  
   public static XmlSave GetInstance()
   {
     return GameObject.Find(StringManager.Names.xmlSave).GetComponent<XmlSave>();

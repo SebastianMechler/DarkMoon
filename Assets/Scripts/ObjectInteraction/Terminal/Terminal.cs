@@ -3,7 +3,7 @@ using System.Collections;
 
 public enum TerminalType
 {
-  MAIN_TERMINAL = -1, // do not change this
+  MAIN_TERMINAL = 0, // do not change this
   TERMINAL_ONE,
   TERMINAL_TWO,
   TERMINAL_THREE,
@@ -34,52 +34,116 @@ public class Terminal : ObjectInteractionBase
   {
     base.Interact();
 #if DEBUG
-    Debug.Log("Interacting with Terminal: " + this.gameObject.name);
+    Debug.Log("Interacting with Terminal: " + this.gameObject.name + " Type: " + m_terminalType.ToString());
 #endif
 
-    Transform displayState = null;
+    TerminalInformation information = new TerminalInformation();
 
     switch (m_terminalType)
     {
       case TerminalType.MAIN_TERMINAL:
-        //SingletonManager.UIManager.SetUIVisibility(UIType.MainTerminal, true);
         break;
       case TerminalType.TERMINAL_ONE:
-        //SingletonManager.UIManager.SetUIVisibility(UIType.TerminalOne, true);
-        SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);   
         break;
 
       case TerminalType.TERMINAL_TWO:
-        //SingletonManager.UIManager.SetUIVisibility(UIType.TerminalTwo, true);
+        if (SingletonManager.MainTerminalController.GetTerminalState(TerminalType.TERMINAL_TWO) == TerminalState.Unlocked)
+        {
+          // deactivate light
 
-        // update mainterminal information
-        Terminals terminal = SingletonManager.MainTerminalController.GetTerminalByType(TerminalType.MAIN_TERMINAL);
-        displayState = terminal.m_terminal.transform.FindChild("display_2states");
-        displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
-        terminal.m_state = TerminalState.Unlocked;
+          // INFO: main-terminal
+          information.isActivated = true;
+          information.isCollected = true;
+          SingletonManager.MainTerminalController.SetTerminalInformation((int)TerminalType.MAIN_TERMINAL, information);
 
-        // update terminal-one information
-        displayState = this.gameObject.transform.FindChild("display_2states");
-        displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
-        SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
+          // INFO: terminal-one
+          information.isActivated = true;
+          information.isCollected = false;
+          SingletonManager.MainTerminalController.SetTerminalInformation((int)TerminalType.TERMINAL_ONE, information);
+
+          // INFO: terminal-two
+          information.isActivated = true;
+          information.isCollected = true;
+          SingletonManager.MainTerminalController.SetTerminalInformation((int)TerminalType.TERMINAL_TWO, information);
+
+          // set update mainterminal screen and unlock it
+          UpdateTerminalScreen(TerminalType.MAIN_TERMINAL);
+          SingletonManager.MainTerminalController.SetTerminalState(TerminalType.MAIN_TERMINAL, TerminalState.Unlocked);
+          SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
+
+          // update self
+          UpdateTerminalScreen(TerminalType.TERMINAL_TWO);
+
+          // enable terminal-one screen
+          SingletonManager.MainTerminalController.SetTerminalState(TerminalType.TERMINAL_ONE, TerminalState.Unlocked);
+        }
         break;
       case TerminalType.TERMINAL_THREE:
-        //SingletonManager.UIManager.SetUIVisibility(UIType.TerminalThree, true);
-        SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
+        // can only be activated when terminal_generator has been enabled!
+        if (SingletonManager.MainTerminalController.GetTerminalState(TerminalType.TERMINAL_GENERATOR) == TerminalState.Unlocked)
+        {
+          // update self ==> player can exit now
+          UpdateTerminalScreen(m_terminalType);
+          SingletonManager.MainTerminalController.SetTerminalState(m_terminalType, TerminalState.Unlocked);
+          SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
+        }
+          
         break;
       case TerminalType.TERMINAL_GENERATOR:
-        //SingletonManager.UIManager.SetUIVisibility(UIType.TerminalThree, true);
-        SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
+        // unlockes access to terminal_three
+        // generator can only be accessed if terminal_one is unlocked
+        if (SingletonManager.MainTerminalController.GetTerminalState(TerminalType.TERMINAL_ONE) == TerminalState.Unlocked)
+        {
+          // update terminal3
+          UpdateTerminalScreen(TerminalType.TERMINAL_THREE);
+          SingletonManager.MainTerminalController.SetTerminalState(TerminalType.TERMINAL_THREE, TerminalState.Unlocked);
+
+          // update self
+          UpdateTerminalScreen(m_terminalType);
+          SingletonManager.MainTerminalController.SetTerminalState(m_terminalType, TerminalState.Unlocked);
+
+          // INFO: terminal-three
+          information.isActivated = true;
+          information.isCollected = true;
+          SingletonManager.MainTerminalController.SetTerminalInformation((int)TerminalType.TERMINAL_THREE, information);
+
+          // INFO: terminal-generator
+          information.isActivated = true;
+          information.isCollected = true;
+          SingletonManager.MainTerminalController.SetTerminalInformation((int)TerminalType.TERMINAL_GENERATOR, information);
+
+          SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
+        }
+        
         break;
     }
 
-    SingletonManager.MainTerminalController.UpdateData(m_terminalType);
+
+    
+
+    //SingletonManager.MainTerminalController.UpdateData(m_terminalType);
     
     //
-    Transform go = this.transform.FindChild("display_2states");
-    go.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
+    //Transform go = this.transform.FindChild("display_2states");
+    //go.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
 
     // Save Game
     SingletonManager.XmlSave.Save();
   }
+
+    void UnlockSelf()
+    {
+        Transform displayState = this.gameObject.transform.FindChild("display_2states");
+        displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
+    }
+
+  void UpdateTerminalScreen(TerminalType type)
+  {
+    Terminals terminal = SingletonManager.MainTerminalController.GetTerminalByType(type);
+    Transform displayState = terminal.m_terminal.transform.FindChild("display_2states");
+    displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.5f, 0.0f));
+  }
+
+
+    
 }

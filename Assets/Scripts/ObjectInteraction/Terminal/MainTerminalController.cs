@@ -104,9 +104,14 @@ public class MainTerminalController : MonoBehaviour
     }
   }
 
-  public void SetTerminalInformation(int index, TerminalInformation information)
+  public void SetTerminalInformation(int index, TerminalInformation information, bool fix = false)
   {
     // TODO: ADD VISUALIZE EFFECT (interact with the objects...)
+    if (fix)
+    {
+      index++;
+    }
+
     m_terminals[index] = information;
   }
 
@@ -126,6 +131,24 @@ public class MainTerminalController : MonoBehaviour
     }
 
     return null;
+  }
+
+  // read only => no ref
+  public TerminalState GetTerminalState(TerminalType type)
+  {
+    Terminals terminal = GetTerminalByType(type);
+    return terminal.m_state;
+  }
+
+  public void SetTerminalState(TerminalType type, TerminalState state)
+  {
+    for (int i = 0; i < m_terminalList.Count; i++)
+    {
+      if (m_terminalList[i].m_type == type)
+      {
+        m_terminalList[i].m_state = state;
+      }
+    }
   }
 
   public static MainTerminalController GetInstance()

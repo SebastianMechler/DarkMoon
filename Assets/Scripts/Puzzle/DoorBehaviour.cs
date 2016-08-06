@@ -135,7 +135,7 @@ public class DoorBehaviour : MonoBehaviour {
         switch (m_DoorState)
 		{
 			case DoorState.OPENING:
-		        Debug.Log("DoorState.OPENING");
+		        //Debug.Log("DoorState.OPENING");
 				m_DoorState = DoorState.OPEN;
 				m_Timer = 4.0f;
 				m_Animator.speed = 0.0f;
@@ -143,7 +143,7 @@ public class DoorBehaviour : MonoBehaviour {
 				break;
 
 			case DoorState.OPEN:
-                Debug.Log("DoorState.OPEN");
+                //Debug.Log("DoorState.OPEN");
                 m_DoorState = DoorState.CLOSING;
 				m_Timer = 0.6f;
 				m_Animator.speed = 1.0f;
@@ -151,7 +151,7 @@ public class DoorBehaviour : MonoBehaviour {
 				break;
 
 			case DoorState.CLOSING:
-                Debug.Log("DoorState.CLOSING");
+                //Debug.Log("DoorState.CLOSING");
                 m_DoorState = DoorState.CLOSED;
 				m_Timer = 0.0f;
 				m_Animator.SetTrigger("triggerExitAnimation");
@@ -159,7 +159,7 @@ public class DoorBehaviour : MonoBehaviour {
 				break;
 
             case DoorState.OPENING_BROKEN:
-                Debug.Log("DoorState.OPENING_BROKEN");
+                //Debug.Log("DoorState.OPENING_BROKEN");
                 m_Animator.SetTrigger("triggerDoorOpening");
                 m_DoorState = DoorState.BROKEN;
                 m_Timer = 1.0f;
@@ -174,7 +174,7 @@ public class DoorBehaviour : MonoBehaviour {
                 break;
 
             case DoorState.OPENING_STUCKED:
-                Debug.Log("DoorState.OPENING_STUCKED");
+                //Debug.Log("DoorState.OPENING_STUCKED");
                 m_Animator.SetTrigger("triggerDoorOpening");
                 m_DoorState = DoorState.STUCKED;
                 m_Timer = 1.0f;

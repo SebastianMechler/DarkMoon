@@ -33,9 +33,11 @@ public class XmlNodes
 
   public class Terminal
   {
+    public const string mainTerminal = "MainTerminal";
     public const string terminalOne = "TerminalOne";
     public const string terminalTwo = "TerminalTwo";
     public const string terminalThree = "TerminalThree";
+    public const string terminalGenerator = "TerminalGenerator";
 
     public const string activated = "IsActivated";
     public const string collected = "IsCollected";

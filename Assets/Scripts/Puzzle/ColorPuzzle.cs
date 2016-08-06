@@ -44,6 +44,9 @@ public class ColorPuzzle : MonoBehaviour
             Debug.Log("VICTORY @ PUZZLE");
             SingletonManager.AudioManager.Play(AudioType.PUZZLE_SUCCESS);
 
+            // TODO:
+            // open exit door
+
             if (m_doorToOpen == null)
             {
               Debug.Log("Make sure to attach a door to the ColorPuzzle.");
@@ -67,7 +70,7 @@ public class ColorPuzzle : MonoBehaviour
           {
             Debug.Log("FAILURE @ PUZZLE");
             SingletonManager.AudioManager.Play(AudioType.PUZZLE_FAILURE);
-            ShowFailure();
+            //ShowFailure();
             ResetSequence();
           }
         }

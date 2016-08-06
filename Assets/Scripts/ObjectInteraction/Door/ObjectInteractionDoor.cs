@@ -13,6 +13,7 @@ public enum DoorType
 public class ObjectInteractionDoor : ObjectInteractionBase
 {
   public DoorType m_doorType;
+  public GameObject m_door;
   private bool m_isOpened = false;
 
   void Start()
@@ -52,6 +53,10 @@ public class ObjectInteractionDoor : ObjectInteractionBase
 
   public void Open()
   {
+    Debug.Log("DoorOpeningXYZ");
+    //todo:
+    // m_door.GetComponent<DoorBehaviour>().
+    
     if (m_isOpened)
     {
       //m_animation.Play(StringManager.Animations.Door.close);

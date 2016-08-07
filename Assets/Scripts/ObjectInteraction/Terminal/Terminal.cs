@@ -112,6 +112,8 @@ public class Terminal : ObjectInteractionBase
           information.isCollected = true;
           SingletonManager.MainTerminalController.SetTerminalInformation((int)TerminalType.TERMINAL_GENERATOR, information);
 
+          // todo m_ColorPuzzle.SetActive(true) nur wenn diese interaktion stattfand
+
           SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
         }
         

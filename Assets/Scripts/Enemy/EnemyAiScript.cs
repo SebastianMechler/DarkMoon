@@ -861,7 +861,7 @@ public class EnemyAiScript : MonoBehaviour
     int WaypointCount = m_TempWaypointList.Length;
 
     bool test = AI_Dynamic_DirtyReduceWaypoints();
-    Debug.Log("AI_Dynamic_DirtyReduceWaypoints resulted in: " + (test ? "TRUE" : "FALSE"));
+    // Debug.Log("AI_Dynamic_DirtyReduceWaypoints resulted in: " + (test ? "TRUE" : "FALSE"));
     WaypointCount = m_TempWaypointList.Length;
 
     if (WaypointCount == 1)

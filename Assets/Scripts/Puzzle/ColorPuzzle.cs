@@ -53,16 +53,17 @@ public class ColorPuzzle : MonoBehaviour
             }
             else
             {
-              ObjectInteractionDoor objInteractionDoor = m_doorToOpen.GetComponent<ObjectInteractionDoor>();
-              if (objInteractionDoor == null)
-              {
-                Debug.Log("Make sure to attach a door with the script ObjectInteractionDoor attached to it, usually DoorCenter has this script.");
-              }
-              else
-              {
-                objInteractionDoor.SetInteractionState(true);
-                objInteractionDoor.Interact();
-              }
+              m_doorToOpen.GetComponent<DoorBehaviour>().ChangeDoorState(DoorBehaviour.DoorState.OPENING_STUCKED);
+              //ObjectInteractionDoor objInteractionDoor = m_doorToOpen.GetComponent<ObjectInteractionDoor>();
+              //if (objInteractionDoor == null)
+              //{
+              //  Debug.Log("Make sure to attach a door with the script ObjectInteractionDoor attached to it, usually DoorCenter has this script.");
+              //}
+              //else
+              //{
+              //  objInteractionDoor.SetInteractionState(true);
+              //  objInteractionDoor.Interact();
+              //}
             }
             
           }

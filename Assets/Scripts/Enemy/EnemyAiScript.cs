@@ -507,34 +507,57 @@ public class EnemyAiScript : MonoBehaviour
     // Find Nearest Waypoint to current Position
     Vector3 thisGameObject = gameObject.transform.position;
     GameObject NearestWaypoint = null;
-    string nearestWaypointName;
+    string nearestWaypointName = string.Empty;
 
-    // Minor Fix
-    // ####################################################
-    Vector3 b = m_LastWaypoint.transform.position;
-    float distToLast = Mathf.Abs(Vector3.Distance(thisGameObject, b));
-    float distLastToNoise = Mathf.Abs(Vector3.Distance(m_NoiseSource.transform.position, b));
-    // Debug.Log("LastWaypoint '"+ m_LastWaypoint.name + "' | GameObject to LastWaypoint: " + distToLast + " | LastWaypoint to Noise: " + distLastToNoise);
-
-    Vector3 c = m_NextWaypoint.transform.position;
-    float distToNext = Mathf.Abs(Vector3.Distance(thisGameObject, c));
-    float distNextToNoise = Mathf.Abs(Vector3.Distance(m_NoiseSource.transform.position, c));
-    // Debug.Log("NextWaypoint '" + m_NextWaypoint.name + "' | GameObject to NextWaypoint: " + distToNext + " | NextWaypoint to Noise: " + distNextToNoise);
-
-    float sumLast = distToLast + distLastToNoise;
-    float sumNext = distToNext + distNextToNoise;
-    if (sumLast < sumNext)
+    // Prevent a possible DeadLock in the Generator Room Maze
+    if (m_LastWaypoint.name.Contains("WaypointR") && m_NextWaypoint.name.Contains("WaypointR"))
     {
-      // Debug.Log("[!] Last Waypoint was deemed closer");
-      NearestWaypoint = m_LastWaypoint;
+      string checkOne =
+        m_LastWaypoint.name.Replace("WaypointR", string.Empty)
+          .Replace(" ", string.Empty)
+          .Replace("(", string.Empty)
+          .Replace(")", string.Empty);
+      int numberOne = int.Parse(checkOne.Length == 0 ? "0" : checkOne);
+
+      string checkTwo =
+        m_NextWaypoint.name.Replace("WaypointR", string.Empty)
+          .Replace(" ", string.Empty)
+          .Replace("(", string.Empty)
+          .Replace(")", string.Empty);
+      int numberTwo = int.Parse(checkTwo.Length == 0 ? "0" : checkTwo);
+
+      NearestWaypoint = (numberOne < numberTwo ? m_LastWaypoint : m_NextWaypoint);
       nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
     }
     else
     {
-      NearestWaypoint = m_NextWaypoint;
-      nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
-    }
+      // Minor Fix
+      // ####################################################
+      Vector3 b = m_LastWaypoint.transform.position;
+      float distToLast = Mathf.Abs(Vector3.Distance(thisGameObject, b));
+      float distLastToNoise = Mathf.Abs(Vector3.Distance(m_NoiseSource.transform.position, b));
+      // Debug.Log("LastWaypoint '"+ m_LastWaypoint.name + "' | GameObject to LastWaypoint: " + distToLast + " | LastWaypoint to Noise: " + distLastToNoise);
 
+      Vector3 c = m_NextWaypoint.transform.position;
+      float distToNext = Mathf.Abs(Vector3.Distance(thisGameObject, c));
+      float distNextToNoise = Mathf.Abs(Vector3.Distance(m_NoiseSource.transform.position, c));
+      // Debug.Log("NextWaypoint '" + m_NextWaypoint.name + "' | GameObject to NextWaypoint: " + distToNext + " | NextWaypoint to Noise: " + distNextToNoise);
+
+      float sumLast = distToLast + distLastToNoise;
+      float sumNext = distToNext + distNextToNoise;
+      if (sumLast < sumNext)
+      {
+        // Debug.Log("[!] Last Waypoint was deemed closer");
+        NearestWaypoint = m_LastWaypoint;
+        nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
+      }
+      else
+      {
+        NearestWaypoint = m_NextWaypoint;
+        nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
+      }
+    }
+    
     if (NearestWaypoint == m_NoiseClosestWaypoint)
     {
       Debug.Log("Nearby Waypoint is actually the NoiseWaypoint");
@@ -632,9 +655,9 @@ public class EnemyAiScript : MonoBehaviour
       // 7. Use the closest found Waypoint as the new Parent
       parentToSearch = preferredRoute;
 
-      // Increase, if hit 100 we escape the endless loop
+      // Increase, if hit 64 we escape the endless loop
       ++error_Counter;
-      if (error_Counter >= 100)
+      if (error_Counter >= 64)
       {
         Debug.LogError("[!] Endlosschleife. Abbruch des Pathfindings.");
         routeFound = true;
@@ -652,7 +675,7 @@ public class EnemyAiScript : MonoBehaviour
     // Debug.Log("[!] finalisedRoute found with '" + numberOfElements + "' Waypoints");
     for (int i = 0; i < numberOfElements; i++)
     {
-      Debug.Log(i + ": " + finalisedRoute[i].name);
+      // Debug.Log(i + ": " + finalisedRoute[i].name);
       g_ActionQueue[i].m_ThisAction = ActionType.PATROL;
       g_ActionQueue[i].m_NextPatrolSpot = finalisedRoute[i];
     }
@@ -692,8 +715,8 @@ public class EnemyAiScript : MonoBehaviour
       else
       {
         m_TempWaypointList = new GameObject[2];
-        m_TempWaypointList[0] = GameObject.Find("WaypointG");
-        m_TempWaypointList[1] = GameObject.Find("WaypointG (14)");
+        m_TempWaypointList[0] = GameObject.Find("WaypointG (20)");
+        m_TempWaypointList[1] = GameObject.Find("WaypointG (21)");
       }
 
       return true;
@@ -726,8 +749,8 @@ public class EnemyAiScript : MonoBehaviour
       else
       {
         m_TempWaypointList = new GameObject[2];
-        m_TempWaypointList[0] = GameObject.Find("WaypointB (8)");
-        m_TempWaypointList[1] = GameObject.Find("WaypointB (9)");
+        m_TempWaypointList[0] = GameObject.Find("WaypointB");
+        m_TempWaypointList[1] = GameObject.Find("WaypointB (16)");
       }
 
       return true;

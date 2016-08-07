@@ -33,6 +33,9 @@ public class BGMixer : MonoBehaviour
 
   public float m_textToSpeechFactor = 1.0f;
 
+  public float m_RefreshRate = 5.0f;
+  private float m_RefreshCount = 5.0f;
+
   void Start()
   {
 
@@ -64,6 +67,13 @@ public class BGMixer : MonoBehaviour
 
   void CheckBehaviour()
   {
+    if (m_RefreshCount >= 0.0f)
+    {
+      m_RefreshCount -= Time.deltaTime;
+      return;
+    }
+    m_RefreshCount = m_RefreshRate;
+
     float distance = Mathf.Abs(Vector3.Distance(m_Player.transform.position, m_Enemy.transform.position));
     float speed = m_Enemy.GetComponent<EnemyAiScript>().getMovementSpeed();
 
@@ -102,6 +112,7 @@ public class BGMixer : MonoBehaviour
 
   }
 
+  #region keyInput
   void CheckKeyDown()
   {
     if (Input.GetKeyDown(KeyCode.Keypad1))
@@ -148,6 +159,7 @@ public class BGMixer : MonoBehaviour
       }
     }
   }
+  #endregion
 
   // Update is called once per frame
   void Update()

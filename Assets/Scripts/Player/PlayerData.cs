@@ -50,21 +50,21 @@ public class PlayerData : MonoBehaviour
     // Greater in X and Less in Z
     if (xPos >= m_BorderAreaOne.position.x && zPos <= m_BorderAreaOne.position.z)
     {
-      Debug.Log((target.tag == StringManager.Tags.player ? "Player " : "Enemy ") + "recently entered:  AREA_ONE");
+      // Debug.Log((target.tag == StringManager.Tags.player ? "Player " : "Enemy ") + "recently entered:  AREA_ONE");
       return PlayerGeneralLocation.AREA_ONE;
     }
 
     // Greater in X and Greater in Z
     if (xPos >= m_BorderAreaTwo.position.x && zPos >= m_BorderAreaTwo.position.z)
     {
-      Debug.Log((target.tag == StringManager.Tags.player ? "Player " : "Enemy ") + "recently entered:  AREA_TWO");
+      // Debug.Log((target.tag == StringManager.Tags.player ? "Player " : "Enemy ") + "recently entered:  AREA_TWO");
       return PlayerGeneralLocation.AREA_TWO;
     }
 
     // Less in X and Greater in Z
     if (xPos <= m_BorderAreaThree.position.x && zPos >= m_BorderAreaThree.position.z)
     {
-      Debug.Log((target.tag == StringManager.Tags.player ? "Player " : "Enemy ") + "recently entered:  AREA_THREE");
+      // Debug.Log((target.tag == StringManager.Tags.player ? "Player " : "Enemy ") + "recently entered:  AREA_THREE");
       return PlayerGeneralLocation.AREA_THREE;
     }
 
@@ -86,32 +86,5 @@ public class PlayerData : MonoBehaviour
 
     m_PlayerLocation = UpdateLocation(m_Player);
     m_EnemyLocation = UpdateLocation(m_Enemy);
-
-    // float xPos = m_Player.transform.position.x;
-    // float zPos = m_Player.transform.position.z;
-
-    // // Greater in X and Less in Z
-    // if (xPos >= m_BorderAreaOne.position.x && zPos <= m_BorderAreaOne.position.z)
-    // {
-    //   Debug.Log("Player recently entered:  AREA_ONE");
-    //  m_PlayerLocation = PlayerGeneralLocation.AREA_ONE;
-    //   return;
-    //}
-
-    // // Greater in X and Greater in Z
-    // if (xPos >= m_BorderAreaTwo.position.x && zPos >= m_BorderAreaTwo.position.z)
-    // {
-    //   Debug.Log("Player recently entered:  AREA_TWO");
-    //   m_PlayerLocation = PlayerGeneralLocation.AREA_TWO;
-    //   return;
-    // }
-
-    // // Less in X and Greater in Z
-    // if (xPos <= m_BorderAreaThree.position.x && zPos >= m_BorderAreaThree.position.z)
-    // {
-    //   Debug.Log("Player recently entered:  AREA_THREE");
-    //   m_PlayerLocation = PlayerGeneralLocation.AREA_THREE;
-    //   return;
-    // }
   }
 }

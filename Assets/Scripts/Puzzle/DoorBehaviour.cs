@@ -156,18 +156,6 @@ public class DoorBehaviour : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    //if (m_IsAnimating == true)
-    //{
-    //  if (AnimateSimpleDoorCompleted() == true)
-    //  {
-    //    m_IsAnimating = false;
-    //  }
-    //  else
-    //  {
-    //    return;
-    //  }
-    //}
-
     if (Input.GetKeyDown(KeyCode.Keypad0) && m_DoorState == DoorState.CLOSED)
     {
       ChangeDoorState(DoorState.OPENING);
@@ -237,7 +225,7 @@ public class DoorBehaviour : MonoBehaviour
         m_Animator.SetTrigger("triggerDoorOpening");
         m_DoorState = DoorState.STUCKED;
         if (m_DoorType == DoorType.SMALL) SetAnimationData(0.25f, 1.0f);
-        if (m_DoorType == DoorType.LARGE) SetAnimationData(1.75f, 0.3f);
+        if (m_DoorType == DoorType.LARGE) SetAnimationData(1.85f, 0.3f);
         ChangeLightColor(m_OpenColor);
         break;
 

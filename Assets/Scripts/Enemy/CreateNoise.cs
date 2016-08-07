@@ -14,7 +14,7 @@ public class CreateNoise : MonoBehaviour {
 	// Use this for initialization
 	void Awake ()
 	{
-		m_UniqueName = gameObject.GetHashCode().ToString();
+		m_UniqueName = Mathf.Abs(gameObject.GetHashCode()).ToString();
         
 		GameObject[] list = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
 		Vector3 thisGameObject = gameObject.transform.position;

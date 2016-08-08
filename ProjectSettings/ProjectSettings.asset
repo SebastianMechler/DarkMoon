@@ -87,12 +87,12 @@ PlayerSettings:
     4:3: 0
     5:4: 0
     16:10: 1
-    16:9: 1
+    16:9: 0
     Others: 0
   bundleIdentifier: com.Company.ProductName
   bundleVersion: 1.0
   preloadedAssets:
-  - {fileID: 159560, guid: fad6a15418f42f742887bf9e7eafbb78, type: 2}
+  - {fileID: 163092, guid: 59b5c0a80f3b391408e101acfcb5c205, type: 2}
   metroEnableIndependentInputSource: 0
   metroEnableLowLatencyPresentationAPI: 0
   xboxOneDisableKinectGpuReservation: 0

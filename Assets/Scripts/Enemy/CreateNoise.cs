@@ -55,6 +55,8 @@ public class CreateNoise : MonoBehaviour {
       gameObject.GetComponent<BoxCollider>().enabled = false;
       //gameObject.SetActive(false);
 
+      SingletonManager.EnemyFeedback.increaseRate(0.5f);
+
       // disable hiding zone
       if (m_hidingZone != null)
       {

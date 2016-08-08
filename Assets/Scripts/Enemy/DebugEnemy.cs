@@ -12,6 +12,9 @@ public class DebugEnemy : MonoBehaviour
 
 	// Update is called once per frame
 	void Update () {
+
+    // todo every 2 seconds if walking play step sound
+
 	  if (enemy.transform.position.y <= 0.0f)
 	  {
 	    Debug.Break();

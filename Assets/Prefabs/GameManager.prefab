@@ -92,7 +92,7 @@ MonoBehaviour:
     m_soundVolume: 0
     m_musicVolume: 0
     m_cameraGamma: 0
-  m_isTutorial: 1
+  m_isTutorial: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

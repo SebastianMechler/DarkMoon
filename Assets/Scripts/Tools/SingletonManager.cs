@@ -16,6 +16,8 @@ public class SingletonManager : MonoBehaviour
   private static BGMixer m_bgmixer = null;
   private static TextToSpeech m_textToSpeech = null;
   private static BedFix m_bedFix = null;
+  private static Tutorial m_tutorial = null;
+  private static EnemyFeedback m_enemyFeedback = null;
 
   public static MouseManager MouseManager
     {
@@ -177,6 +179,32 @@ public class SingletonManager : MonoBehaviour
       }
 
       return m_bedFix;
+    }
+  }
+
+  public static Tutorial Tutorial
+  {
+    get
+    {
+      if (m_tutorial == null)
+      {
+        m_tutorial = Tutorial.GetInstance();
+      }
+
+      return m_tutorial;
+    }
+  }
+
+  public static EnemyFeedback EnemyFeedback
+  {
+    get
+    {
+      if (m_enemyFeedback == null)
+      {
+        m_enemyFeedback = EnemyFeedback.GetInstance();
+      }
+
+      return m_enemyFeedback;
     }
   }
 }

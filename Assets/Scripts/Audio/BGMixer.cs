@@ -170,6 +170,11 @@ public class BGMixer : MonoBehaviour
       CheckBehaviour();
     }
 
+    if (SingletonManager.Tutorial.m_isEnabled)
+    {
+      return;
+    }
+
     if (m_AudioActive != m_AudioNext && m_AudioNext != ActiveAudio.None)
     {
       m_CounterDown -= Time.deltaTime * m_MusicChangeFactor;

@@ -37,6 +37,8 @@ public class Tutorial : MonoBehaviour
 
   public GameObject m_door;
 
+  public bool m_isEnabled = false;
+
   void Start()
   {
     // dictionary must be initialized with default values...
@@ -63,7 +65,7 @@ public class Tutorial : MonoBehaviour
       SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialCamera); // camera
 
       m_door.GetComponent<ObjectInteractionDoor>().enabled = false;
-
+      m_isEnabled = true;
       Debug.Log("Starting tutorial...");
     }
 	}
@@ -135,6 +137,7 @@ public class Tutorial : MonoBehaviour
       case TutorialState.Door:
         if (m_isTutorialStateDone[m_currentTutorialState] == false)
         {
+          m_door.GetComponent<ObjectInteractionDoor>().enabled = true;
           SetTutorialStateDone(m_currentTutorialState);
         }
         break;
@@ -205,7 +208,8 @@ public class Tutorial : MonoBehaviour
             break;
 
           case TutorialState.Door:
-            m_door.GetComponent<ObjectInteractionDoor>().enabled = true;
+            //m_door.GetComponent<ObjectInteractionDoor>().enabled = true;
+            m_isEnabled = false;
             break;
         }
         
@@ -236,5 +240,10 @@ public class Tutorial : MonoBehaviour
     }
 
     return 0.0f;
+  }
+
+  public static Tutorial GetInstance()
+  {
+    return GameObject.Find(StringManager.Names.tutorial).GetComponent<Tutorial>();
   }
 }

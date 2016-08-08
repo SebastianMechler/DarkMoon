@@ -10,9 +10,6 @@ public class CollisionDetection : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-
-        
-
         if (StringManager.Tags.player.Equals(other.gameObject.tag) && HidingZone.g_isPlayerHidden == false)
         {
             Vector3 playerPos = GameObject.FindGameObjectWithTag(StringManager.Tags.player).transform.position;

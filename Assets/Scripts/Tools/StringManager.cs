@@ -25,6 +25,7 @@ public class StringManager : MonoBehaviour
     public const string textToSpeech = "TextToSpeech";
     public const string bgmixer = "BackgroundMusicMixer";
     public const string bedFix = "BedFix";
+    public const string tutorial = "Tutorial";
   }
 
   public class Tags

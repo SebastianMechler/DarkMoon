@@ -113,6 +113,7 @@ public class Terminal : ObjectInteractionBase
           SingletonManager.MainTerminalController.SetTerminalInformation((int)TerminalType.TERMINAL_GENERATOR, information);
 
           // todo m_ColorPuzzle.SetActive(true) nur wenn diese interaktion stattfand
+          SingletonManager.MainTerminalController.EnablePuzzle();
 
           SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
         }

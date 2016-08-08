@@ -52,7 +52,6 @@ public class ThrowItem : MonoBehaviour
         m_currentSound = m_soundDelay;
       }
     }
-      
   }
 
   public void Throw(float itemForce)

@@ -28,7 +28,7 @@ public class Terminals
 public class MainTerminalController : MonoBehaviour
 {
   public TerminalInformation[] m_terminals = new TerminalInformation[(int)TerminalType.COUNT]; // create an array with the number of terminals (-1 cause MAIN_TERMINAL is not needed)
-
+  public GameObject m_puzzle;
 
   // THIS IS THE NEW TERMINAL LIST
   public List<Terminals> m_terminalList = new List<Terminals>();
@@ -149,6 +149,11 @@ public class MainTerminalController : MonoBehaviour
         m_terminalList[i].m_state = state;
       }
     }
+  }
+
+  public void EnablePuzzle()
+  {
+    m_puzzle.SetActive(true);
   }
 
   public static MainTerminalController GetInstance()

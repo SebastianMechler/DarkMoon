@@ -31,6 +31,34 @@ public enum AudioType
   TEXT_TO_SPEECH_TUTORIAL_INTERACT_WITH_FLASH_LIGHT,
   TEXT_TO_SPEECH_TUTORIAL_OXYGEN_AND_BATTERY,
   TEXT_TO_SPEECH_TUTORIAL_DOOR,
+
+  GENERATOR_ACTIVATED,
+  ALARM,
+
+  DOOR_OPEN,
+  DOOR_OPENED,
+  DOOR_STUCKED,
+  DOOR_CLOSE,
+  DOOR_CLOSED,
+
+  SPARKS,
+  SMOKE,
+  PARTICLE_WATER,
+  PARTICLE_FIRE,
+
+  GLASS_COLLISION_ONE,
+  GLASS_COLLISION_TWO,
+  OBJECT_NOISE_CONTACT,
+  OBJECT_NOISE_FALL,
+  FRACTURE_MODEL_COLLISION,
+
+  ENEMY_STEP_ONE,
+  ENEMY_STEP_TWO,
+  ENEMY_GROWL,
+  ENEMY_SHOUT,
+  PLAYER_STEP_ONE,
+  PLAYER_STEP_TWO,
+  PLAYER_HEARTBEAT
 }
 
 [System.Serializable]
@@ -82,7 +110,7 @@ public class AudioManager : MonoBehaviour
     }
 	}
 
-  public AudioSource Play(AudioType type)
+  public AudioSource Play(AudioType type, float volume = 1.0f)
   {
     //AudioSourcePlay play = new AudioSourcePlay();
     AudioSourcePlay play = this.gameObject.AddComponent<AudioSourcePlay>();
@@ -90,7 +118,7 @@ public class AudioManager : MonoBehaviour
     play.m_audioSource = audioSource;
 
     audioSource.clip = m_audioMap[type].clip;
-    audioSource.volume = m_audioMap[type].volume * SingletonManager.GameManager.m_settings.m_soundVolume;
+    audioSource.volume = m_audioMap[type].volume * volume * SingletonManager.GameManager.m_settings.m_soundVolume;
     audioSource.Play();
 
     return audioSource;

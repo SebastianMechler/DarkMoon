@@ -906,6 +906,13 @@ public class EnemyAiScript : MonoBehaviour
   // Return Movement Speed
   public float getMovementSpeed() { return g_MovementSpeed; }
 
+  public void SetDynamicWaypoints(GameObject last, GameObject next)
+  {
+    m_LastWaypoint = next; // last;
+    m_NextWaypoint = next;
+    m_TargetPatrolName = next.GetComponent<WaypointTreeNode>().getName();
+  }
+
   // public function
   public void changeMovementPattern(MovementPattern replace, GameObject source, GameObject closest)
   {

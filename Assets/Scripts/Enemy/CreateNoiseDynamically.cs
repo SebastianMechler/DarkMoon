@@ -77,6 +77,12 @@ public class CreateNoiseDynamically : MonoBehaviour
 
   public void OnCollisionEnter(Collision other)
   {
+
+    if (!SingletonManager.Enemy.activeSelf)
+    {
+      return;
+    }
+
     // Debug.Log("Thrown Item collided with: " + other.gameObject.name);
     if (other.gameObject.tag.Equals(StringManager.Tags.floor) && m_GenerateNoiseOnGroundContact && m_EnableNoiseCreation)
     {

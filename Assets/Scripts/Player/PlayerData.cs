@@ -84,7 +84,7 @@ public class PlayerData : MonoBehaviour
 	    m_CheckRefresh = m_RefreshRate;
 	  }
 
-    m_PlayerLocation = UpdateLocation(m_Player);
-    m_EnemyLocation = UpdateLocation(m_Enemy);
+    m_PlayerLocation = UpdateLocation(SingletonManager.Player);
+    m_EnemyLocation = UpdateLocation(SingletonManager.Enemy);
   }
 }

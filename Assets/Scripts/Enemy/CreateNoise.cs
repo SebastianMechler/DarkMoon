@@ -7,7 +7,7 @@ public class CreateNoise : MonoBehaviour {
 	public string m_UniqueName;
 	public bool m_PlaySoundOnEnter;
 	public GameObject m_NearestWaypoint;
-    public GameObject m_hidingZone = null;
+  public GameObject m_hidingZone = null;
 
 	float lastNearestDistance = float.MaxValue;
 
@@ -32,16 +32,17 @@ public class CreateNoise : MonoBehaviour {
 			}
 		}
     // Debug.Log("[!] Shortest Distance starting from " + m_UniqueName + ": " + m_NearestWaypoint.name);
-  }
+	  m_Enemy = SingletonManager.Enemy;
+	}
 
-    void Start()
+  void Start()
     {
-        m_Enemy = GameObject.FindGameObjectWithTag(StringManager.Tags.enemy);
+        // m_Enemy = GameObject.FindGameObjectWithTag(StringManager.Tags.enemy);
     }
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.tag == StringManager.Tags.player)
+		if(other.tag == StringManager.Tags.player && SingletonManager.Enemy.activeSelf)
 		{
   		if (m_PlaySoundOnEnter)
 			{

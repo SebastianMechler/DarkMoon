@@ -21,6 +21,8 @@ public class OptionScreen : MonoBehaviour
   public Dropdown m_resolution;
   public Text m_resolutionText;
 
+  public Toggle m_toggleTutorial;
+
   private bool m_isSliderInitialized = false;
 
   private bool isInitialized = false;
@@ -49,6 +51,9 @@ public class OptionScreen : MonoBehaviour
     }
 
     m_resolution.AddOptions(optionList);
+
+    // set tutorial state
+    m_toggleTutorial.isOn = SingletonManager.GameManager.m_isTutorial;
 
     // enable sound for onvaluechange
     isInitialized = true;
@@ -115,6 +120,11 @@ public class OptionScreen : MonoBehaviour
     }
     Resolution[] resolutions = Screen.resolutions;
     Screen.SetResolution(resolutions[0].width, resolutions[0].height, Screen.fullScreen);    
+  }
+
+  public void OnValueChange_Toggle_Tutorial()
+  {
+    SingletonManager.GameManager.m_isTutorial = m_toggleTutorial.isOn;
   }
 
 }

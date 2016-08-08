@@ -35,6 +35,8 @@ public class Tutorial : MonoBehaviour
 
   public List<TutorialStateDelay> m_tutorialStateDelay; // this delay will be used between each state
 
+  public GameObject m_door;
+
   void Start()
   {
     // dictionary must be initialized with default values...
@@ -59,6 +61,9 @@ public class Tutorial : MonoBehaviour
       SetTutorialStateDelay(GetTutorialStateDelay(m_currentTutorialState));
 
       SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialCamera); // camera
+
+      m_door.GetComponent<ObjectInteractionDoor>().enabled = false;
+
       Debug.Log("Starting tutorial...");
     }
 	}
@@ -72,7 +77,10 @@ public class Tutorial : MonoBehaviour
       if (m_runTimer < 0.0f)
       {
         m_runTimer = 0.0f;
-        RunTutorial();
+        if (SingletonManager.GameManager.m_isTutorial && SingletonManager.GameManager.m_isSaveGame == false)
+        {
+          RunTutorial();
+        }
       }
     }
 
@@ -197,6 +205,7 @@ public class Tutorial : MonoBehaviour
             break;
 
           case TutorialState.Door:
+            m_door.GetComponent<ObjectInteractionDoor>().enabled = true;
             break;
         }
         

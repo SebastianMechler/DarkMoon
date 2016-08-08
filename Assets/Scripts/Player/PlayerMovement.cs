@@ -130,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // player is running or walking
-            if (isRunKeyPressed && isCrouchKeyPressed == false)
+            if (isRunKeyPressed && isCrouchKeyPressed == false && m_PlayerOxygen.m_current > 0.0f)
             {
                 m_movementVector *= m_runSpeedFactor;
                 EncodeMovementState(MovementState.RUN);

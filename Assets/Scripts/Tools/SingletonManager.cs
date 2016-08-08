@@ -15,6 +15,7 @@ public class SingletonManager : MonoBehaviour
   private static XmlSave m_xmlSave = null;
   private static BGMixer m_bgmixer = null;
   private static TextToSpeech m_textToSpeech = null;
+  private static BedFix m_bedFix = null;
 
   public static MouseManager MouseManager
     {
@@ -163,6 +164,19 @@ public class SingletonManager : MonoBehaviour
       }
 
       return m_textToSpeech;
+    }
+  }
+
+  public static BedFix BedFix
+  {
+    get
+    {
+      if (m_bedFix == null)
+      {
+        m_bedFix = BedFix.GetInstance();
+      }
+
+      return m_bedFix;
     }
   }
 }

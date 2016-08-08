@@ -24,6 +24,7 @@ public class StringManager : MonoBehaviour
     public const string xmlSave = "XmlSave";
     public const string textToSpeech = "TextToSpeech";
     public const string bgmixer = "BackgroundMusicMixer";
+    public const string bedFix = "BedFix";
   }
 
   public class Tags

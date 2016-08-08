@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ThrowItem : MonoBehaviour
 {
@@ -8,9 +9,12 @@ public class ThrowItem : MonoBehaviour
   private float m_soundDelay = 0.25f;
   private float m_currentSound = 0.0f;
 
+  public List<GameObject> m_ignoreCollisonList;
+
   void Start()
   {
     m_rigidbody = this.gameObject.GetComponent<Rigidbody>();
+    m_ignoreCollisonList = SingletonManager.BedFix.m_bedFixList;
   }
 
   void Update()
@@ -62,9 +66,15 @@ public class ThrowItem : MonoBehaviour
     // ignore physics-collision between item and enemy
     Physics.IgnoreCollision(this.gameObject.GetComponent<Collider>(), SingletonManager.Enemy.GetComponent<Collider>(), true);
 
+    // ignore collision between item and hidden bedfix-colliders
+    for (int i = 0; i < m_ignoreCollisonList.Count; i++)
+    {
+      Physics.IgnoreCollision(this.gameObject.GetComponent<Collider>(), m_ignoreCollisonList[i].GetComponent<Collider>());
+    }
+
     if (gameObject.GetComponent<Light>() != null)
       gameObject.AddComponent<SnapLightFading>();
-
+    //Physics.Ign
     // Recollectable item?
     if (SingletonManager.GameManager.CurrentGameDifficultySettings.m_itemsRecollectable == false)
     {

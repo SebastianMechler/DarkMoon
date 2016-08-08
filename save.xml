@@ -1,9 +1,9 @@
 <xml>
   <Player>
-    <Position X="-49.96704" Y="0.9818284" Z="69.20393" />
-    <Rotation X="350.8181" Y="269.1141" Z="0" />
-    <Oxygen>45.6082</Oxygen>
-    <Battery>43.1799</Battery>
+    <Position X="-50.42065" Y="1.049102" Z="69.22898" />
+    <Rotation X="8.78688" Y="262.7049" Z="0" />
+    <Oxygen>82.78265</Oxygen>
+    <Battery>29.88446</Battery>
     <FlashLight>True</FlashLight>
   </Player>
   <GameDifficulty>0</GameDifficulty>

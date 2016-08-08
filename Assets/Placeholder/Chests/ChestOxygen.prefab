@@ -164,7 +164,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 138840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.88, y: 6.153, z: -126.9}
+  m_LocalPosition: {x: -5.382133, y: 1.35, z: -28.321083}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 441378}
@@ -217,9 +217,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 178644}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0.018, y: 0.30100012, z: 0.031}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: 0.7064895, y: 0, z: 0, w: 0.7077235}
+  m_LocalPosition: {x: 0, y: 0.182, z: -0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 410926}
   m_RootOrder: 0
@@ -296,7 +296,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 14b6a78a915ee354da4467cbc5b7a879, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -322,8 +322,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.76981735, y: 0.76449394, z: 1.3523309}
-  m_Center: {x: -0.020884514, y: -0.11775279, z: 0.015777707}
+  m_Size: {x: 0.4, y: 0.4, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.5}
 --- !u!111 &11177308
 Animation:
   m_ObjectHideFlags: 1
@@ -364,7 +364,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 5f89f03e5c1a29a4b95d9e2ada8f4187, type: 2}
+  - {fileID: 2100000, guid: 14b6a78a915ee354da4467cbc5b7a879, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -383,7 +383,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
-  m_Mesh: {fileID: 4300000, guid: 63878c47173aa774687bf1dcb9a14938, type: 3}
+  m_Mesh: {fileID: 4300000, guid: d52aae0edb3ea2f42bcdcb8719be69b4, type: 3}
   m_Bones:
   - {fileID: 438586}
   - {fileID: 477848}

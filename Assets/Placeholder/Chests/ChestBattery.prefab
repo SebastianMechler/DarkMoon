@@ -212,8 +212,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 165306}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 157.1049, y: 0.036999993, z: -98.10043}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071067}
+  m_LocalPosition: {x: -13.640847, y: 0.4, z: -30.703928}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 498544}
@@ -255,8 +255,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 157526}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 0.020999908, y: 0.27900028, z: 0.013999939}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0.020999908, y: 0.5, z: 0.013999939}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 454152}
   m_RootOrder: 2
@@ -322,8 +322,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.76981735, y: 0.76449394, z: 1.3523309}
-  m_Center: {x: -0.020884514, y: -0.11775279, z: 0.015777707}
+  m_Size: {x: 0.5, y: 0.7, z: 0.2}
+  m_Center: {x: 0, y: 0, z: -0.07}
 --- !u!111 &11117708
 Animation:
   m_ObjectHideFlags: 1
@@ -364,7 +364,7 @@ SkinnedMeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 5f89f03e5c1a29a4b95d9e2ada8f4187, type: 2}
+  - {fileID: 2100000, guid: cacfa8ec33e7cab4687e49377c2c680f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -383,7 +383,7 @@ SkinnedMeshRenderer:
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
-  m_Mesh: {fileID: 4300000, guid: 63878c47173aa774687bf1dcb9a14938, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 2aa3349044c7aa24cb1bfea9330b646e, type: 3}
   m_Bones:
   - {fileID: 429034}
   - {fileID: 417720}

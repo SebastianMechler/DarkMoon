@@ -1,30 +1,30 @@
 <xml>
   <Player>
-    <Position X="-11.87967" Y="1.049102" Z="-29.42484" />
-    <Rotation X="9.963069" Y="45.13485" Z="0" />
-    <Oxygen>87.06548</Oxygen>
-    <Battery>93.90071</Battery>
+    <Position X="-49.43093" Y="0.9818286" Z="69.39957" />
+    <Rotation X="359.5126" Y="266.7645" Z="0" />
+    <Oxygen>97.37154</Oxygen>
+    <Battery>63.09185</Battery>
     <FlashLight>True</FlashLight>
   </Player>
   <GameDifficulty>0</GameDifficulty>
   <MainTerminal>
-    <IsActivated>False</IsActivated>
-    <IsCollected>False</IsCollected>
+    <IsActivated>True</IsActivated>
+    <IsCollected>True</IsCollected>
   </MainTerminal>
   <TerminalOne>
-    <IsActivated>False</IsActivated>
-    <IsCollected>False</IsCollected>
+    <IsActivated>True</IsActivated>
+    <IsCollected>True</IsCollected>
   </TerminalOne>
   <TerminalTwo>
     <IsActivated>True</IsActivated>
-    <IsCollected>False</IsCollected>
+    <IsCollected>True</IsCollected>
   </TerminalTwo>
   <TerminalThree>
-    <IsActivated>False</IsActivated>
-    <IsCollected>False</IsCollected>
+    <IsActivated>True</IsActivated>
+    <IsCollected>True</IsCollected>
   </TerminalThree>
   <TerminalGenerator>
-    <IsActivated>False</IsActivated>
-    <IsCollected>False</IsCollected>
+    <IsActivated>True</IsActivated>
+    <IsCollected>True</IsCollected>
   </TerminalGenerator>
 </xml>

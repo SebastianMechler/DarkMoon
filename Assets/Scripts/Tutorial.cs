@@ -97,7 +97,7 @@ public class Tutorial : MonoBehaviour
     switch (m_currentTutorialState)
     {
       case TutorialState.Camera:
-        m_currentCameraMovement += (Input.GetAxis("Mouse Y") + Input.GetAxis("Mouse X"));
+        m_currentCameraMovement += Mathf.Abs((Input.GetAxis("Mouse Y")) + Mathf.Abs(Input.GetAxis("Mouse X")));
         if (m_currentCameraMovement >= 0.1f)
         {
           if (m_isTutorialStateDone[m_currentTutorialState] == false)

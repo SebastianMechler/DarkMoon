@@ -83,13 +83,15 @@ public class PlayerObjectInteraction : MonoBehaviour
 
   GameObject GetNextInteractableObject()
   {
-    Ray ray = new Ray(this.transform.position, this.transform.rotation * Vector3.forward);
+    Ray ray = new Ray(this.transform.position, this.transform.rotation * Vector3.forward * m_interactionDistance);
     
     RaycastHit hit;
-    Debug.DrawLine(this.transform.position, this.transform.rotation * Vector3.forward * m_interactionDistance, Color.red);
+    //Debug.DrawLine(this.transform.position, this.transform.position + Camera.main.transform.forward, Color.red, 5.0f);
+    Debug.DrawRay(this.transform.position, this.transform.rotation * Vector3.forward * m_interactionDistance, Color.red);
 
     // this maks-check is required because if an item is inside the hiding zone it cannot be picked up anymore, raycast will ignore layer HidingZone
     int mask = 1 << LayerMask.NameToLayer(StringManager.Layer.floorLayer) | 1 << LayerMask.NameToLayer(StringManager.Layer.wallLayer) | 1 << LayerMask.NameToLayer(StringManager.Layer.defaultLayer) | 1 << LayerMask.NameToLayer(StringManager.Layer.interactableObjectLayer);
+
     if (Physics.Raycast(ray, out hit, m_interactionDistance, mask))
     {
       //Debug.Log("Hit Interactable object" + hit.transform.gameObject.name.ToString());
@@ -97,10 +99,10 @@ public class PlayerObjectInteraction : MonoBehaviour
       {
         //if (g_isFirstInteract == false)
         //{
-          //SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.Interact);
-          //g_isFirstInteract = true;
+        //SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.Interact);
+        //g_isFirstInteract = true;
         //}
-
+        // Debug.Log(hit.transform.gameObject.name);
         return hit.transform.gameObject;
       }
         

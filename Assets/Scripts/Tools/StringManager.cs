@@ -39,6 +39,7 @@ public class StringManager : MonoBehaviour
     public const string floor = "Floor";
     public const string door = "Door";
     public const string areaData = "PlayerAreaData";
+    public const string noiseRigidbody = "NoiseRigidbody";
   }
 
   public class Layer

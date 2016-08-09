@@ -15,6 +15,7 @@ TagManager:
   - Floor
   - Door
   - PlayerAreaData
+  - NoiseRigidbody
   layers:
   - Default
   - TransparentFX

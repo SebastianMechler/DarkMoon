@@ -4,6 +4,7 @@ using System.Collections;
 public class ObjectInteractionItem : ObjectInteractionBase
 {
   public Item m_item;
+  public GameObject m_suit;
 
   void Start()
   {
@@ -37,6 +38,7 @@ public class ObjectInteractionItem : ObjectInteractionBase
       case ItemType.FlashLight:
         FlashLight.GetInstance().SetPickup();
         //SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.FlashLightPickup);
+        m_suit.SetActive(false);
         break;
 
       case ItemType.SnapLight:

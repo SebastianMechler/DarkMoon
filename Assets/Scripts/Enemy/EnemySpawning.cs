@@ -6,7 +6,7 @@ public class EnemySpawning : MonoBehaviour
   public GameObject m_Start;
   public GameObject m_FirstWaypoint;
   public GameObject m_AdditionalCollider;
-
+  
   void OnTriggerEnter(Collider other)
   {
     // Move Enemy to Start Position
@@ -23,6 +23,9 @@ public class EnemySpawning : MonoBehaviour
 
     // Deactivate Parent > Should deactivate all child
     transform.parent.gameObject.SetActive(false);
+
+    // Enable Rigidbody Colliders
+    transform.parent.gameObject.GetComponent<EnemySpawningCheck>().ToggleRigidbodyColliders(true);
   }
 	
 }

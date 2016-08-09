@@ -15,7 +15,7 @@ public class EnemySpawning : MonoBehaviour
     // Set LastWayoint and NextWaypoint
     // m_Enemy.GetComponent<EnemyAiScript>().m_StartDynamicWaypoint = m_Start;
     // m_Enemy.GetComponent<EnemyAiScript>().m_FirstDynamicWaypoint = m_FirstWaypoint;
-    SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetDynamicWaypoints(m_Start, m_FirstWaypoint);
+    SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetDynamicWaypoints(m_FirstWaypoint, m_FirstWaypoint);
 
     // Enable Enemy Once again
     SingletonManager.Enemy.SetActive(true);

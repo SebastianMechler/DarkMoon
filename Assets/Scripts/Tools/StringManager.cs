@@ -115,6 +115,8 @@ public class StringManager : MonoBehaviour
     public const string waypointToArea1_GameObject = "WaypointB";
     public const string waypointToAreaGenerator_GameObject = "WaypointB (10)";
     public const string waypointFromAreaGenerator_GameObject = "WaypointR";
+
+    public const string waypointSpawnNearGeneratorRoom = "SpawnEnemyNearGenerator";
   }
 
   public class Scenes

@@ -64,7 +64,7 @@ public class EnemyAiScript : MonoBehaviour
   private int g_NumberOfActions;
   private int g_CurrentAction;
 
-  public ActionType m_CurrentAction;
+  private ActionType m_CurrentAction;
   private float m_CurWait;
   // private float m_WaitTotal;
   private string m_TargetPatrolName;
@@ -91,8 +91,8 @@ public class EnemyAiScript : MonoBehaviour
 
   // Animation Data
   public GameObject m_AnimationController;
-  public bool m_AnimationIsWalking = false;
-  public bool m_AnimationIsRunning = false;
+  private bool m_AnimationIsWalking = false;
+  private bool m_AnimationIsRunning = false;
 
   [System.Serializable]
   public struct GroupDistance
@@ -110,6 +110,7 @@ public class EnemyAiScript : MonoBehaviour
   private PlayerData.PlayerGeneralLocation m_EnemyLocation;
 
   public GameObject m_FieldOfView = null;
+  public GameObject m_FixSpawnGenerator = null;
 
   #region UnityBaseFunctions
   void Start()
@@ -755,11 +756,15 @@ public class EnemyAiScript : MonoBehaviour
         m_TempWaypointList = new GameObject[1];
         m_TempWaypointList[0] = GameObject.Find("WaypointR");
       }
-      else
+      else if(m_EnemyLocation != PlayerData.PlayerGeneralLocation.AREA_THREE)
       {
         m_TempWaypointList = new GameObject[2];
         m_TempWaypointList[0] = GameObject.Find("WaypointB");
         m_TempWaypointList[1] = GameObject.Find("WaypointB (16)");
+      }else if(m_EnemyLocation == PlayerData.PlayerGeneralLocation.AREA_THREE)
+      {
+        GameObject target = GameObject.Find("WaypointB (10)");
+        changeMovementPattern(MovementPattern.STATIC, gameObject, target);
       }
 
       return true;
@@ -915,9 +920,17 @@ public class EnemyAiScript : MonoBehaviour
   // Return Movement Speed
   public float getMovementSpeed() { return g_MovementSpeed; }
 
+  public void SpawnEnemyToGeneratorEntrance()
+  {
+    GameObject spawn = GameObject.Find(StringManager.SpecialWayPoints.waypointSpawnNearGeneratorRoom);
+    GameObject entrance = GameObject.Find(StringManager.SpecialWayPoints.waypointToAreaGenerator_GameObject);
+    SetDynamicWaypoints(entrance, entrance);
+    transform.position = spawn.transform.position;
+  }
+
   public void SetDynamicWaypoints(GameObject last, GameObject next)
   {
-    m_LastWaypoint = next; // last;
+    m_LastWaypoint = last;
     m_NextWaypoint = next;
     m_TargetPatrolName = next.GetComponent<WaypointTreeNode>().getName();
   }

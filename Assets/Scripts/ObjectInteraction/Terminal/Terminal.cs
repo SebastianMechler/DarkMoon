@@ -116,6 +116,8 @@ public class Terminal : ObjectInteractionBase
           SingletonManager.MainTerminalController.EnablePuzzle();
 
           SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
+
+          SingletonManager.Enemy.GetComponent<EnemyAiScript>().SpawnEnemyToGeneratorEntrance();
         }
         
         break;

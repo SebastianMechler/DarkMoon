@@ -5,6 +5,7 @@ public class ObjectInteractionItem : ObjectInteractionBase
 {
   public Item m_item;
   public GameObject m_suit;
+  public GameObject m_door;
 
   void Start()
   {
@@ -37,6 +38,10 @@ public class ObjectInteractionItem : ObjectInteractionBase
 
       case ItemType.FlashLight:
         FlashLight.GetInstance().SetPickup();
+        if (SingletonManager.GameManager.m_isTutorial == false)
+        {
+          m_door.GetComponent<ObjectInteractionDoor>().enabled = true;
+        }
         //SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.FlashLightPickup);
         m_suit.SetActive(false);
         break;

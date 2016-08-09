@@ -29,7 +29,7 @@ public class Tutorial : MonoBehaviour
   private float m_cameraMovementDone = 1.0f;
   private float m_currentCameraMovement = 0.0f;
 
-  private float m_runTimer = 0.35f;
+  //private float m_runTimer = 5.0f;
 
   private float m_tutorialStateTimer = 0.0f;
 
@@ -41,6 +41,11 @@ public class Tutorial : MonoBehaviour
 
   private float m_ttsDelay = 600.0f;
 
+  public GameObject m_suit;
+  public GameObject m_suit2;
+
+  private float m_doorTimer = 0.0f; // seconds to wait before showing door message if player hasn't already been interacting with door
+
   void Start()
   {
     // dictionary must be initialized with default values...
@@ -50,7 +55,8 @@ public class Tutorial : MonoBehaviour
     }
   }
 
-	void RunTutorial()
+
+	public void RunTutorial()
   {
 	  if (SingletonManager.GameManager.m_isTutorial && SingletonManager.GameManager.m_isSaveGame == false)
     {
@@ -59,24 +65,28 @@ public class Tutorial : MonoBehaviour
       SetPlayerMovementState(false);
       SetBatteryAndOxygenState(false);
       SetPlayerInteractState(false);
-
-      // disable ui
-      SingletonManager.UIManager.ToggleMinimap(false);
-      SingletonManager.UIManager.SetBatteryUIState(false);
-
+      SingletonManager.UIManager.SetCrosshairVisibility(true);
       // start tutorial with camera
       m_currentTutorialState = TutorialState.Camera;
       
       SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialCamera, m_ttsDelay); // camera
-
-      m_door.GetComponent<ObjectInteractionDoor>().enabled = false;
+      
       m_isEnabled = true;
       Debug.Log("Starting tutorial...");
+    }
+    else
+    {
+      // enable ui
+      SingletonManager.UIManager.ToggleMinimap(true);
+      SingletonManager.UIManager.SetBatteryUIState(true);
+      SingletonManager.UIManager.SetCrosshairVisibility(true);
+      SetBatteryAndOxygenState(true);
     }
 	}
 	
 	void Update ()
   {
+    /*
     // just a delay on first run => so no Singleton errors occour
     if (m_runTimer > 0.0f)
     {
@@ -86,10 +96,20 @@ public class Tutorial : MonoBehaviour
         m_runTimer = 0.0f;
         if (SingletonManager.GameManager.m_isTutorial && SingletonManager.GameManager.m_isSaveGame == false)
         {
-          RunTutorial();
+          //RunTutorial();
+        }
+        else
+        {
+          // no tutorial level !!
+          // remove suit
+          // enable lights
+          //m_suit.SetActive(false);
+          //m_suit2.SetActive(false);
+          //FlashLight.GetInstance().SetPickup();
         }
       }
     }
+    */
 
     UpdateTutorialStateTimer();
     
@@ -154,6 +174,18 @@ public class Tutorial : MonoBehaviour
         }
         break;
     }
+
+    // door timer
+    if (m_doorTimer > 0.0f && m_currentTutorialState == TutorialState.Door)
+    {
+      m_doorTimer -= Time.deltaTime;
+
+      if (m_doorTimer < 0.0f)
+      {
+        m_doorTimer = 0.0f;
+        SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialDoor, m_ttsDelay);
+      }
+    }
 	}
 
   void SetPlayerMovementState(bool state)
@@ -212,11 +244,13 @@ public class Tutorial : MonoBehaviour
             break;
 
           case TutorialState.Interact:
-            SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialOxygenAndBattery); // oxygenBattery
+            SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialOxygenAndBattery, GetTutorialStateDelay(TutorialState.OxygenBattery)); // oxygenBattery
             break;
           case TutorialState.OxygenBattery:
             SetBatteryAndOxygenState(true);
-            SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialDoor, m_ttsDelay); // door
+            // add timer
+            m_doorTimer = 5.0f;
+            //SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialDoor, m_ttsDelay); // door
             break;
 
           case TutorialState.Door:

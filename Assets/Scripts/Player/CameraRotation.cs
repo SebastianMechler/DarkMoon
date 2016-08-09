@@ -15,7 +15,7 @@ public class CameraRotation : MonoBehaviour
       MOUSE_Y
   }
   */
-
+  
   //public RotationAxes m_cameraAxis = RotationAxes.MOUSE_X_AND_Y; // x-axis from screen, y-axis from screen
 
   [Tooltip("[0.0f to max] Defines how fast the player can move the camera on X-Axis.")]
@@ -39,7 +39,7 @@ public class CameraRotation : MonoBehaviour
   private float m_rotationY = 0.0f;
   private Rigidbody m_rigidbody = null;
 
-  public float m_timer = 2.0f;
+  public bool m_enabled = false;
 
   void Start()
   {
@@ -52,12 +52,8 @@ public class CameraRotation : MonoBehaviour
 
   void Update()
   {
-    if (m_timer >= 0.0f)
-    {
-      m_timer -= Time.deltaTime;
-
+    if (!m_enabled)
       return;
-    }
 
     //if (m_cameraAxis == RotationAxes.MOUSE_X_AND_Y)
     {

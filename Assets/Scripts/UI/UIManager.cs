@@ -114,11 +114,13 @@ public class UIManager : MonoBehaviour
   {
     // Update Oxygen bar
     // m_oxygenScrollBar.size = m_playerOxygen.GetPercentage();
-    m_oxygenHandle.fillAmount = m_playerOxygen.GetPercentage();
+    if (m_oxygenHandle.enabled)
+      m_oxygenHandle.fillAmount = m_playerOxygen.GetPercentage();
 
     // update battery bar
     // m_batteryScrollBar.size = m_playerBattery.GetPercentage();
-    m_batteryHandle.fillAmount = m_playerBattery.GetPercentage();
+    if (m_batteryHandle.enabled)
+      m_batteryHandle.fillAmount = m_playerBattery.GetPercentage();
   }
 
   public GameObject GetOxygen()

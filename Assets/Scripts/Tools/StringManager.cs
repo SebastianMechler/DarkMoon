@@ -95,6 +95,7 @@ public class StringManager : MonoBehaviour
     public const string ToggleTerminalTwo = "Toggle_TerminalTwo";
     public const string ToggleTerminalThree = "Toggle_TerminalThree";
     public const string TextToSpeechImage = "Image_TextToSpeech";
+    public const string FadeUI = "FadeUI";
   }
 
 

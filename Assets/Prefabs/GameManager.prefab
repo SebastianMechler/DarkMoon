@@ -61,7 +61,7 @@ MonoBehaviour:
     m_deathOnNoOxygen: 0
     m_chestOxygenMultiplicatorMin: 1
     m_chestOxygenMultiplicatorMax: 1
-    m_regenerationFlashLight: -0.25
+    m_regenerationFlashLight: -0.5
     m_regenerationRadar: -0.1
     m_chestBatteryMultiplicatorMin: 1
     m_chestBatteryMultiplicatorMax: 1
@@ -72,7 +72,7 @@ MonoBehaviour:
     m_deathOnNoOxygen: 1
     m_chestOxygenMultiplicatorMin: 0.66
     m_chestOxygenMultiplicatorMax: 0.88
-    m_regenerationFlashLight: -1
+    m_regenerationFlashLight: -2
     m_regenerationRadar: -0.25
     m_chestBatteryMultiplicatorMin: 0.66
     m_chestBatteryMultiplicatorMax: 0.88
@@ -83,7 +83,7 @@ MonoBehaviour:
     m_deathOnNoOxygen: 1
     m_chestOxygenMultiplicatorMin: 0.44
     m_chestOxygenMultiplicatorMax: 0.66
-    m_regenerationFlashLight: -3
+    m_regenerationFlashLight: -4.5
     m_regenerationRadar: -1
     m_chestBatteryMultiplicatorMin: 0.44
     m_chestBatteryMultiplicatorMax: 0.66

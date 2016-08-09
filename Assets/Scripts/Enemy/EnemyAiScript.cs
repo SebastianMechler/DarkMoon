@@ -64,7 +64,7 @@ public class EnemyAiScript : MonoBehaviour
   private int g_NumberOfActions;
   private int g_CurrentAction;
 
-  private ActionType m_CurrentAction;
+  public ActionType m_CurrentAction;
   private float m_CurWait;
   // private float m_WaitTotal;
   private string m_TargetPatrolName;
@@ -91,8 +91,8 @@ public class EnemyAiScript : MonoBehaviour
 
   // Animation Data
   public GameObject m_AnimationController;
-  private bool m_AnimationIsWalking = false;
-  private bool m_AnimationIsRunning = false;
+  public bool m_AnimationIsWalking = false;
+  public bool m_AnimationIsRunning = false;
 
   [System.Serializable]
   public struct GroupDistance
@@ -108,6 +108,8 @@ public class EnemyAiScript : MonoBehaviour
   private GameObject m_PlayerLocationData = null;
   private PlayerData.PlayerGeneralLocation m_PlayerLocation;
   private PlayerData.PlayerGeneralLocation m_EnemyLocation;
+
+  public GameObject m_FieldOfView = null;
 
   #region UnityBaseFunctions
   void Start()
@@ -132,6 +134,10 @@ public class EnemyAiScript : MonoBehaviour
 
     // Prepare Data
     m_PlayerLocationData = GameObject.FindGameObjectWithTag(StringManager.Tags.areaData);
+
+    // 
+    // Collider col = m_FieldOfView.GetComponent<Collider>();
+    // m_FieldOfView.GetComponent<CollisionDetection>().ignoreCollisionWithWaypoints(col);
 
     // do crazy stuff
     CalculateAllDistances();
@@ -253,11 +259,14 @@ public class EnemyAiScript : MonoBehaviour
   #region PrivateFunctions
   private void UpdateAnimationController()
   {
+    // Debug.Log(m_CurrentAction + " =?= " + ActionType.WAITFOR_SECONDS);
     if (m_CurrentAction == ActionType.WAITFOR_SECONDS)
     {
-      m_AnimationController.GetComponent<Animator>().SetTrigger("triggerLookAround");
       m_AnimationIsWalking = false;
       m_AnimationIsRunning = false;
+      m_AnimationController.GetComponent<Animator>().SetBool("isWalking", m_AnimationIsWalking);
+      m_AnimationController.GetComponent<Animator>().SetBool("isRunning", m_AnimationIsRunning);
+      m_AnimationController.GetComponent<Animator>().SetTrigger("triggerLookAround");
     }
     else
     {
@@ -270,11 +279,15 @@ public class EnemyAiScript : MonoBehaviour
         case MovementPattern.DYNAMIC:
           m_AnimationIsWalking = true;
           m_AnimationIsRunning = false;
+          m_AnimationController.GetComponent<Animator>().SetBool("isWalking", m_AnimationIsWalking);
+          m_AnimationController.GetComponent<Animator>().SetBool("isRunning", m_AnimationIsRunning);
           break;
 
         case MovementPattern.STATIC:
           m_AnimationIsWalking = false;
           m_AnimationIsRunning = true;
+          m_AnimationController.GetComponent<Animator>().SetBool("isWalking", m_AnimationIsWalking);
+          m_AnimationController.GetComponent<Animator>().SetBool("isRunning", m_AnimationIsRunning);
           break;
 
         default:
@@ -282,10 +295,6 @@ public class EnemyAiScript : MonoBehaviour
           break;
       }
     }
-
-    m_AnimationController.GetComponent<Animator>().SetBool("isWalking", m_AnimationIsWalking);
-    m_AnimationController.GetComponent<Animator>().SetBool("isRunning", m_AnimationIsRunning);
-
   }
 
   private void CalculateAllDistances()

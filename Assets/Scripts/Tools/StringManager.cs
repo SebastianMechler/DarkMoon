@@ -16,6 +16,7 @@ public class StringManager : MonoBehaviour
     public const string player = "Player";
     public const string enemy = "Enemy";
     public const string flashLight = "FlashLight";
+    public const string flashLightOne = "FlashLightOne";
     public const string minimap = "MinimapCamera";
     public const string grayScaleManager = "GrayScaleManager";
     public const string inventoryIconSnapLight = "InventoryIconSnapLight";

@@ -10,17 +10,19 @@ public enum FlashLightState
 
 public class FlashLight : MonoBehaviour
 {
-	public bool m_hasBeenPickedUp = true; // will be set to true if the item is picked up
+	public bool m_hasBeenPickedUp = false; // will be set to true if the item is picked up
 	public FlashLightState m_flashState = FlashLightState.OFF; // controls the current state of the flashLight
 	private Light m_light; // reference to light component to switch it off or on through 'Range'
+  private Light m_lightOne;
 	//private float m_range; // backup the range, because it will be set to 0 if off, and to this range if on
 
 	void Start()
 	{
 		m_light = GetComponent<Light>();
-		// m_range = m_light.range; // make a backup of the starting range
-		// m_light.range = 0.0f; // set light range on start to 0.0f
-	}
+    m_lightOne = FlashLight.GetInstanceOne().GetComponent<Light>();
+    // m_range = m_light.range; // make a backup of the starting range
+    // m_light.range = 0.0f; // set light range on start to 0.0f
+  }
 
 	void Update()
 	{
@@ -49,14 +51,14 @@ public class FlashLight : MonoBehaviour
 	{
 		if (m_flashState == FlashLightState.OFF)
 		{
-			// enable flashLight
-
+      // enable flashLight
 			if (SingletonManager.Player.GetComponent<PlayerBattery>().HasBattery())
 			{
 				// m_light.range = m_range;
 				m_flashState = FlashLightState.ON;
-				SingletonManager.AudioManager.Play(AudioType.FLASHLIGHT_ON);
-				m_light.enabled = true;
+        SingletonManager.AudioManager.Play(AudioType.FLASHLIGHT_ON);
+        m_lightOne.enabled = true;
+        m_light.enabled = true;
             }
 		}
 		else
@@ -66,13 +68,15 @@ public class FlashLight : MonoBehaviour
 			// m_light.range = 0;
 			m_flashState = FlashLightState.OFF;
 			SingletonManager.AudioManager.Play(AudioType.FLASHLIGHT_OFF);
-			m_light.enabled = false;
+      m_lightOne.enabled = false;
+      m_light.enabled = false;
         }
 	}
 
-	public void SetPickup()
+  public void SetPickup()
 	{
 		m_hasBeenPickedUp = true;
+    // FlashLight.GetInstanceOne().GetComponent<FlashLight>().SetPickup();
 		//SingletonManager.UIManager.EnableBatteryUI();
 	}
 
@@ -80,4 +84,9 @@ public class FlashLight : MonoBehaviour
 	{
 		return GameObject.Find(StringManager.Names.flashLight).GetComponent<FlashLight>();
 	}
+
+  public static FlashLight GetInstanceOne()
+  {
+    return GameObject.Find(StringManager.Names.flashLightOne).GetComponent<FlashLight>();
+  }
 }

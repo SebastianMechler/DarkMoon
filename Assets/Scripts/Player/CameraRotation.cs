@@ -39,6 +39,8 @@ public class CameraRotation : MonoBehaviour
   private float m_rotationY = 0.0f;
   private Rigidbody m_rigidbody = null;
 
+  public float m_timer = 2.0f;
+
   void Start()
   {
     this.m_rigidbody = GetComponent<Rigidbody>();
@@ -50,6 +52,13 @@ public class CameraRotation : MonoBehaviour
 
   void Update()
   {
+    if (m_timer >= 0.0f)
+    {
+      m_timer -= Time.deltaTime;
+
+      return;
+    }
+
     //if (m_cameraAxis == RotationAxes.MOUSE_X_AND_Y)
     {
       // GET X-AXIS
@@ -76,6 +85,9 @@ public class CameraRotation : MonoBehaviour
       camRot.x = -rotYLerping;
       Camera.main.transform.localEulerAngles = camRot;
     }
+
+
+
     /*
     else if (m_cameraAxis == RotationAxes.MOUSE_X)
     {

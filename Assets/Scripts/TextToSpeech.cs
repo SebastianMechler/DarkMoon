@@ -14,6 +14,7 @@ public enum TextToSpeechType
   TutorialInteractWithFlashLight,
   TutorialOxygenAndBattery,
   TutorialDoor,
+  MainFrame,
 }
 
 [System.Serializable]
@@ -54,7 +55,7 @@ public class TextToSpeech : MonoBehaviour
       {
         m_disableTimer = 0.0f;
         SetVisibility(false);
-        SingletonManager.BGMixer.IncreaseVolume();
+        //SingletonManager.BGMixer.IncreaseVolume();
       }
     }
 	}
@@ -63,6 +64,11 @@ public class TextToSpeech : MonoBehaviour
   {
     m_image.enabled = isVisible;
     m_text.enabled = isVisible;
+  }
+
+  public void ResetTextToSpeech()
+  {
+    m_disableTimer = 0.01f;
   }
 
   public float DoTextToSpeech(TextToSpeechType type, float displayTime = -1.0f)
@@ -99,7 +105,7 @@ public class TextToSpeech : MonoBehaviour
         }      
 
         // play audio
-        m_currentAudioSource = SingletonManager.AudioManager.Play(m_textToSpeechList[i].m_audioType);
+        //m_currentAudioSource = SingletonManager.AudioManager.Play(m_textToSpeechList[i].m_audioType);
 
         // show textospeech in mainui
         SetVisibility(true);

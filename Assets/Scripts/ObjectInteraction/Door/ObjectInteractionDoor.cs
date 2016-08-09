@@ -34,6 +34,12 @@ public class ObjectInteractionDoor : ObjectInteractionBase
     Debug.Log("Interacting with door: " + this.gameObject.name);
 #endif
 
+    if (m_door.gameObject.name == "door_simple_(animated) (8)" && SingletonManager.GameManager.m_isTutorial && !SingletonManager.GameManager.m_isSaveGame)
+    {
+      // interacted with room door, set tutorial
+      SingletonManager.Tutorial.SetTutorialStateDone(TutorialState.Door);
+    }
+
     switch (m_doorType)
     {
       case DoorType.NORMAL:

@@ -26,7 +26,7 @@ public class Tutorial : MonoBehaviour
   public TutorialState m_currentTutorialState = TutorialState.None;
   private Dictionary<TutorialState, bool> m_isTutorialStateDone = new Dictionary<TutorialState, bool>();
 
-  private float m_cameraMovementDone = 10.0f;
+  private float m_cameraMovementDone = 1.0f;
   private float m_currentCameraMovement = 0.0f;
 
   private float m_runTimer = 0.35f;
@@ -38,6 +38,8 @@ public class Tutorial : MonoBehaviour
   public GameObject m_door;
 
   public bool m_isEnabled = false;
+
+  private float m_ttsDelay = 600.0f;
 
   void Start()
   {
@@ -57,12 +59,15 @@ public class Tutorial : MonoBehaviour
       SetPlayerMovementState(false);
       SetBatteryAndOxygenState(false);
       SetPlayerInteractState(false);
-      
+
+      // disable ui
+      SingletonManager.UIManager.ToggleMinimap(false);
+      SingletonManager.UIManager.SetBatteryUIState(false);
+
       // start tutorial with camera
       m_currentTutorialState = TutorialState.Camera;
-      SetTutorialStateDelay(GetTutorialStateDelay(m_currentTutorialState));
-
-      SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialCamera); // camera
+      
+      SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialCamera, m_ttsDelay); // camera
 
       m_door.GetComponent<ObjectInteractionDoor>().enabled = false;
       m_isEnabled = true;
@@ -93,10 +98,11 @@ public class Tutorial : MonoBehaviour
     {
       case TutorialState.Camera:
         m_currentCameraMovement += (Input.GetAxis("Mouse Y") + Input.GetAxis("Mouse X"));
-        if (m_currentCameraMovement >= m_cameraMovementDone)
+        if (m_currentCameraMovement >= 0.1f)
         {
           if (m_isTutorialStateDone[m_currentTutorialState] == false)
           {
+            SetTutorialStateDelay(3.0f); // delay as alex wanted
             SetTutorialStateDone(m_currentTutorialState);
           }          
         }
@@ -121,7 +127,13 @@ public class Tutorial : MonoBehaviour
           // player looked at interaction object
           if (m_isTutorialStateDone[m_currentTutorialState] == false)
           {
-            SetTutorialStateDone(m_currentTutorialState);
+            // enable ui
+            m_currentTutorialState = TutorialState.None;
+            SingletonManager.UIManager.SetBatteryUIState(true);
+            SingletonManager.UIManager.ToggleMinimap(true);
+            m_currentTutorialState = TutorialState.Interact;
+
+            SetTutorialStateDone(m_currentTutorialState);            
           }
         }
         break;
@@ -138,7 +150,7 @@ public class Tutorial : MonoBehaviour
         if (m_isTutorialStateDone[m_currentTutorialState] == false)
         {
           m_door.GetComponent<ObjectInteractionDoor>().enabled = true;
-          SetTutorialStateDone(m_currentTutorialState);
+          //SetTutorialStateDone(m_currentTutorialState);
         }
         break;
     }
@@ -160,7 +172,7 @@ public class Tutorial : MonoBehaviour
     Camera.main.GetComponent<PlayerObjectInteraction>().enabled = state;
   }
 
-  void SetTutorialStateDone(TutorialState state)
+  public void SetTutorialStateDone(TutorialState state)
   {
     m_isTutorialStateDone[state] = true;
   }
@@ -191,12 +203,12 @@ public class Tutorial : MonoBehaviour
         {
           case TutorialState.Camera:
               SetPlayerMovementState(true);
-              SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialMovement); // movement
+              SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialMovement, m_ttsDelay); // movement
             break;
 
           case TutorialState.Movement:
               SetPlayerInteractState(true);
-              SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialInteractWithFlashLight); // interact
+              SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialInteractWithFlashLight, m_ttsDelay); // interact
             break;
 
           case TutorialState.Interact:
@@ -204,11 +216,12 @@ public class Tutorial : MonoBehaviour
             break;
           case TutorialState.OxygenBattery:
             SetBatteryAndOxygenState(true);
-            SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialDoor); // door
+            SingletonManager.TextToSpeech.DoTextToSpeech(TextToSpeechType.TutorialDoor, m_ttsDelay); // door
             break;
 
           case TutorialState.Door:
             //m_door.GetComponent<ObjectInteractionDoor>().enabled = true;
+            SingletonManager.TextToSpeech.ResetTextToSpeech();
             m_isEnabled = false;
             break;
         }

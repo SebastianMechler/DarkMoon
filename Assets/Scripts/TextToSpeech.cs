@@ -15,6 +15,8 @@ public enum TextToSpeechType
   TutorialOxygenAndBattery,
   TutorialDoor,
   MainFrame,
+
+  TutorialCrouch,
 }
 
 [System.Serializable]
@@ -86,7 +88,7 @@ public class TextToSpeech : MonoBehaviour
         // lower background-music-volume
         if (m_disableTimer == 0.0f)
         {
-          SingletonManager.BGMixer.LowerVolume();
+          // SingletonManager.BGMixer.LowerVolume();
         }
 
         // set text

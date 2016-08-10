@@ -15,6 +15,8 @@ public class XmlSave : MonoBehaviour
 
   string[] terminals = new string[5];
 
+  public GameObject m_door;
+
   void Awake()
   {
     if (m_isCreated)
@@ -455,6 +457,11 @@ public class XmlSave : MonoBehaviour
       {
         SingletonManager.MainTerminalController.SetTerminalState((TerminalType)i, TerminalState.Unlocked);
         displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
+
+        if((TerminalType)i == TerminalType.TERMINAL_GENERATOR)
+        {
+          m_door.GetComponent<DoorBehaviour>().ChangeDoorState(DoorBehaviour.DoorState.OPENING_STUCKED);
+        }
         
       }else 
       {

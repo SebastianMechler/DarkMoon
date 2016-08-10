@@ -33,34 +33,43 @@ public class CollisionDetection : MonoBehaviour
   {
     if (StringManager.Tags.player.Equals(other.gameObject.tag) && HidingZone.g_isPlayerHidden == false)
     {
-      Vector3 playerPos = GameObject.FindGameObjectWithTag(StringManager.Tags.player).transform.position;
-      // Pivot is slightly on top
-      playerPos.y += m_PivotYOffset;
-      float range = Vector3.Distance(playerPos, m_HeadPosition.position) * m_TreshholdFactor;
-      // Debug.DrawRay(m_HeadPosition.position, (playerPos - m_HeadPosition.position), Color.cyan, 1.0f);
-
-      RaycastHit[] hits = Physics.RaycastAll(transform.position, (playerPos - m_HeadPosition.position).normalized, range);
-
       bool playerInPlainView = true;
-      for (int i = 0; i < hits.Length; i++)
+
+      // todo 2 more rays
+      for (int j = 0; j < 3; j++)
       {
-        // RaycastHit hit = hits[i];
-        string thisTag = hits[i].collider.gameObject.tag;
 
-        if (!thisTag.Equals(StringManager.Tags.Waypoints) && !thisTag.Equals(StringManager.Tags.interactableObject) &&
-            !thisTag.Equals(StringManager.Tags.enemy) && !thisTag.Equals(StringManager.Tags.player) &&
-            !thisTag.Equals(StringManager.Tags.noise) && !thisTag.Equals(StringManager.Tags.floor))
+        Vector3 playerPos = GameObject.FindGameObjectWithTag(StringManager.Tags.player).transform.position;
+        // Pivot is slightly on top
+        playerPos.y += m_PivotYOffset - (j * 0.3f);
+        float range = Vector3.Distance(playerPos, m_HeadPosition.position) * m_TreshholdFactor;
+        // Debug.DrawRay(m_HeadPosition.position, (playerPos - m_HeadPosition.position), Color.cyan, 1.0f);
+
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, (playerPos - m_HeadPosition.position).normalized, range);
+        
+        for (int i = 0; i < hits.Length; i++)
         {
-          // Debug.Log("Something named '" + hits[i].collider.gameObject.name + "' tagged '" + thisTag + "' is Blocking the View");
-          return;
-        }
+          // RaycastHit hit = hits[i];
+          string thisTag = hits[i].collider.gameObject.tag;
 
+          if (!thisTag.Equals(StringManager.Tags.Waypoints) && !thisTag.Equals(StringManager.Tags.interactableObject) &&
+              !thisTag.Equals(StringManager.Tags.enemy) && !thisTag.Equals(StringManager.Tags.player) &&
+              !thisTag.Equals(StringManager.Tags.noise) && !thisTag.Equals(StringManager.Tags.floor))
+          {
+            // Debug.Log("Something named '" + hits[i].collider.gameObject.name + "' tagged '" + thisTag + "' is Blocking the View");
+            return;
+          }
+
+        }
       }
 
       if (playerInPlainView)
       {
         Debug.Log("Player in Plain View!");
       }
+
+      // todo Play Death Animation
+      // 1. FOV, 2. Enemy Capsule Collider
 
       //GameManager.ClearDebugConsole();
       //Debug.Log(" †††† The Player just died a bit ††††");

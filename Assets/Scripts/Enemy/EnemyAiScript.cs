@@ -178,6 +178,12 @@ public class EnemyAiScript : MonoBehaviour
         m_TargetPatrolName = m_FirstDynamicWaypoint.GetComponent<WaypointTreeNode>().getName();
       }
 
+      if (m_EnemyLocation == PlayerData.PlayerGeneralLocation.AREA_THREE && m_PlayerLocation != PlayerData.PlayerGeneralLocation.AREA_THREE)
+      {
+        GameObject target = GameObject.Find("WaypointB (10)");
+        changeMovementPattern(MovementPattern.STATIC, gameObject, target);
+      }
+
       switch (m_CurrentAction)
       {
         case ActionType.NONE:
@@ -761,10 +767,6 @@ public class EnemyAiScript : MonoBehaviour
         m_TempWaypointList = new GameObject[2];
         m_TempWaypointList[0] = GameObject.Find("WaypointB");
         m_TempWaypointList[1] = GameObject.Find("WaypointB (16)");
-      }else if(m_EnemyLocation == PlayerData.PlayerGeneralLocation.AREA_THREE)
-      {
-        GameObject target = GameObject.Find("WaypointB (10)");
-        changeMovementPattern(MovementPattern.STATIC, gameObject, target);
       }
 
       return true;

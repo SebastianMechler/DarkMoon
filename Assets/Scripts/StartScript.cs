@@ -63,6 +63,8 @@ public class StartScript : MonoBehaviour
         }
         else
         {
+          GameObject.Find("FadeEffect").GetComponent<Blinking>().Run();
+          m_backgroundStart.enabled = false;
           m_eyeTimer = 3.0f;
         }
         m_textStart.enabled = false;

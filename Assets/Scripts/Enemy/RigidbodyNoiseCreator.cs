@@ -52,8 +52,12 @@ public class RigidbodyNoiseCreator : MonoBehaviour {
 
 	}
 
-  void OnCollisionStay(Collision col)
+  void OnCollisionEnter(Collision col)
   {
+    if(col.gameObject.tag != StringManager.Tags.player)
+    {
+      return;
+    }
     // todo maybe better than Update check
     SingletonManager.AudioManager.Play(AudioType.RIGIDBODY_METAL_NOISE, 1.0f);
   }

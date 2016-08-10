@@ -112,7 +112,7 @@ public class Tutorial : MonoBehaviour
     */
 
     UpdateTutorialStateTimer();
-    
+
     // update tutorial state
     switch (m_currentTutorialState)
     {

@@ -18,7 +18,10 @@ public class StartScript : MonoBehaviour
 
 	void Start ()
   {
-
+    if (SingletonManager.GameManager.m_isSaveGame)
+    {
+      m_startWait = 0.15f;
+    }
   }
 	
 	void Update ()
@@ -46,7 +49,6 @@ public class StartScript : MonoBehaviour
       if (m_secondPassed >= 1.25f)
       {
         m_secondPassed = 0.0f;
-        Debug.Log("EEEEE");
         m_textStart.text = m_textStart.text + ".";
       }
 
@@ -54,7 +56,15 @@ public class StartScript : MonoBehaviour
       {
         // run eye effect
         m_startWait = 0.0f;
-        m_eyeTimer = 3.0f;
+
+        if (SingletonManager.GameManager.m_isSaveGame)
+        {
+          m_eyeTimer = 0.15f;
+        }
+        else
+        {
+          m_eyeTimer = 3.0f;
+        }
         m_textStart.enabled = false;
       }
     }

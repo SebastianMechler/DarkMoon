@@ -183,19 +183,28 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ab5b5903bbf9bd74f9441381a95a88b0, type: 3}
   - type: 42
     volume: 1
-    clip: {fileID: 8300000, guid: 5b4753e09990e35469e33cd699c1eadc, type: 3}
-  - type: 43
+    clip: {fileID: 8300000, guid: 888b708bce7721e49a2c5e4e5a5d35ef, type: 3}
+  - type: 39
     volume: 1
-    clip: {fileID: 8300000, guid: 5b4753e09990e35469e33cd699c1eadc, type: 3}
-  - type: 44
+    clip: {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
+  - type: 22
     volume: 1
-    clip: {fileID: 8300000, guid: 06b1a363f6f19764a8d27b70f2c3cfcc, type: 3}
+    clip: {fileID: 8300000, guid: d60b4ccabb45a614da3f644b31c65cc0, type: 3}
   - type: 38
     volume: 1
     clip: {fileID: 8300000, guid: 9592b442110c954419810c3e12365c7b, type: 3}
+  - type: 40
+    volume: 1
+    clip: {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   - type: 45
     volume: 1
     clip: {fileID: 8300000, guid: 06b1a363f6f19764a8d27b70f2c3cfcc, type: 3}
+  - type: 46
+    volume: 1
+    clip: {fileID: 8300000, guid: 7b774ae973ee09b4ca25deb2882632d0, type: 3}
+  - type: 24
+    volume: 1
+    clip: {fileID: 8300000, guid: b060ec094b6c5d94c9e3a16955563337, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -48,7 +48,7 @@ public class ThrowItem : MonoBehaviour
     {
       if (m_currentSound <= 0.0f)
       {
-        SingletonManager.AudioManager.Play(AudioType.ITEM_COLLISION_TOOLWRENCH);
+        //SingletonManager.AudioManager.Play(AudioType.ITEM_COLLISION_TOOLWRENCH);
         m_currentSound = m_soundDelay;
       }
     }

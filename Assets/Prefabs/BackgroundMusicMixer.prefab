@@ -153,8 +153,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a1783e6dca623c640b316c2cec701263, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: e5f19f4ed8fcfd7448dad7a38e48eb3d, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -227,8 +227,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a1783e6dca623c640b316c2cec701263, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 875591d91889833409835c580a0c2fc6, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -301,8 +301,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 583cc856362205f40898f7f617be0846, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: e5f19f4ed8fcfd7448dad7a38e48eb3d, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -375,8 +375,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a1783e6dca623c640b316c2cec701263, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 875591d91889833409835c580a0c2fc6, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -451,14 +451,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d67ff875f19e0174693f0d22df374b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Player: {fileID: 0}
-  m_Enemy: {fileID: 0}
-  m_HecticThreshold: 30
+  m_HecticThreshold: 16
   m_TrackSilent: {fileID: 8275124}
   m_TrackMystic: {fileID: 8226690}
   m_TrackHectic: {fileID: 8290640}
   m_TrackDanger: {fileID: 8263876}
+  m_BgmFactor: 1
   m_MusicChangeFactor: 0.25
+  m_textToSpeechFactor: 1
+  m_RefreshRate: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

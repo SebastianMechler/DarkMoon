@@ -60,7 +60,9 @@ public enum AudioType
   ENEMY_SHOUT,
   PLAYER_STEP_ONE,
   PLAYER_STEP_TWO,
-  PLAYER_HEARTBEAT
+  PLAYER_HEARTBEAT,
+
+  INTERACT_TERMINAL,
 }
 
 [System.Serializable]

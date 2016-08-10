@@ -31,6 +31,13 @@ public class MainMenu : MonoBehaviour
   }
 
 
+  public void OnClick_CreditsMenu_Option()
+  {
+    Debug.Log("Loading...");
+    SingletonManager.AudioManager.Play(AudioType.UI_BUTTON_CLICK);
+    SceneManager.LoadScene("Credits");
+    Time.timeScale = 1.0f;
+  }
 
   void Update()
   {

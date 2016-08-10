@@ -92,6 +92,7 @@ public class RigidbodyNoiseCreator : MonoBehaviour {
 
     Debug.Log("Noise created due to Rigoidbody Movement of an Object.");
     UpdateNearestWaypoint();
+    SingletonManager.AudioManager.Play(AudioType.ENEMY_SHOUT);
     m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
     SingletonManager.EnemyFeedback.increaseRate(2.0f);
   }

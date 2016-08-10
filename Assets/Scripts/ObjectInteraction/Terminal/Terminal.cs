@@ -32,7 +32,10 @@ public class Terminal : ObjectInteractionBase
 
   public override void Interact()
   {
-    base.Interact();
+    //base.Interact();
+
+    SingletonManager.AudioManager.Play(AudioType.INTERACT_TERMINAL);
+
 #if DEBUG
     Debug.Log("Interacting with Terminal: " + this.gameObject.name + " Type: " + m_terminalType.ToString());
 #endif
@@ -115,8 +118,9 @@ public class Terminal : ObjectInteractionBase
           // todo m_ColorPuzzle.SetActive(true) nur wenn diese interaktion stattfand
           SingletonManager.MainTerminalController.EnablePuzzle();
 
-          SingletonManager.AudioManager.Play(AudioType.TERMINAL_COMPILE_SUCCESS);
+          SingletonManager.AudioManager.Play(AudioType.GENERATOR_ACTIVATED);
 
+          SingletonManager.AudioManager.Play(AudioType.ENEMY_SHOUT);
           SingletonManager.Enemy.GetComponent<EnemyAiScript>().SpawnEnemyToGeneratorEntrance();
         }
         

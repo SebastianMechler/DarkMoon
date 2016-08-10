@@ -6,6 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Intro.unity
+  - enabled: 1
     path: Assets/Scenes/MainScene.unity
   - enabled: 1
     path: Assets/Scenes/Prototype_EnemyScript.unity
@@ -15,3 +17,5 @@ EditorBuildSettings:
     path: Assets/Scenes/SuccessScreen.unity
   - enabled: 1
     path: Assets/Scenes/OptionScreen.unity
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity

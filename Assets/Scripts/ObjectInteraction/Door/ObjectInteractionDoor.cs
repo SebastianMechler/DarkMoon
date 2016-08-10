@@ -29,7 +29,8 @@ public class ObjectInteractionDoor : ObjectInteractionBase
 
   public override void Interact()
   {
-    base.Interact();
+    // base.Interact();
+    SingletonManager.AudioManager.Play(AudioType.DOOR_OPEN);
 #if DEBUG
     Debug.Log("Interacting with door: " + this.gameObject.name);
 #endif

@@ -46,7 +46,8 @@ public class CreateNoise : MonoBehaviour {
 		{
   		if (m_PlaySoundOnEnter)
 			{
-				gameObject.GetComponent<AudioSource>().Play();
+        // gameObject.GetComponent<AudioSource>().Play();
+        SingletonManager.AudioManager.Play(AudioType.ENEMY_SHOUT);
 			}
 		  // Debug.Log("[:] CreateNoise OnTriggerEnter Called");
   		m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
@@ -56,7 +57,7 @@ public class CreateNoise : MonoBehaviour {
       gameObject.GetComponent<BoxCollider>().enabled = false;
       //gameObject.SetActive(false);
 
-      SingletonManager.EnemyFeedback.increaseRate(0.5f);
+      // SingletonManager.EnemyFeedback.increaseRate(0.5f);
 
       // disable hiding zone
       if (m_hidingZone != null)

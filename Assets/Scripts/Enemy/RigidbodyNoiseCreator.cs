@@ -94,7 +94,7 @@ public class RigidbodyNoiseCreator : MonoBehaviour {
     UpdateNearestWaypoint();
     SingletonManager.AudioManager.Play(AudioType.ENEMY_SHOUT);
     m_Enemy.GetComponent<EnemyAiScript>().changeMovementPattern(EnemyAiScript.MovementPattern.STATIC, gameObject, m_NearestWaypoint);
-    SingletonManager.EnemyFeedback.increaseRate(2.0f);
+    // SingletonManager.EnemyFeedback.increaseRate(2.0f);
   }
 
 }

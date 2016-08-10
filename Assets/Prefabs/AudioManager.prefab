@@ -205,6 +205,12 @@ MonoBehaviour:
   - type: 24
     volume: 1
     clip: {fileID: 8300000, guid: b060ec094b6c5d94c9e3a16955563337, type: 3}
+  - type: 41
+    volume: 1
+    clip: {fileID: 8300000, guid: 61852b6fd0995b04cb14da9dc9706548, type: 3}
+  - type: 47
+    volume: 1
+    clip: {fileID: 8300000, guid: 3ee23da5d9187db4dbb22e569dde6bd6, type: 3}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

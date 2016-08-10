@@ -84,7 +84,7 @@ public class XmlSave : MonoBehaviour
     }
 
     SavePlayer();
-    //SaveEnemey();
+    SaveEnemey();
     SaveGameDifficulty();
     SaveTerminalData();
 
@@ -118,7 +118,7 @@ public class XmlSave : MonoBehaviour
   public void LoadGameData()
   {
     LoadPlayer();
-    //LoadEnemy();
+    LoadEnemy();
     LoadGameDifficulty();
     LoadTerminalData();
 
@@ -456,7 +456,7 @@ public class XmlSave : MonoBehaviour
       {
         if((TerminalType)i == TerminalType.TERMINAL_ONE && terminalInformation.isCollected)
         {
-          m_door = GameObject.Find("door_simple_(animated) (9)");
+          m_door = GameObject.Find("doors (animated) (2)");
           m_door.GetComponent<DoorBehaviour>().ChangeDoorState(DoorBehaviour.DoorState.OPENING_STUCKED);
         }
 
@@ -468,10 +468,11 @@ public class XmlSave : MonoBehaviour
         SingletonManager.MainTerminalController.SetTerminalState((TerminalType)i, TerminalState.Unlocked);
         displayState.GetComponent<Renderer>().material.SetTextureOffset("_MainTex", new Vector2(0.0f, 0.0f));
 
-        //if((TerminalType)i == TerminalType.TERMINAL_GENERATOR)
-        //{
-        //  m_door.GetComponent<DoorBehaviour>().ChangeDoorState(DoorBehaviour.DoorState.OPENING_STUCKED);
-        //}
+        if((TerminalType)i == TerminalType.TERMINAL_GENERATOR)
+        {
+          m_door = GameObject.Find("door_simple_(animated) (9)");
+          m_door.GetComponent<DoorBehaviour>().ChangeDoorState(DoorBehaviour.DoorState.OPENING_STUCKED);
+        }
         
       }else 
       {

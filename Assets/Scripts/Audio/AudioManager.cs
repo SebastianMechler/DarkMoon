@@ -63,6 +63,7 @@ public enum AudioType
   PLAYER_HEARTBEAT,
 
   INTERACT_TERMINAL,
+  ENEMY_GROWL_TWO,
 }
 
 [System.Serializable]

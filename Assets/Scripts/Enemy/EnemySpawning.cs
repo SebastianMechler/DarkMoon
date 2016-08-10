@@ -9,6 +9,9 @@ public class EnemySpawning : MonoBehaviour
   
   void OnTriggerEnter(Collider other)
   {
+    // Ignore When on Savegame
+    if (SingletonManager.GameManager.m_isSaveGame) { return; }
+
     // Move Enemy to Start Position
     SingletonManager.Enemy.transform.position = m_Start.transform.position;
 

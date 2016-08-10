@@ -8,6 +8,10 @@ public class CollisionDetection : MonoBehaviour
   private float m_PivotYOffset = 0.5f;
   private float m_TreshholdFactor = 1.2f;
 
+  public Animator m_Animator;
+  private float m_Timer = 4.0f;
+  private bool m_PlayKilling = false;
+
   public void ignoreCollisionWithWaypoints(Collider collider)
   {
     GameObject[] allWaypoints = GameObject.FindGameObjectsWithTag(StringManager.Tags.Waypoints);
@@ -29,9 +33,27 @@ public class CollisionDetection : MonoBehaviour
     ignoreCollisionWithWaypoints(collider);
   }
 
+  void FixedUpdate()
+  {
+    if (m_PlayKilling)
+    {
+      m_Timer -= Time.fixedDeltaTime;
+
+      if (m_Timer <= 0.0f)
+      {
+        SingletonManager.AudioManager.Play(AudioType.PLAYER_DEATH);
+        Time.timeScale = 1.0f;
+        SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
+        SceneManager.LoadScene(StringManager.Scenes.deathScreen);
+
+        gameObject.SetActive(false);
+      }
+    }
+  }
+
   void OnTriggerStay(Collider other)
   {
-    if (StringManager.Tags.player.Equals(other.gameObject.tag) && HidingZone.g_isPlayerHidden == false)
+    if (!m_PlayKilling && StringManager.Tags.player.Equals(other.gameObject.tag) && HidingZone.g_isPlayerHidden == false)
     {
       bool playerInPlainView = true;
 
@@ -66,19 +88,21 @@ public class CollisionDetection : MonoBehaviour
       if (playerInPlainView)
       {
         Debug.Log("Player in Plain View!");
+
+        //Vector3 toTarget = SingletonManager.Player.transform.position - SingletonManager.Enemy.transform.position;
+        //toTarget.y = 0.0f;
+        //float turnRate = 10000.0f;
+        //Quaternion lookRotation = Quaternion.LookRotation(toTarget);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
+
+        m_PlayKilling = true;
+        m_Timer = 4.0f;
+        // m_Animator.SetBool("triggerKillPlayer", true);
+        m_Animator.SetTrigger("triggerKill");
+        SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetKillingActive();
+        SingletonManager.Player.GetComponent<PlayerMovement>().enabled = false;
+        // m_Animator.SetBool("triggerKillPlayer", false);
       }
-
-      // todo Play Death Animation
-      // 1. FOV, 2. Enemy Capsule Collider
-
-      //GameManager.ClearDebugConsole();
-      //Debug.Log(" †††† The Player just died a bit ††††");
-      SingletonManager.AudioManager.Play(AudioType.PLAYER_DEATH);
-      // Player died, load deathscreen
-      Time.timeScale = 1.0f;
-      SingletonManager.MouseManager.SetMouseState(MouseState.UNLOCKED);
-      SceneManager.LoadScene(StringManager.Scenes.deathScreen);
-
     }
   }
 }

@@ -19,7 +19,9 @@ public class EnemyAiScript : MonoBehaviour
     SEARCH,
     WAITFOR_SECONDS,
     WAITFOR_DOOR,
+    WAITFOR_GROWL,
     CHASE,
+    KILLING,
     RETURN
   }
 
@@ -52,7 +54,7 @@ public class EnemyAiScript : MonoBehaviour
   }
 
   // private GameObject g_FieldOfView;
-  private ActionQueue[] g_ActionQueue;
+  public ActionQueue[] g_ActionQueue;
   private float g_TurnRate = 1000.0f;
   private float g_MovementSpeed = 4.0f;
   public float g_MovementSpeedNormal = 4.0f;
@@ -64,7 +66,7 @@ public class EnemyAiScript : MonoBehaviour
   private int g_NumberOfActions;
   private int g_CurrentAction;
 
-  private ActionType m_CurrentAction;
+  public ActionType m_CurrentAction;
   private float m_CurWait;
   // private float m_WaitTotal;
   private string m_TargetPatrolName;
@@ -91,8 +93,9 @@ public class EnemyAiScript : MonoBehaviour
 
   // Animation Data
   public GameObject m_AnimationController;
-  private bool m_AnimationIsWalking = false;
-  private bool m_AnimationIsRunning = false;
+  public bool m_AnimationIsWalking = false;
+  public bool m_AnimationIsRunning = false;
+  public bool m_AnimationGrowlOnce = false;
 
   [System.Serializable]
   public struct GroupDistance
@@ -159,11 +162,15 @@ public class EnemyAiScript : MonoBehaviour
         case ActionType.NONE:
           Debug.LogError("Not specified Action for Enemy AI");
           break;
-
+        
         case ActionType.PATROL:
           AI_Static_PatrolMovement();
           break;
 
+        case ActionType.KILLING:
+          break;
+
+        // case ActionType.WAITFOR_GROWL:
         case ActionType.WAITFOR_SECONDS:
           g_MovementSpeed = 0.0f;
           AI_Static_WaitForSeconds();
@@ -190,7 +197,21 @@ public class EnemyAiScript : MonoBehaviour
           Debug.LogError("Not specified Action for Enemy AI");
           break;
 
+        case ActionType.KILLING:
+          break;
+
         case ActionType.WAITFOR_SECONDS:
+          m_WaitTimer += Time.fixedDeltaTime;
+          if (m_WaitTimer >= m_WaitAfterEachWaypoint)
+          {
+            m_WaitTimer = 0.0f;
+            g_MovementSpeed = 0.0f;
+            m_CurrentAction = ActionType.WAITFOR_GROWL;
+            m_MovementPattern = MovementPattern.DYNAMIC;
+          }
+          break;
+
+        case ActionType.WAITFOR_GROWL:
           m_WaitTimer += Time.fixedDeltaTime;
           if (m_WaitTimer >= m_WaitAfterEachWaypoint)
           {
@@ -267,7 +288,43 @@ public class EnemyAiScript : MonoBehaviour
   private void UpdateAnimationController()
   {
     // Debug.Log(m_CurrentAction + " =?= " + ActionType.WAITFOR_SECONDS);
-    if (m_CurrentAction == ActionType.WAITFOR_SECONDS)
+
+    if (m_CurrentAction != ActionType.WAITFOR_GROWL)
+    {
+      m_AnimationGrowlOnce = false;
+    }
+
+    if (!m_AnimationGrowlOnce && m_CurrentAction == ActionType.WAITFOR_GROWL)
+    {
+      m_AnimationGrowlOnce = true;
+      m_AnimationController.GetComponent<Animator>().SetBool("isWalking", false);
+      m_AnimationController.GetComponent<Animator>().SetBool("isRunning", false);
+
+      float dist = Vector3.Distance(SingletonManager.Player.transform.position, SingletonManager.Enemy.transform.position);
+      float vol = Mathf.Clamp((1 - (dist/40)), 0.2f, 1.0f);
+
+      int rand = Random.Range(0, 2);
+      switch (rand)
+      {
+        case 0:
+          m_AnimationController.GetComponent<Animator>().SetBool("doGrowlA", true);
+          m_AnimationController.GetComponent<Animator>().SetBool("doGrowlB", false);
+          SingletonManager.AudioManager.Play(AudioType.ENEMY_GROWL, vol);
+          Debug.Log("Play A");
+          break;
+
+        case 1:
+          m_AnimationController.GetComponent<Animator>().SetBool("doGrowlA", false);
+          m_AnimationController.GetComponent<Animator>().SetBool("doGrowlB", true);
+          SingletonManager.AudioManager.Play(AudioType.ENEMY_GROWL_TWO, vol);
+          Debug.Log("Play B");
+          break;
+
+        default:
+          Debug.LogError("ERROR on 'UpdateAnimationController'");
+          break;
+      }
+    }else if (m_CurrentAction == ActionType.WAITFOR_SECONDS)
     {
       m_AnimationIsWalking = false;
       m_AnimationIsRunning = false;
@@ -448,6 +505,7 @@ public class EnemyAiScript : MonoBehaviour
       if (list[i].name.Equals(setup.NextWaypointName))
       {
         m_NextWaypoint = list[i];
+        m_TargetPatrolName = m_NextWaypoint.GetComponent<WaypointTreeNode>().getName();
       }
 
       // Set Closest Noise Waypoint
@@ -573,7 +631,7 @@ public class EnemyAiScript : MonoBehaviour
         nearestWaypointName = NearestWaypoint.GetComponent<WaypointTreeNode>().getName();
       }
     }
-    
+
     if (NearestWaypoint == m_NoiseClosestWaypoint)
     {
       Debug.Log("Nearby Waypoint is actually the NoiseWaypoint");
@@ -762,7 +820,7 @@ public class EnemyAiScript : MonoBehaviour
         m_TempWaypointList = new GameObject[1];
         m_TempWaypointList[0] = GameObject.Find("WaypointR");
       }
-      else if(m_EnemyLocation != PlayerData.PlayerGeneralLocation.AREA_THREE)
+      else if (m_EnemyLocation != PlayerData.PlayerGeneralLocation.AREA_THREE)
       {
         m_TempWaypointList = new GameObject[2];
         m_TempWaypointList[0] = GameObject.Find("WaypointB");
@@ -787,7 +845,7 @@ public class EnemyAiScript : MonoBehaviour
 
       return true;
     }
-    
+
     return false;
   }
 
@@ -825,7 +883,7 @@ public class EnemyAiScript : MonoBehaviour
     // 3.1. if enemy needs to be ordered to new area, reduce list to new area waypoint
     // 3.2. if not, reduce list by removing new area waypoint
     int WaypointCount = m_TempWaypointList.Length;
-    
+
 
     for (int i = 0; i < WaypointCount; i++)
     {
@@ -863,7 +921,7 @@ public class EnemyAiScript : MonoBehaviour
         return;
       }
     }
-    
+
     return;
   }
 
@@ -934,7 +992,21 @@ public class EnemyAiScript : MonoBehaviour
   {
     m_LastWaypoint = last;
     m_NextWaypoint = next;
+    // Instant Turn
+    g_TurnRate = 100000.0f;
+    AI_RotateToTargetPosition(transform.position, m_NextWaypoint.transform.position);
+    g_TurnRate = 1000.0f;
+    // Next Patrol Name
     m_TargetPatrolName = next.GetComponent<WaypointTreeNode>().getName();
+  }
+
+  public void SetKillingActive()
+  {
+    m_CurrentAction = ActionType.KILLING;
+    m_AnimationIsWalking = false;
+    m_AnimationIsRunning = false;
+    m_AnimationGrowlOnce = false;
+    g_MovementSpeed = 0.0f;
   }
 
   // public function
@@ -953,6 +1025,12 @@ public class EnemyAiScript : MonoBehaviour
       //  Leading to the the closest Waypoint of the Noise
       AI_Static_GeneratePath();
       AI_Static_ListToArray();
+
+      // Instant Turn
+      g_TurnRate = 100000.0f;
+      AI_RotateToTargetPosition(transform.position, m_NextWaypoint.transform.position);
+      g_TurnRate = 1000.0f;
+
       // Reset MovementPattern, for the Update Functionality to work differently
       m_MovementPattern = replace;
       // For Noise, we increae the Movement Speed
@@ -969,6 +1047,10 @@ public class EnemyAiScript : MonoBehaviour
 
       m_LastWaypoint = m_NoiseClosestWaypoint;
       m_NextWaypoint = m_NoiseClosestWaypoint;
+      // Instant Turn
+      g_TurnRate = 100000.0f;
+      AI_RotateToTargetPosition(transform.position, m_NextWaypoint.transform.position);
+      g_TurnRate = 1000.0f;
 
       // Patrol Movement
       m_CurrentAction = ActionType.PATROL;

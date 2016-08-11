@@ -170,7 +170,11 @@ public class EnemyAiScript : MonoBehaviour
         case ActionType.KILLING:
           break;
 
-        // case ActionType.WAITFOR_GROWL:
+        case ActionType.WAITFOR_GROWL:
+          Debug.Log("Animation Controller not set");
+          m_CurrentAction = ActionType.PATROL;
+          break;
+
         case ActionType.WAITFOR_SECONDS:
           g_MovementSpeed = 0.0f;
           AI_Static_WaitForSeconds();
@@ -998,6 +1002,8 @@ public class EnemyAiScript : MonoBehaviour
     g_TurnRate = 1000.0f;
     // Next Patrol Name
     m_TargetPatrolName = next.GetComponent<WaypointTreeNode>().getName();
+    m_CurrentAction = ActionType.PATROL;
+    m_MovementPattern = MovementPattern.DYNAMIC;
   }
 
   public void SetKillingActive()

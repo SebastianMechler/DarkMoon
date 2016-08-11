@@ -10,6 +10,8 @@ public class NearbyPlayerCollision : MonoBehaviour
   private float m_Timer = 4.0f;
   private bool m_PlayKilling = false;
 
+  private bool m_hasTurned = false;
+
   void Start()
   {
     m_Enemy = GameObject.FindGameObjectWithTag(StringManager.Tags.enemy);
@@ -29,6 +31,14 @@ public class NearbyPlayerCollision : MonoBehaviour
     {
       m_Timer -= Time.fixedDeltaTime;
 
+      
+      if (!m_hasTurned)
+      {
+        // LookAtEnemy();
+        m_hasTurned = true;
+      }
+      
+
       if (m_Timer <= 0.0f)
       {
         SingletonManager.AudioManager.Play(AudioType.PLAYER_DEATH);
@@ -39,6 +49,13 @@ public class NearbyPlayerCollision : MonoBehaviour
         gameObject.SetActive(false);
       }
     }
+  }
+
+  void LookAtEnemy()
+  {
+    // Vector3 lookAt = SingletonManager.Enemy.transform.position - SingletonManager.Player.transform.position;
+    // SingletonManager.Player.transform.LookAt(lookAt);
+    SingletonManager.Player.transform.LookAt(SingletonManager.Enemy.transform.position);
   }
 
   void DeathAcionTurnPlayer()
@@ -56,8 +73,21 @@ public class NearbyPlayerCollision : MonoBehaviour
       m_Animator.SetTrigger("triggerKill");
       SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetKillingActive();
       SingletonManager.Player.GetComponent<PlayerMovement>().enabled = false;
-      m_Timer = 4.0f;
+      SingletonManager.Player.GetComponent<CapsuleCollider>().enabled = false;
+      SingletonManager.Player.GetComponent<CameraRotation>().enabled = false;
+
+      SingletonManager.Player.GetComponent<Rigidbody>().useGravity = false;
+      SingletonManager.Player.GetComponent<Rigidbody>().isKinematic = true;
+      m_Timer = 1.5f;
       m_PlayKilling = true;
+
+      Vector3 direction = (SingletonManager.Player.transform.position - SingletonManager.Enemy.transform.position).normalized;
+      Vector3 start = SingletonManager.Enemy.transform.position;
+      Vector3 playerEnd = start + (3 * direction);
+      playerEnd.y = 0.9f;
+      SingletonManager.Player.transform.position = playerEnd;
+
+      LookAtEnemy();
 
       //Vector3 toTarget = SingletonManager.Player.transform.position - SingletonManager.Enemy.transform.position;
       //toTarget.y = 0.0f;

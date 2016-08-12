@@ -1,14 +1,14 @@
 <xml>
   <Player>
-    <Position X="-8.276272" Y="0.9818285" Z="-28.17434" />
-    <Rotation X="14.03745" Y="234.9173" Z="0" />
-    <Oxygen>87.92859</Oxygen>
-    <Battery>93.58737</Battery>
+    <Position X="-8.416357" Y="0.9818316" Z="-27.61995" />
+    <Rotation X="24.9833" Y="189.7584" Z="0" />
+    <Oxygen>83.76051</Oxygen>
+    <Battery>93.72365</Battery>
     <FlashLight>True</FlashLight>
   </Player>
   <Enemy>
-    <Position X="-11.02154" Y="0.79" Z="14.53724" />
-    <Rotation X="0" Y="181.4649" Z="0" />
+    <Position X="-0.1596365" Y="0.7920001" Z="14.32571" />
+    <Rotation X="0" Y="90.08318" Z="0" />
     <LastWaypointName>WaypointG</LastWaypointName>
     <NextWaypointName>WaypointG (1)</NextWaypointName>
     <MovementPattern>1</MovementPattern>

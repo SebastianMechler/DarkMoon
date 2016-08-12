@@ -92,27 +92,30 @@ public class CollisionDetection : MonoBehaviour
       if (playerInPlainView)
       {
         Debug.Log("Player in Plain View!");
+        SingletonManager.Enemy.GetComponent<KillPlayer>().enabled = true;
 
-        Vector3 direction = (SingletonManager.Player.transform.position - m_HeadPosition.position).normalized;
-        Vector3 start = SingletonManager.Enemy.transform.position;
-        Vector3 playerEnd = start + (3 * direction);
-        playerEnd.y = 0.9f;
-        SingletonManager.Player.transform.position = playerEnd;
+        // teleport
+        //Vector3 direction = (SingletonManager.Player.transform.position - m_HeadPosition.position).normalized;
+        //Vector3 start = SingletonManager.Enemy.transform.position;
+        //Vector3 playerEnd = start + (3 * direction);
+        //playerEnd.y = 0.9f;
+        //SingletonManager.Player.transform.position = playerEnd;
 
-        LookAtEnemy();
+        //// look
+        //LookAtEnemy();
 
 
-        m_PlayKilling = true;
-        m_Timer = 1.5f;
-        // m_Animator.SetBool("triggerKillPlayer", true);
-        m_Animator.SetTrigger("triggerKill");
-        SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetKillingActive();
-        SingletonManager.Player.GetComponent<PlayerMovement>().enabled = false;
-        SingletonManager.Player.GetComponent<CapsuleCollider>().enabled = false;
-        SingletonManager.Player.GetComponent<CameraRotation>().enabled = false;
-        SingletonManager.Player.GetComponent<Rigidbody>().useGravity = false;
-        SingletonManager.Player.GetComponent<Rigidbody>().isKinematic = true;
-        // m_Animator.SetBool("triggerKillPlayer", false);
+        //m_PlayKilling = true;
+        //m_Timer = 1.5f;
+        //// m_Animator.SetBool("triggerKillPlayer", true);
+        //m_Animator.SetTrigger("triggerKill");
+        //SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetKillingActive(); // enable killing state
+        //SingletonManager.Player.GetComponent<PlayerMovement>().enabled = false;
+        //SingletonManager.Player.GetComponent<CapsuleCollider>().enabled = false;
+        //SingletonManager.Player.GetComponent<CameraRotation>().enabled = false;
+        //SingletonManager.Player.GetComponent<Rigidbody>().useGravity = false;
+        //SingletonManager.Player.GetComponent<Rigidbody>().isKinematic = true;
+        //// m_Animator.SetBool("triggerKillPlayer", false);
       }
     }
   }
@@ -189,17 +192,20 @@ public class CollisionDetection : MonoBehaviour
     if (!m_PlayKilling && StringManager.Tags.player.Equals(other.gameObject.tag) && HidingZone.g_isPlayerHidden == false)
     {
       bool playerInPlainView = true;
-
+      
       // todo 2 more rays
-      for (int j = 0; j < 3; j++)
+      for (int j = 0; j < 5; j++)
       {
 
         Vector3 playerPos = GameObject.FindGameObjectWithTag(StringManager.Tags.player).transform.position;
-        // Pivot is slightly on top
-        playerPos.y += m_PivotYOffset - (j * 0.3f);
-        float range = Vector3.Distance(playerPos, m_HeadPosition.position) * m_TreshholdFactor;
-        //Debug.DrawRay(m_HeadPosition.position, (playerPos - m_HeadPosition.position), Color.cyan, 1.0f);
 
+        // Pivot is slightly on top
+        playerPos.y += m_PivotYOffset - (j * 0.15f);
+        float range = Vector3.Distance(playerPos, m_HeadPosition.position) * m_TreshholdFactor;
+
+        Debug.DrawRay(m_HeadPosition.position, (playerPos - m_HeadPosition.position), Color.cyan, 2.0f);
+        // Debug.DrawLine(m_HeadPosition.position, playerPos, Color.red, 2.0f);
+        
         RaycastHit[] hits = Physics.RaycastAll(transform.position, (playerPos - m_HeadPosition.position).normalized, range);
         
         for (int i = 0; i < hits.Length; i++)
@@ -212,7 +218,8 @@ public class CollisionDetection : MonoBehaviour
               !thisTag.Equals(StringManager.Tags.noise) && !thisTag.Equals(StringManager.Tags.floor))
           {
             // Debug.Log("Something named '" + hits[i].collider.gameObject.name + "' tagged '" + thisTag + "' is Blocking the View");
-            return;
+            playerInPlainView = false;
+            break;
           }
 
         }
@@ -222,22 +229,37 @@ public class CollisionDetection : MonoBehaviour
       {
         Debug.Log("Player in Plain View!");
 
-        //Vector3 toTarget = SingletonManager.Player.transform.position - SingletonManager.Enemy.transform.position;
-        //toTarget.y = 0.0f;
-        //float turnRate = 10000.0f;
-        //Quaternion lookRotation = Quaternion.LookRotation(toTarget);
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, lookRotation, turnRate);
+        Vector3 direction = (SingletonManager.Player.transform.position - m_HeadPosition.position).normalized;
+        Vector3 start = SingletonManager.Enemy.transform.position;
+        Vector3 playerEnd = start + (3 * direction);
+        playerEnd.y = 0.9f;
+        SingletonManager.Player.transform.position = playerEnd;
+
+        LookAtEnemy();
+
 
         m_PlayKilling = true;
-        m_Timer = 4.0f;
+        m_Timer = 1.5f;
         // m_Animator.SetBool("triggerKillPlayer", true);
         m_Animator.SetTrigger("triggerKill");
         SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetKillingActive();
         SingletonManager.Player.GetComponent<PlayerMovement>().enabled = false;
+        SingletonManager.Player.GetComponent<CapsuleCollider>().enabled = false;
+        SingletonManager.Player.GetComponent<CameraRotation>().enabled = false;
+        SingletonManager.Player.GetComponent<Rigidbody>().useGravity = false;
+        SingletonManager.Player.GetComponent<Rigidbody>().isKinematic = true;
         // m_Animator.SetBool("triggerKillPlayer", false);
       }
     }
   }
-}
 
+  void LookAtEnemy()
+  {
+    //Vector3 lookAt = SingletonManager.Enemy.transform.position - SingletonManager.Player.transform.position;
+    //SingletonManager.Player.transform.LookAt(lookAt);
+    SingletonManager.Player.transform.LookAt(SingletonManager.Enemy.transform.position);
+  }
+}
   */
+
+

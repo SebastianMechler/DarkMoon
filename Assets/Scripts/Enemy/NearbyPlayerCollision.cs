@@ -69,25 +69,27 @@ public class NearbyPlayerCollision : MonoBehaviour
   {
     if (!m_PlayKilling && StringManager.Tags.player.Equals(other.gameObject.tag))
     {
-      // m_Animator.SetBool("triggerKillPlayer", true);
-      m_Animator.SetTrigger("triggerKill");
-      SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetKillingActive();
-      SingletonManager.Player.GetComponent<PlayerMovement>().enabled = false;
-      SingletonManager.Player.GetComponent<CapsuleCollider>().enabled = false;
-      SingletonManager.Player.GetComponent<CameraRotation>().enabled = false;
+      SingletonManager.Enemy.GetComponent<KillPlayer>().enabled = true;
 
-      SingletonManager.Player.GetComponent<Rigidbody>().useGravity = false;
-      SingletonManager.Player.GetComponent<Rigidbody>().isKinematic = true;
-      m_Timer = 1.5f;
-      m_PlayKilling = true;
+      //// m_Animator.SetBool("triggerKillPlayer", true);
+      //m_Animator.SetTrigger("triggerKill");
+      //SingletonManager.Enemy.GetComponent<EnemyAiScript>().SetKillingActive();
+      //SingletonManager.Player.GetComponent<PlayerMovement>().enabled = false;
+      //SingletonManager.Player.GetComponent<CapsuleCollider>().enabled = false;
+      //SingletonManager.Player.GetComponent<CameraRotation>().enabled = false;
 
-      Vector3 direction = (SingletonManager.Player.transform.position - SingletonManager.Enemy.transform.position).normalized;
-      Vector3 start = SingletonManager.Enemy.transform.position;
-      Vector3 playerEnd = start + (3 * direction);
-      playerEnd.y = 0.9f;
-      SingletonManager.Player.transform.position = playerEnd;
+      //SingletonManager.Player.GetComponent<Rigidbody>().useGravity = false;
+      //SingletonManager.Player.GetComponent<Rigidbody>().isKinematic = true;
+      //m_Timer = 1.5f;
+      //m_PlayKilling = true;
 
-      LookAtEnemy();
+      //Vector3 direction = (SingletonManager.Player.transform.position - SingletonManager.Enemy.transform.position).normalized;
+      //Vector3 start = SingletonManager.Enemy.transform.position;
+      //Vector3 playerEnd = start + (3 * direction);
+      //playerEnd.y = 0.9f;
+      //SingletonManager.Player.transform.position = playerEnd;
+
+      // LookAtEnemy();
 
       //Vector3 toTarget = SingletonManager.Player.transform.position - SingletonManager.Enemy.transform.position;
       //toTarget.y = 0.0f;

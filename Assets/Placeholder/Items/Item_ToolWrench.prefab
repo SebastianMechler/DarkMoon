@@ -46,7 +46,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: b04840cda103bd945867b1f2a565511d, type: 2}
+  - {fileID: 2100000, guid: e021131eb754fd84e8bee2f2f029f6f7, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -140,6 +140,8 @@ MonoBehaviour:
     m_name: ToolWrench
     m_throwForce: 10
     m_isThrowable: 1
+  m_suit: {fileID: 0}
+  m_door: {fileID: 0}
 --- !u!114 &11464414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5340bb665a59df241aef6bddd49eab8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_ignoreCollisonList: []
 --- !u!114 &11496306
 MonoBehaviour:
   m_ObjectHideFlags: 1

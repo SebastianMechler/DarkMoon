@@ -59,6 +59,17 @@ public class PlayerObjectInteraction : MonoBehaviour
           ObjectInteractionData data;
           data.m_material = m_outlineMaterial;
           go.GetComponent<ObjectInteractionBase>().Enable(data);
+
+          //if (go.name.Contains("switch_pad"))
+          //{
+          //  Debug.Log("Emission");
+          //go.GetComponent<Renderer>().material.SetFloat("_EmissionScaleUI", 20.0f);
+          //}
+          //else
+          //{
+          //  Debug.Log("Color");
+          go.GetComponent<Renderer>().material.color = new Color(0.0f, 1.0f, 0.0f);
+          //}
         }
       }
     }

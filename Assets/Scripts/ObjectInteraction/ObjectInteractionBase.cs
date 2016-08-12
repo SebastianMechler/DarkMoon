@@ -35,6 +35,7 @@ public class ObjectInteractionBase : MonoBehaviour
     {
         if (m_isInteracting && ( Input.GetKeyDown(SingletonManager.GameManager.m_gameControls.interactWithObject) || Input.GetMouseButtonDown(0)))
         {
+            
             Interact();
         }
     }

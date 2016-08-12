@@ -77,3 +77,4 @@ public class CreateNoise : MonoBehaviour {
 		return m_NearestWaypoint;
 	}
 }
+

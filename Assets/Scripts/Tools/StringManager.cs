@@ -27,6 +27,7 @@ public class StringManager : MonoBehaviour
     public const string bgmixer = "BackgroundMusicMixer";
     public const string bedFix = "BedFix";
     public const string tutorial = "Tutorial";
+    public const string killCam = "KillCamera";
   }
 
   public class Tags
